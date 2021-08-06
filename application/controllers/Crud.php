@@ -37,12 +37,24 @@ class Crud extends CI_Controller{
 		$this->form_validation->set_message('matches','O campo %s está diferente do campo %s');
 		$this->form_validation->set_rules('senha2', 'REPITA SENHA', 'trim|required|matches[senha]');
 
+
+		$nome= $this->input->post("nome");
+		$email = $this->input->post("email");
+		$login = $this->input->post("login");
+		$senha = $this->input->post("senha");
+		$stat = $this->input->post("stat");
+
+
+
+
+
 		if($this->form_validation->run()==TRUE):
 			$dados = elements(array(
 				'nome',
-				'login',
 				'email',
+				'login',
 				'senha',
+				'stat',
 			),
 			$this->input->post());
 			$this->crud->do_insert($dados);
@@ -66,9 +78,11 @@ class Crud extends CI_Controller{
 		$dados = array(
 			'titulo' => 'CRUD &raquo; Listagem',
 			'tela' => 'listar',
-			'usuarios' => $this->crud->get_all()->result(),
+			'page' => "listar",
+			'descricao' => "Lista de Alunos",
+			'usuarios' => $this->crud->get_all()->result()
 			);
-		$this->load->view('home',$dados);
+		$this->template->views('telas/listar',$dados);
 
 
 

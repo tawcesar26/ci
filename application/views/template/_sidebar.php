@@ -41,15 +41,15 @@
       </a>
       <ul class="treeview-menu">
         <li  <?php if ($page == 'usuarios1') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('Administrador/listarAlunos'); ?>"><i class="fa fa-circle-o"></i> Aluno
+          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Aluno
           </a>
         </li>
         <li  <?php if ($page == 'usuarios2') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('Administrador/listarProfessores'); ?>"><i class="fa fa-circle-o"></i> Professor
+          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Professor
           </a>
         </li>
         <li  <?php if ($page == 'usuarios3') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('Administrador/listarFuncionarios'); ?>"><i class="fa fa-circle-o"></i> Funcionario</a>
+          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Funcionario</a>
         </li>
       </ul>
     </li>

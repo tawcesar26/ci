@@ -1,8 +1,5 @@
 <div class="row">
-	<div class="col-md-12 col-md-offset-3">	
-		<div class="well">
-		<h4>Usuarios Cadastrados</h4><br>
-		</div>
+	<div class="col-md-offset-1 col-md-10 col-md-offset-1 well">
 		
 		<?php 
 			if ($this->session->flashdata('excluirok')):

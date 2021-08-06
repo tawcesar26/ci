@@ -14,7 +14,7 @@ class Crud_model extends CI_Model{
 
 			if ($dados!=NULL){
 
-				$this->db->insert('tb_usuarios',$dados);	
+				$this->db->insert('tb_aluno',$dados);	
 				$this->session->set_flashdata('cadastrook', 'Cadastro efetuado com sucesso');
 				redirect('Crud/validaCadastro');
 			}
