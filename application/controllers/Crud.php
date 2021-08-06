@@ -8,6 +8,8 @@ class Crud extends CI_Controller{
 
 		parent::__construct();
 		$this->load->model('Crud_model','crud');
+		$this->load->model('Login_model','validar_login');
+		$this->validar_login->logado();
 
 
 	}
@@ -17,9 +19,11 @@ class Crud extends CI_Controller{
 		$dados = array(
 			'titulo' =>'CRUD CODEIGNITER',
 			'tela' => '',
+			'page' => "home",
+			'descricao' => "Painel Administrativo"
 		);
-
-		$this->load->view('home',$dados);
+		$this->template->views('home', $dados);
+		//$this->load->view('home',$dados);
 
 	}
 
@@ -39,22 +43,24 @@ class Crud extends CI_Controller{
 				'login',
 				'email',
 				'senha',
-				'status',
 			),
 			$this->input->post());
 			$this->crud->do_insert($dados);
 		
 		endif;
 
+		
+
 		$dados = array(
-				'titulo' => 'CRUD &raquo; Cadastro',
-				'tela' => 'cadastrar',
-			);
-			$this->load->view('home',$dados);
-		}	
+			'titulo' =>'CRUD &raquo; Cadastro',
+			'page' => "home",
+			'descricao' => "Painel Administrativo"
+		);
+
+		$this->template->views('telas/cadastrar', $dados);
 
 	
-
+}
 	public function select(){
 
 		$dados = array(
@@ -68,7 +74,6 @@ class Crud extends CI_Controller{
 
 	}
 
-	//CARREGANDO A VIEW UPDATE, REALIZANDO A VALIDAÇÃO DO FORMULARIO, E ATUALIZANDO NO BANCO CHAMANDO A FUNCTION 'DO_UPDATE' QUE ESTÁ NO MODEL
 	public function update(){
 			$this->form_validation->set_rules('nome', 'NOME', 'trim|required');
 			$this->form_validation->set_rules('senha', 'SENHA', 'trim|required');
@@ -76,7 +81,8 @@ class Crud extends CI_Controller{
 			$this->form_validation->set_rules('senha2', 'REPITA SENHA', 'trim|required|strtolower|matches[senha]');
 
 			if($this->form_validation->run()==TRUE):
-				$dados = elements(array('nome','senha'),$this->input->post());
+				$dados = elements(array('nome','senha'),
+				$this->input->post());
 				$this->crud->do_update($dados, array(
 
 					'idusuario'=>$this->input->post('idusuario'))
