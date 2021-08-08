@@ -8,6 +8,7 @@
 
   
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="<?php echo base_url(); ?>assets/login.css">
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url(); ?>assets/AdminLTE/bower_components/font-awesome/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -21,12 +22,18 @@
  <div class="container">
       <div class="login-container">
         <div id="output"></div>
-        <div><h2>Administração</h2></div>
+        <div><h2>Login de Acesso</h2></div>
         <div class="form-box">
           <br>
          <form action="<?= base_url('Login/logar') ?>" method="post">
             <input type="text" placeholder="Login:" required name="login">
             <input type="password" placeholder="Senha:" required name="senha">
+            <select type="text" required name="nivel">
+              <option value="" disabled selected>Nível de Acesso:</option>
+              <option value="1">Administrador</option>
+              <option value="2">Opção 2</option>
+              <option value="3">Opção 3</option>
+          </select>
              
             <br><br>
 

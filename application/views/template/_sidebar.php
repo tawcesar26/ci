@@ -21,7 +21,7 @@
           </span>
         </a>
       </li>
-      <li <?php if ($page == 'comissao') {echo 'class="active"';} ?>>
+      <li <?php if ($page == 'cadastrar') {echo 'class="active"';} ?>>
         <a href="<?php echo base_url('validaCadastro'); ?>">
           <i class="fa fa-group"></i> <span>Cadastro</span>
           <span class="pull-right-container">
@@ -29,27 +29,27 @@
           </span>
         </a>
       </li>
-      <li <?php if ($page == 'usuarios1' || $page == 'usuarios2' || $page =='usuarios3') {echo 'class="treeview active"';}
+      <li <?php if ($page == 'listar' || $page == 'listar2' || $page =='listar3') {echo 'class="treeview active"';}
       else{
         echo "class='treeview'";
       } ?>>
         <a href="#">
-         <i class="glyphicon glyphicon-user"></i> <span>Usuários</span>
+         <i class="glyphicon glyphicon-user"></i> <span>Usuários do Sistema</span>
          <span class="pull-right-container">
           <i class="fa fa-angle-left pull-right"></i>
         </span>
       </a>
       <ul class="treeview-menu">
-        <li  <?php if ($page == 'usuarios1') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Aluno
+        <li  <?php if ($page == 'listar') {echo 'class="active"';} ?> > 
+          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Administradores
           </a>
         </li>
-        <li  <?php if ($page == 'usuarios2') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Professor
+        <li  <?php if ($page == 'listar2') {echo 'class="active"';} ?> > 
+          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Alunos
           </a>
         </li>
-        <li  <?php if ($page == 'usuarios3') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Funcionario</a>
+        <li  <?php if ($page == 'listar3') {echo 'class="active"';} ?> > 
+          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i>Professores</a>
         </li>
       </ul>
     </li>

@@ -14,7 +14,7 @@ class Crud_model extends CI_Model{
 
 			if ($dados!=NULL){
 
-				$this->db->insert('tb_aluno',$dados);	
+				$this->db->insert('tb_adm',$dados);	
 				$this->session->set_flashdata('cadastrook', 'Cadastro efetuado com sucesso');
 				redirect('Crud/validaCadastro');
 			}
@@ -23,7 +23,9 @@ class Crud_model extends CI_Model{
 
 		public function get_all(){
 
-			return $this->db->query('SELECT * FROM tb_usuarios');
+			$id = $this->session->userdata('id');
+
+			return $this->db->query('SELECT * FROM tb_adm WHERE idusuario != '.$id.'');
 
 		}
 

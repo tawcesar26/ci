@@ -22,8 +22,12 @@ class Login extends CI_Controller {
         
         $usuario = $this->input->post("login");
         $senha = $this->input->post("senha");
+        $id = $this->input->post('nivel');
 
-        $data = $this->Login_model->loginAdministrador($usuario,$senha);
+        //Login de Administrador///////////////////////////////////////////
+        if($id == 1){
+
+            $data = $this->Login_model->loginAdministrador($usuario,$senha);
 
             if ($data==true) {
                 $session = array(
@@ -38,6 +42,9 @@ class Login extends CI_Controller {
                 $this->load->view("login", $dados);
             }
 
+        }
+        ////////////////////////////////////////////////////////////////
+        
 
 
     }

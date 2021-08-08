@@ -45,9 +45,6 @@ class Crud extends CI_Controller{
 		$stat = $this->input->post("stat");
 
 
-
-
-
 		if($this->form_validation->run()==TRUE):
 			$dados = elements(array(
 				'nome',
@@ -65,7 +62,7 @@ class Crud extends CI_Controller{
 
 		$dados = array(
 			'titulo' =>'CRUD &raquo; Cadastro',
-			'page' => "home",
+			'page' => "cadastrar",
 			'descricao' => "Painel Administrativo"
 		);
 
@@ -79,7 +76,7 @@ class Crud extends CI_Controller{
 			'titulo' => 'CRUD &raquo; Listagem',
 			'tela' => 'listar',
 			'page' => "listar",
-			'descricao' => "Lista de Alunos",
+			'descricao' => "",
 			'usuarios' => $this->crud->get_all()->result()
 			);
 		$this->template->views('telas/listar',$dados);
