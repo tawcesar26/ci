@@ -1,4 +1,9 @@
-<div class="row">
+<div class="col-md-4 offset-md-4">
+	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#divMain">Novo cadastro</button>
+
+</div>
+
+	<div class="row">
 	<div class="col-md-offset-1 col-md-10 col-md-offset-1 well">
 		
 		<?php 
@@ -19,7 +24,7 @@
 				$linha->nome, 
 				$linha->email,
 				$linha->login, 
-				'<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#divMain">Editar</button>'. ' ' .'<button type="button" class="btn btn-danger">Deletar</button>'
+				'<button type="button" class="btn btn-warning" data-toggle="modal" data-target="">Editar</button>'. ' ' .'<button type="button" class="btn btn-danger">Deletar</button>'
 
 			);
 		}
@@ -31,44 +36,50 @@
 
 <div id="divMain" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
+
+		<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
+		<div id="erroMsg"></div>
+		</div>
+
+
 		<div class="modal-content">
 			<br>
 			<div class="col-md-12" style="text-align: right;">
 				<button type="button" class="btn btn-default" data-dismiss="modal">X</button>
 				
 			</div><br>
-			<h3 style="display:block; text-align:center;">Editar Dados</h3>
+			<h3 style="display:block; text-align:center;">Cadastro</h3>
 
 			<div class="modal-body">
-				<form name="formAjax" onsubmit="return false;">
+				<form id="formCadastrar">
 					<div class="form-group">
-						<label for="nome">Nome</label>
-						<input type="text" class="form-control" id="nome" autofocus name="nome" required>
+						<label for="nomeCadastrar">Nome</label>
+						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off">
 					</div>
 					<div class="form-group">
-						<label for="email">E-mail</label>
-						<input type="email" class="form-control" id="email" name="email"  required>
+						<label for="emailCadastrar">E-mail</label>
+						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" >
 					</div>
 					<div class="form-group">
-						<label for="login">Login</label>
-						<input type="text" class="form-control" id="login" name="login"  required>
+						<label for="loginCadastrar">Login</label>
+						<input type="text" class="form-control" id="loginCadastrar" name="loginCadastrar" autocomplete="off" >
 					</div>
 					<div class="form-group">
-						<label for="email">Senha</label>
-						<input type="password" class="form-control" id="senha" name="senha" required>
+						<label for="senhaCadastrar">Senha</label>
+						<input type="password" class="form-control" id="senhaCadastrar" name="senhaCadastrar" autocomplete="off">
 					</div>
 					<div class="form-group">
-						<label for="senha2">Digite a Senha novamente</label>
-						<input type="password" class="form-control" id="senha2" name="senha2" required>
+						<label for="senha2Cadastrar">Digite a Senha novamente</label>
+						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off">
 					</div>
 					<div class="form-group">
-						<label for="stat">Status do Usuário: </label>
-						<input type="radio"   name="stat" value="1" required checked> Ativo
-						<input type="radio" name="stat" value="0" required> Inativo
+						<label for="statCadastrar">Status do Usuário: </label>
+						<input type="radio"   name="statCadastrar" value="1"  checked> Ativo
+						<input type="radio" name="statCadastrar" value="0" > Inativo
 					</div>
 					<div class="form-group">
 						<div class="col-md-12">
-							<button id="btnEnviar" class="form-control btn btn-primary" onclick="ajaxPost('<?= base_url('Crud/validaCadastro') ?>', '#divDestino'"> <i class="glyphicon glyphicon-ok"></i> Cadastrar</button>
+							<button id="botaoCadastrar" type="submit" class="form-control btn btn-primary"> Cadastrar</button>
 						</div>
 					</div>
 				</form>
