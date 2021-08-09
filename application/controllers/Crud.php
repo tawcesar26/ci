@@ -38,42 +38,54 @@ class Crud extends CI_Controller{
 		$dados['email'] = $this->input->post("emailCadastrar");
 		$dados['login'] = $this->input->post("loginCadastrar");
 		$dados['senha'] = $this->input->post("senhaCadastrar");
-		$dados['senha2'] = $this->input->post("senha2Cadastrar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
 		$dados['stat'] = $this->input->post("statCadastrar");
 
 
 		if(empty($dados['nome'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] = 'O NOME deve ser preenchido';
+			$retorno['msg'] = 'O NOME deve ser preenchido<br>';
 			$sinal = true;
 
 		}
 		if(empty($dados['email'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O E-MAIL deve ser preenchido';
+			$retorno['msg'] .= 'O E-MAIL deve ser preenchido<br>';
 			$sinal = true;
 
+		}else{
+
+			$email = $dados['email'];
+
+			$emailExiste = $this->crud->verificarEmail($email);
+
+			if($emailExiste){
+
+				$retorno['ret'] = false;
+				$retorno['msg'] .= var_dump($emailExiste);
+				$sinal = true;
+			}
 		}
 		if(empty($dados['login'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O LOGIN deve ser preenchido';
+			$retorno['msg'] .= 'O LOGIN deve ser preenchido<br>';
 			$sinal = true;
 
 		}
 		if(empty($dados['senha'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'A SENHA deve ser preenchido';
+			$retorno['msg'] .= 'A SENHA deve ser preenchido<br>';
 			$sinal = true;
 
 		}
-		if($dados['senha'] != $dados['senha2']){
+		if($dados['senha'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'As senhas digitadas não correspondem';
+			$retorno['msg'] .= 'As senhas digitadas não correspondem<br>';
 			$sinal = true;
 
 		}
@@ -84,6 +96,27 @@ class Crud extends CI_Controller{
 			echo json_encode($retorno);
 			exit;
 		}
+
+		$tabela = 'tb_adm';
+
+		$resultado = $this->crud->insert($dados, $tabela);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
 
 
 	}

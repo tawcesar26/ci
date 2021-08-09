@@ -64,7 +64,7 @@ function cadastrarUsuario(dados)
 			} else
 			{
 
-				$('#erroMsg').html(
+				$('#sucessoMsg').html(
 					'<div class="col-md-12">'+	
 					'<div class="alert alert-success alert-dismissible" role="alert">'+
 						'<strong>Erro!</strong><br>'+
@@ -85,7 +85,14 @@ function cadastrarUsuario(dados)
 				$('#statCadastrar').prop("disabled",false);
 				$('#botaoCadastrar').text('Cadastrar outro... ').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close'); });
+				$('.alert').delay(5000).slideUp(1000, function(){ 
+
+
+					$(this).alert('close'); 
+					$('#divMain').modal('toggle');
+
+
+				});
 			}
 		}
 

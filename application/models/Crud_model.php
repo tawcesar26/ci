@@ -57,4 +57,28 @@ class Crud_model extends CI_Model{
 				endif;
 		}
 
+		public function verificarEmail($email){
+
+			/*
+			$existe = $this->db->select($email->coluna);
+			$existe = $this->db->where($email->coluna_where, $email->valor_where);
+			$resultado = $this->db->get($email->tabela)->result();
+			*/
+
+			$this->db->select('*');
+			$this->db->where('email', $email);
+			return $this->db->get('tb_adm')->result();
+
+
+
+		}
+
+		public function insert($dados, $tabela)
+		{
+
+			return $this->db->insert($tabela, $dados);
+		}
+
+
+
 }

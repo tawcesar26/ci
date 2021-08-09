@@ -1,4 +1,10 @@
-<div class="col-md-4 offset-md-4">
+<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
+		<div id="sucessoMsg"></div>
+</div>
+
+
+
+		<div class="col-md-4 offset-md-4">
 	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#divMain">Novo cadastro</button>
 
 </div>
