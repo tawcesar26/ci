@@ -10,6 +10,12 @@ $('#formCadastrar').submit(function(e)
 
 });
 
+function modalCadastrar(){
+
+	$('#divMain').modal('show');
+
+} 
+
 function cadastrarUsuario(dados)
 {
 
@@ -92,7 +98,8 @@ function cadastrarUsuario(dados)
 				$('#statCadastrar').prop("disabled",false);
 				$('#botaoCadastrar').text('Cadastrar outro... ').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close');});
+				$('#divMain').modal('hidden');
+				
 
 				listarUsuarios();
 			}
@@ -116,7 +123,7 @@ function listarUsuarios(){
 
 			var dados = JSON.parse(lista);
 
-			var dadosGlobais = dados;
+			dadosGlobais = dados;
 
 			$('#tabelaAdm').html('');
 
@@ -134,9 +141,9 @@ function listarUsuarios(){
 						'<td>'+ dados[i].login +'</td>'+
 						'<td>'+ dados[i].stat +'</td>'+
 						'<td>'+
-							'<button type="button" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+							'<button type="button" onclick="javascript:modalEditar('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 							'  '+
-							'<button type="button" class="btn btn-sm btn-danger mr-2" >Deletar</button>'+
+							'<button type="button" onclick="javascript:modalApagar('+ i +');" class="btn btn-sm btn-danger mr-2" >Deletar</button>'+
 						'</td>'+		
 						'</tr>'	
 
@@ -164,7 +171,127 @@ function listarUsuarios(){
 
 
 	});
-
-
 }
+
+function modalEditar(att){
+
+	$('#modalEditar').modal('show');
+
+	$('#tituloNome').html(dadosGlobais[att].nome);
+
+	$('#idEditar').val(dadosGlobais[att].idusuario);
+	$('#nomeEditar').val(dadosGlobais[att].nome);
+	$('#emailEditar').val(dadosGlobais[att].email);
+	$('#loginEditar').val(dadosGlobais[att].login);
+	$('#senhaEditar').val(dadosGlobais[att].senha);
+	$('#senha2Editar').val(dadosGlobais[att].senha);
+	$('#statEditar').val(dadosGlobais[att].stat);
+
+
+} 
+
+$('#formEditar').submit(function(e) 
+{
+	e.preventDefault(); // Impedir o reload da pagina
+	var dados = $(this); // Pegar os dados
+	//alert(dados.serialize());
+	var retorno = cadastrarUsuario(dados);
+
+});
+
+function atualizarDados(dados){
+
+	$.ajax({
+		type: "POST",
+		data: dados.serialize(),
+		dataType: 'json',
+
+		beforeSend: function(){
+
+			$('#nomeEditar').prop("disabled",true);
+			$('#emailEditar').prop("disabled",true);
+			$('#loginEditar').prop("disabled",true);
+			$('#senhaEditar').prop("disabled",true);
+			$('#senha2Editar').prop("disabled",true);
+			$('#statEditar').prop("disabled",true);
+			$('#botaoEditar').text('Cadastrando... ').prop("disabled",true);
+
+
+		},
+
+		success: function(){
+
+			if(retorno.ret === false)
+			{
+
+				$('#erroMsgEditar').html(
+
+					'<div class="col-md-12">'+	
+					'<div class="alert alert-danger" alert-dismissible role="alert">' +
+					'<strong> Erro! </strong> <br>' +
+					retorno.msg +
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+					'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+					'</div>'+
+					'</div>'
+					);
+
+				$('#nomeEditar').prop("disabled",false);
+				$('#emailEditar').prop("disabled",false);
+				$('#loginEditar').prop("disabled",false);
+				$('#senhaEditar').prop("disabled",false);
+				$('#senha2Editar').prop("disabled",false);
+				$('#statEditar').prop("disabled",false);
+				$('#botaoEditar').text('Tentar novamente... ').prop("disabled",false);
+
+				$('.alert').delay(5000).slideUp(1000, function(){
+
+					$(this).alert('close'); 
+
+				});
+
+			} else
+			{
+
+				$('#sucessoMsg').html(
+					'<div class="col-md-12">'+	
+					'<div class="alert alert-success alert-dismissible" role="alert">'+
+					'<strong>Erro!</strong><br>'+
+					retorno.msg+
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+					'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+					'</div>'+
+					'</div>'
+
+					);
+
+				$('#formEditar').each(function(){
+					this.reset();
+				});
+
+				$('#nomeEditar').prop("disabled",false);
+				$('#emailEditar').prop("disabled",false);
+				$('#loginEditar').prop("disabled",false);
+				$('#senhaEditar').prop("disabled",false);
+				$('#senha2Editar').prop("disabled",false);
+				$('#statEditar').prop("disabled",false);
+				$('#botaoEditar').prop("disabled",false);
+
+				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close');});
+
+				$('#modaEditar').modal('hidden');
+
+				listarUsuarios();
+			}
+
+
+		},
+
+	});
+}
+
+
+
 

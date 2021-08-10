@@ -5,26 +5,26 @@
 
 
 <div class="col-md-4 offset-md-4">
-	<button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#divMain">Novo cadastro</button>
+	<button type="button" onclick="javascript:modalCadastrar();"class="btn btn-sm btn-success mr-2">Novo cadastro</button>
 
 </div>
 
-		<table class="table mt-4 table-bordered table-hover table-striped">
-			<thead>
-				<tr>
-					<th>ID</th>
-					<th>Nome</th>
-					<th>E-mail</th>
-					<th>Login</th>
-					<th>Status</th>
-					<th>Ações</th>
-				</tr>
-			</thead>
-		<tbody id="tabelaAdm">
-			
+<table class="table mt-4 table-bordered table-hover table-striped">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>Nome</th>
+			<th>E-mail</th>
+			<th>Login</th>
+			<th>Status</th>
+			<th>Ações</th>
+		</tr>
+	</thead>
+	<tbody id="tabelaAdm">
 
-		</tbody>	
-	</table>
+
+	</tbody>	
+</table>
 
 <div id="divMain" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
@@ -82,4 +82,70 @@
 		</div>
 	</div>
 
+</div>
+
+
+
+
+<!----------------------EDITAR----------------------------------->
+
+<div id="modalEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+
+		<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
+			<div id="erroMsg"></div>
+		</div>
+
+		<div class="modal-content">
+			<!-- MODAL HEADER ------------------------------------- -->
+			<div class="modal-header">
+
+				<div class="col-md-12" style="text-align: right;">
+					<button type="button" class="btn btn-default" data-dismiss="modal">X</button>
+
+				</div>
+
+				<h3 style="display:block; text-align:center;">Editar - <strong id="tituloNome"></strong></h3>
+			</div>
+
+			<form id="formEditar">
+				<div class="mt-3" id="erroMsgEditar"></div>
+			<!-- MODAL BODY ------------------------------------- -->
+				<div class="modal-body">
+
+					<input type="hidden" name="idEditar" id="idEditar"/>
+					<div class="form-group">
+						<label for="nomeEditar">Nome</label>
+						<input type="text" class="form-control" id="nomeEditar" autofocus name="nomeEditar" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label for="emailEditar">E-mail</label>
+						<input type="email" readonly=“true” class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
+					</div>
+					<div class="form-group">
+						<label for="loginEditar">Login</label>
+						<input type="text" class="form-control" id="loginEditar" name="loginEditar" autocomplete="off" >
+					</div>
+					<div class="form-group">
+						<label for="senhaEditar">Senha</label>
+						<input type="password" class="form-control" id="senhaEditar" name="senhaEditar" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label for="senha2Editar">Digite a Senha novamente</label>
+						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
+					</div>
+					<div class="form-group">
+						<label for="statEditar">Status do Usuário: </label>
+						<input type="radio"   name="statEditar" value="1"  checked> Ativo
+						<input type="radio" name="statEditar" value="0" > Inativo
+					</div>
+				
+				</div>
+				<!-- MODAL FOOTER ------------------------------------- -->
+				<div class="modal-footer">
+					<button type="submit" id="botaoEditar" class="btn btn-primary">Enviar</button>
+				</div>
+			</form>
+		</div>
+	</div>
 </div>
