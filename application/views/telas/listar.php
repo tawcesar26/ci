@@ -1,14 +1,16 @@
-<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
-	<div id="sucessoMsg"></div>
-</div>
+<!------Botão Cadastrar-------------->
 
-
-
-<div class="col-md-4 offset-md-4">
-	<button type="button" onclick="javascript:modalCadastrar();"class="btn btn-sm btn-success mr-2">Novo cadastro</button>
+<div class="row" style="width: 80%;margin-left: 10px">
+	<button type="button" onclick="javascript:modalCadastrar();"class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
 
 </div>
+<!------Alerta de Sucesso-------------->
 
+<div id="sucessoMsg"></div>
+
+
+<!------Tabela de Listagem-------------->
+<br>
 <table class="table mt-4 table-bordered table-hover table-striped">
 	<thead>
 		<tr>
@@ -26,24 +28,30 @@
 	</tbody>	
 </table>
 
-<div id="divMain" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog">
 
-		<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
-			<div id="erroMsg"></div>
-		</div>
+<!----------------------INICIO DO MODAL CADASTRAR----------------------------------->
 
+<div id="modalCadastrar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
 
 		<div class="modal-content">
-			<br>
-			<div class="col-md-12" style="text-align: right;">
-				<button type="button" class="btn btn-default" data-dismiss="modal">X</button>
-				
-			</div><br>
-			<h3 style="display:block; text-align:center;">Cadastro</h3>
+			<!-- MODAL HEADER ------------------------------------- -->
+			<div class="modal-header">
 
-			<div class="modal-body">
-				<form id="formCadastrar">
+				<div class="col-md-12" style="text-align: right;">
+					<button type="button" class="btn btn-default" data-dismiss="modal">X</button>
+
+				</div>
+
+				<h3 style="display:block; text-align:center;">Cadastro</h3>
+			</div>
+
+			<form id="formCadastrar">
+				<div id="erroMsgCadastrar"></div>
+			<!-- MODAL BODY ------------------------------------- -->
+				<div class="modal-body">
+
+					
 					<div class="form-group">
 						<label for="nomeCadastrar">Nome</label>
 						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off">
@@ -69,32 +77,24 @@
 						<input type="radio"   name="statCadastrar" value="1"  checked> Ativo
 						<input type="radio" name="statCadastrar" value="0" > Inativo
 					</div>
-					<div class="form-group">
-						<div class="col-md-12">
-							<button id="botaoCadastrar" type="submit" class="form-control btn btn-primary"> Cadastrar</button>
-						</div>
-					</div>
-				</form>
-			</div>
-			<div class="modal-footer">
 				
-			</div>
+				</div>
+				<!-- MODAL FOOTER ------------------------------------- -->
+				<div class="modal-footer">
+					<button type="submit" class="form-control btn btn-primary"> Cadastrar</button>
+				</div>
+			</form>
 		</div>
 	</div>
-
 </div>
+<!----------------------FIM DO MODAL CADASTRAR----------------------------------->
 
 
-
-
-<!----------------------EDITAR----------------------------------->
+<!----------------------INICIO DO MODAL EDITAR----------------------------------->
 
 <div id="modalEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 
-		<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
-			<div id="erroMsg"></div>
-		</div>
 
 		<div class="modal-content">
 			<!-- MODAL HEADER ------------------------------------- -->
@@ -109,7 +109,7 @@
 			</div>
 
 			<form id="formEditar">
-				<div class="mt-3" id="erroMsgEditar"></div>
+				<div id="erroMsgEditar"></div>
 			<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
 
@@ -149,3 +149,4 @@
 		</div>
 	</div>
 </div>
+<!----------------------FIM DO MODAL EDITAR----------------------------------->

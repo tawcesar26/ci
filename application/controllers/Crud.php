@@ -27,7 +27,7 @@ class Crud extends CI_Controller{
 
 	}
 
-
+////CADASTRAR ADM/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function cadastrarAdm(){
 
 
@@ -59,7 +59,7 @@ class Crud extends CI_Controller{
 
 			$email = $dados['email'];
 
-			$emailExiste = $this->crud->verificarEmail($email);
+			$emailExiste = $this->crud->verificar($email);
 
 			if($emailExiste){
 
@@ -121,7 +121,7 @@ class Crud extends CI_Controller{
 
 	}
 
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////LISTAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function select(){
 
@@ -150,6 +150,89 @@ class Crud extends CI_Controller{
 		echo $resultado;
 
 		
+	}
+
+/////EDITAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public function editarAdm(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+
+		$dados['nome'] = $this->input->post("nomeEditar");
+		$dados['email'] = $this->input->post("emailEditar");
+		$dados['login'] = $this->input->post("loginEditarr");
+		$dados['senha'] = $this->input->post("senhaEditar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
+		$dados['stat'] = $this->input->post("statEditar");
+
+
+		if(empty($dados['nome'])){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'O NOME deve ser preenchido';
+			$sinal = true;
+
+		}
+		if(empty($dados['email'])){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'O E-MAIL deve ser preenchido';
+			$sinal = true;
+
+		}
+		if(empty($dados['login'])){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'O LOGIN deve ser preenchido';
+			$sinal = true;
+
+		}
+		if(empty($dados['senha'])){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'A SENHA deve ser preenchido';
+			$sinal = true;
+
+		}
+		if($dados['senha'] != $repetirSenha['senha2']){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'As senhas digitadas não correspondem';
+			$sinal = true;
+
+		}
+
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$tabela = 'tb_adm';
+
+		$resultado = $this->crud->update($dados, $tabela);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Edição realizada com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
+
+
 	}
 
 

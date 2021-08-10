@@ -12,7 +12,7 @@ $('#formCadastrar').submit(function(e)
 
 function modalCadastrar(){
 
-	$('#divMain').modal('show');
+	$('#modalCadastrar').modal('show');
 
 } 
 
@@ -23,7 +23,7 @@ function cadastrarUsuario(dados)
 
 		type: "POST",
 		data: dados.serialize(),
-		url: "Crud/cadastrarAdm",
+		url: "cadastrarAdm",
 		dataType: 'json',
 
 		beforeSend: function()
@@ -43,7 +43,7 @@ function cadastrarUsuario(dados)
 			if(retorno.ret === false)
 			{
 
-				$('#erroMsg').html(
+				$('#erroMsgCadastrar').html(
 
 					'<div class="col-md-12">'+	
 					'<div class="alert alert-danger" alert-dismissible role="alert">' +
@@ -64,11 +64,7 @@ function cadastrarUsuario(dados)
 				$('#statCadastrar').prop("disabled",false);
 				$('#botaoCadastrar').text('Tentar novamente... ').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){
-
-					$(this).alert('close'); 
-
-				});
+				$('.alert').delay(5000).slideUp(1000, function(){$(this).alert('close');});
 
 			} else
 			{
@@ -76,7 +72,7 @@ function cadastrarUsuario(dados)
 				$('#sucessoMsg').html(
 					'<div class="col-md-12">'+	
 					'<div class="alert alert-success alert-dismissible" role="alert">'+
-					'<strong>Erro!</strong><br>'+
+					'<strong>Sucesso!</strong><br>'+
 					retorno.msg+
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
 					'<span aria-hidden="true">&times;</span>'+
@@ -89,19 +85,15 @@ function cadastrarUsuario(dados)
 				$('#formCadastrar').each(function(){
 					this.reset();
 				});
-
-				$('#nomeCadastrar').prop("disabled",false);
-				$('#emailCadastrar').prop("disabled",false);
-				$('#loginCadastrar').prop("disabled",false);
-				$('#senhaCadastrar').prop("disabled",false);
-				$('#senha2Cadastrar').prop("disabled",false);
-				$('#statCadastrar').prop("disabled",false);
-				$('#botaoCadastrar').text('Cadastrar outro... ').prop("disabled",false);
-
-				$('#divMain').modal('hidden');
 				
 
+				$('#modalCadastrar').modal('hide');
+
 				listarUsuarios();
+
+				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close');});
+
+					
 			}
 		}
 
@@ -219,7 +211,7 @@ function atualizarDados(dados){
 
 		},
 
-		success: function(){
+		success: function(retorno){
 
 			if(retorno.ret === false)
 			{
@@ -243,13 +235,9 @@ function atualizarDados(dados){
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
 				$('#statEditar').prop("disabled",false);
-				$('#botaoEditar').text('Tentar novamente... ').prop("disabled",false);
+				$('#botaoEditar').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){
-
-					$(this).alert('close'); 
-
-				});
+				$('.alert').delay(5000).slideUp(1000, function(){$(this).alert('close'); });
 
 			} else
 			{
@@ -279,9 +267,9 @@ function atualizarDados(dados){
 				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close');});
+				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close'); });
 
-				$('#modaEditar').modal('hidden');
+				$('#modaEditar').modal('hide');
 
 				listarUsuarios();
 			}
