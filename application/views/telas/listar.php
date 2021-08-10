@@ -1,50 +1,36 @@
 <div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
-		<div id="sucessoMsg"></div>
+	<div id="sucessoMsg"></div>
 </div>
 
 
 
-		<div class="col-md-4 offset-md-4">
-	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#divMain">Novo cadastro</button>
+<div class="col-md-4 offset-md-4">
+	<button type="button" class="btn btn-sm btn-success mr-2" data-toggle="modal" data-target="#divMain">Novo cadastro</button>
 
 </div>
 
-	<div class="row">
-	<div class="col-md-offset-1 col-md-10 col-md-offset-1 well">
-		
-		<?php 
-		if ($this->session->flashdata('excluirok')):
-			echo '<p>'.$this->session->flashdata('excluirok').'</p>';
-		endif;
-		$template = array(
-			'table_open' => '<table class="table table-striped">'
-		);
-		$this->table->set_template($template);
+		<table class="table mt-4 table-bordered table-hover table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Nome</th>
+					<th>E-mail</th>
+					<th>Login</th>
+					<th>Status</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+		<tbody id="tabelaAdm">
+			
 
-		$this->table->set_heading('ID','Nome','Email','Login','Ações');
-
-
-		foreach ($usuarios as $linha){
-			$this->table->add_row(
-				$linha->idusuario, 
-				$linha->nome, 
-				$linha->email,
-				$linha->login, 
-				'<button type="button" class="btn btn-warning" data-toggle="modal" data-target="">Editar</button>'. ' ' .'<button type="button" class="btn btn-danger">Deletar</button>'
-
-			);
-		}
-		echo $this->table->generate();
-		?>
-	</div>
-</div>
-
+		</tbody>	
+	</table>
 
 <div id="divMain" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog">
 
 		<div class="mt-2 fixed-top" style="position: absolute !important; z-index: 999999999;"><br>
-		<div id="erroMsg"></div>
+			<div id="erroMsg"></div>
 		</div>
 
 

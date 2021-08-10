@@ -52,7 +52,12 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'Login'; //Controlador Principal
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
+
+
+
 $route['select'] = 'Crud/select';
-$route['validaCadastro'] = 'Crud/validaCadastro';
+
 $route['home'] = 'Crud';
 $route['sair'] = 'Login/logout';
+
+$route['listarUsuarios'] = 'Crud/listarUsuarios';

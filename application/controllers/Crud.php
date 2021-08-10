@@ -45,14 +45,14 @@ class Crud extends CI_Controller{
 		if(empty($dados['nome'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] = 'O NOME deve ser preenchido<br>';
+			$retorno['msg'] = 'O NOME deve ser preenchido';
 			$sinal = true;
 
 		}
 		if(empty($dados['email'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O E-MAIL deve ser preenchido<br>';
+			$retorno['msg'] .= 'O E-MAIL deve ser preenchido';
 			$sinal = true;
 
 		}else{
@@ -64,28 +64,28 @@ class Crud extends CI_Controller{
 			if($emailExiste){
 
 				$retorno['ret'] = false;
-				$retorno['msg'] .= var_dump($emailExiste);
+				$retorno['msg'] .= 'O E-mail já está sendo utilizado';
 				$sinal = true;
 			}
 		}
 		if(empty($dados['login'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O LOGIN deve ser preenchido<br>';
+			$retorno['msg'] .= 'O LOGIN deve ser preenchido';
 			$sinal = true;
 
 		}
 		if(empty($dados['senha'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'A SENHA deve ser preenchido<br>';
+			$retorno['msg'] .= 'A SENHA deve ser preenchido';
 			$sinal = true;
 
 		}
 		if($dados['senha'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'As senhas digitadas não correspondem<br>';
+			$retorno['msg'] .= 'As senhas digitadas não correspondem';
 			$sinal = true;
 
 		}
@@ -121,52 +121,8 @@ class Crud extends CI_Controller{
 
 	}
 
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public function validaCadastro(){
-
-		$this->form_validation->set_rules('nome', 'NOME', 'trim|required');
-		$this->form_validation->set_message('is_unique','Este %s está cadastrado no sistema');
-		$this->form_validation->set_rules('email', 'EMAIL', 'trim|required|valid_email');
-		$this->form_validation->set_rules('login', 'LOGIN', 'trim|required');
-		$this->form_validation->set_rules('senha', 'SENHA', 'trim|required');
-		$this->form_validation->set_message('matches','O campo %s está diferente do campo %s');
-		$this->form_validation->set_rules('senha2', 'REPITA SENHA', 'trim|required|matches[senha]');
-
-
-		$nome= $this->input->post("nome");
-		$email = $this->input->post("email");
-		$login = $this->input->post("login");
-		$senha = $this->input->post("senha");
-		$stat = $this->input->post("stat");
-
-
-		if($this->form_validation->run()==TRUE):
-			$dados = elements(array(
-				'nome',
-				'email',
-				'login',
-				'senha',
-				'stat',
-			),
-			$this->input->post());
-			$this->crud->do_insert($dados);
-		
-		endif;
-
-		
-
-		$dados = array(
-			'titulo' => 'CRUD &raquo; Listagem',
-			'tela' => 'listar',
-			'page' => "listar",
-			'descricao' => "",
-			'usuarios' => $this->crud->get_all()->result()
-			);
-		$this->template->views('telas/listar',$dados);
-
-
-	
-}
 	public function select(){
 
 		$dados = array(
@@ -174,40 +130,26 @@ class Crud extends CI_Controller{
 			'tela' => 'listar',
 			'page' => "listar",
 			'descricao' => "",
-			'usuarios' => $this->crud->get_all()->result()
 			);
 		$this->template->views('telas/listar',$dados);
 
-
-
 	}
 
-	public function update(){
-			$this->form_validation->set_rules('nome', 'NOME', 'trim|required');
-			$this->form_validation->set_rules('senha', 'SENHA', 'trim|required');
-			$this->form_validation->set_message('matches','O campo %s está diferente do campo %s');
-			$this->form_validation->set_rules('senha2', 'REPITA SENHA', 'trim|required|strtolower|matches[senha]');
+	public function listarUsuarios(){
 
-			if($this->form_validation->run()==TRUE):
-				$dados = elements(array('nome','senha'),
-				$this->input->post());
-				$this->crud->do_update($dados, array(
+		$lista = array(
 
-					'idusuario'=>$this->input->post('idusuario'))
-			);
-			endif;	
+			'coluna'=> '*',
+			'tabela'=> 'tb_adm',
+			'coluna_where'=> 'idusuario',
+			'orderBy'=> 'DESC',
+		);
 
-			$dados = array(
-				'titulo' => 'CRUD &raquo; Atualizar',
-				'tela' => 'atualizar',
-			);
-			$this->load->view('home',$dados);
-	}
+		$resultado = $this->crud->buscarTudo($lista);
 
-	public function delete(){
+		echo $resultado;
 
-
-
+		
 	}
 
 
