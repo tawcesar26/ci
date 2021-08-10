@@ -41,6 +41,29 @@ class Crud_model extends CI_Model{
 
 		}
 
+		public function update($dados,$tabela,$condicao){
+
+
+			$this->db->where('idusuario', $condicao);
+			return $this->db->update($tabela, $dados);
+			
+
+		}
+
+		public function delete($tabela,$condicao){
+
+
+			//$this->db->where('idusuario', $condicao);
+			//return $this->db->update($tabela, $dados);
+
+			$this->db->set('stat', 0);
+			$this->db->where('idusuario', $condicao);
+			return $this->db->update($tabela);
+			
+
+		}
+
+		
 
 
 }

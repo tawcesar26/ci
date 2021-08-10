@@ -63,4 +63,5 @@ $route['sair'] = 'Login/logout';
 //Rotas do Ajax
 $route['cadastrarAdm']['post'] = 'Crud/cadastrarAdm';
 $route['listarUsuarios'] = 'Crud/listarUsuarios';
-$route['editarAdm']['post'] = 'Crud/editarAdm';
+$route['editarAdm']['post'] = 'Crud/desabilitarAdm';
+$route['desabilitar']['post'] = 'Crud/desabilitarAdm';

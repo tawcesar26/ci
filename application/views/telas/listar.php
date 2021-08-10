@@ -1,13 +1,14 @@
+<!------Alerta de Sucesso-------------->
+
+<div id="sucessoMsg" class="row" style="width: 80% ;position: absolute !important; z-index: 999999999;"></div>
+
 <!------Botão Cadastrar-------------->
 
 <div class="row" style="width: 80%;margin-left: 10px">
 	<button type="button" onclick="javascript:modalCadastrar();"class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
 
+
 </div>
-<!------Alerta de Sucesso-------------->
-
-<div id="sucessoMsg"></div>
-
 
 <!------Tabela de Listagem-------------->
 <br>
@@ -18,7 +19,6 @@
 			<th>Nome</th>
 			<th>E-mail</th>
 			<th>Login</th>
-			<th>Status</th>
 			<th>Ações</th>
 		</tr>
 	</thead>
@@ -120,7 +120,7 @@
 					</div>
 					<div class="form-group">
 						<label for="emailEditar">E-mail</label>
-						<input type="email" readonly=“true” class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
+						<input type="email" class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
 					</div>
 					<div class="form-group">
 						<label for="loginEditar">Login</label>
@@ -143,10 +143,45 @@
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
-					<button type="submit" id="botaoEditar" class="btn btn-primary">Enviar</button>
+					<button type="submit" class="btn btn-primary">Editar</button>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-<!----------------------FIM DO MODAL EDITAR----------------------------------->
+<!----------------------FIM DO MODAL EDITAR----------------------------------------->
+
+
+<!----------------------INICIO DO MODAL DESATIVAR----------------------------------->
+
+<div id="modalDesativar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+
+		<div class="modal-content">
+			<!-- MODAL HEADER ------------------------------------------------------->
+			<div class="modal-header">
+				<h3 style="display:block; text-align:center;">Desativar Usuário</h3>
+			</div>
+
+			<form id="formDesativar">
+				<div id="erroMsgDesativar"></div>
+
+				<input type="hidden" name="idDesativar" id="idDesativar">
+				<input type="hidden" name="statDesativar" id="statDesativar">
+			<!-- MODAL BODY --------------------------------------------------------->
+				<div class="modal-body">
+
+					<p>Deseja desabilitar o usuário <strong id="tituloDesativar"></strong> ?</p>	
+
+				</div>
+				<!-- MODAL FOOTER ------------------------------------- -->
+				<div class="modal-footer">
+					<button type="submit" id="botaoDesativar" class="btn btn-success"> Sim</button>
+					<button type="button" class="btn btn-info" data-dismiss="modal"> Não</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<!----------------------FIM DO MODAL DESATIVAR----------------------------------->
+

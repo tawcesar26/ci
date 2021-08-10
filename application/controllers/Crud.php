@@ -160,9 +160,10 @@ class Crud extends CI_Controller{
 		$retorno['msg'] = "";
 		$sinal=false;
 
+		$dados['idusuario'] = $this->input->post('idEditar');
 		$dados['nome'] = $this->input->post("nomeEditar");
 		$dados['email'] = $this->input->post("emailEditar");
-		$dados['login'] = $this->input->post("loginEditarr");
+		$dados['login'] = $this->input->post("loginEditar");
 		$dados['senha'] = $this->input->post("senhaEditar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
 		$dados['stat'] = $this->input->post("statEditar");
@@ -213,7 +214,7 @@ class Crud extends CI_Controller{
 
 		$tabela = 'tb_adm';
 
-		$resultado = $this->crud->update($dados, $tabela);
+		$resultado = $this->crud->update($dados, $tabela,$dados['idusuario']);
 
 		if($resultado){
 
@@ -226,6 +227,56 @@ class Crud extends CI_Controller{
 
 			$retorno['ret'] = false;
 			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
+
+
+	}
+
+/////DESABILITAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public function desabilitarAdm(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+		
+		$id = $this->input->post('idDesativar');
+
+		$dados['stat'] = $this->input->post("statDesativar");
+
+		if($dados['stat'] === 0){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'Usuário já foi desativado';
+			$sinal = true;
+
+		}
+
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$tabela = 'tb_adm';
+
+		$resultado = $this->crud->delete($tabela,$id);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Usuário desabilitado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível desabilitar o usuário!!<br>';
 			echo json_encode($retorno);
 
 		}
