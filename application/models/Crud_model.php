@@ -12,58 +12,58 @@ class Crud_model extends CI_Model{
 
 	}
 	
-		public function verificar($email){
+	public function verificar($email){
 
 
-			$this->db->select('*');
-			$this->db->where('email', $email);
-			return $this->db->get('tb_adm')->result();
+		$this->db->select('*');
+		$this->db->where('email', $email);
+		return $this->db->get('tb_adm')->result();
 
 
-		}
+	}
 
-		public function insert($dados, $tabela){
+	public function insert($dados, $tabela){
 
-			return $this->db->insert($tabela, $dados);
-		}
-
-
-		public function buscarTudo($dados){
-
-			$objeto = (object)$dados;
-
-			$this->db->select($objeto->coluna);
-			$this->db->order_by($objeto->coluna_where, $objeto->orderBy);
-
-			$resultado = $this->db->get($objeto->tabela)->result();
-
-			return json_encode($resultado);
-
-		}
-
-		public function update($dados,$tabela,$condicao){
+		return $this->db->insert($tabela, $dados);
+	}
 
 
-			$this->db->where('idusuario', $condicao);
-			return $this->db->update($tabela, $dados);
-			
+	public function buscarTudo(){
 
-		}
+		$this->db->select("*");
+		$this->db->where('stat', 1);
+		$this->db->order_by('idusuario', 'DESC');
 
-		public function delete($tabela,$condicao){
+		$resultado = $this->db->get('tb_adm')->result();
+
+		return $resultado;
+
+	}
+
+
+	public function update($dados,$tabela,$condicao){
+
+
+		$this->db->where('idusuario', $condicao);
+		return $this->db->update($tabela, $dados);
+		
+
+	}
+
+	public function delete($tabela,$condicao){
 
 
 			//$this->db->where('idusuario', $condicao);
 			//return $this->db->update($tabela, $dados);
 
-			$this->db->set('stat', 0);
-			$this->db->where('idusuario', $condicao);
-			return $this->db->update($tabela);
-			
-
-		}
-
+		$this->db->set('stat', 0);
+		$this->db->where('idusuario', $condicao);
+		return $this->db->update($tabela);
 		
+
+	}
+
+	
 
 
 }

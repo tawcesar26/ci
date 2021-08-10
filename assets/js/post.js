@@ -29,7 +29,6 @@ function cadastrarUsuario(dados)
 		{
 			$('#nomeCadastrar').prop("disabled",true);
 			$('#emailCadastrar').prop("disabled",true);
-			$('#loginCadastrar').prop("disabled",true);
 			$('#senhaCadastrar').prop("disabled",true);
 			$('#senha2Cadastrar').prop("disabled",true);
 			$('#statCadastrar').prop("disabled",true);
@@ -57,7 +56,6 @@ function cadastrarUsuario(dados)
 
 				$('#nomeCadastrar').prop("disabled",false);
 				$('#emailCadastrar').prop("disabled",false);
-				$('#loginCadastrar').prop("disabled",false);
 				$('#senhaCadastrar').prop("disabled",false);
 				$('#senha2Cadastrar').prop("disabled",false);
 				$('#statCadastrar').prop("disabled",false);
@@ -129,7 +127,6 @@ function listarUsuarios(){
 						'<td>'+ dados[i].idusuario +'</td>'+
 						'<td>'+ dados[i].nome +'</td>'+
 						'<td>'+ dados[i].email +'</td>'+
-						'<td>'+ dados[i].login +'</td>'+
 						'<td>'+
 						'<button type="button" onclick="javascript:modalEditar('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 						' '+
@@ -172,7 +169,6 @@ function modalEditar(att){
 	$('#idEditar').val(dadosGlobais[att].idusuario);
 	$('#nomeEditar').val(dadosGlobais[att].nome);
 	$('#emailEditar').val(dadosGlobais[att].email);
-	$('#loginEditar').val(dadosGlobais[att].login);
 	$('#senhaEditar').val(dadosGlobais[att].senha);
 	$('#senha2Editar').val(dadosGlobais[att].senha);
 	$('#statEditar').val(dadosGlobais[att].stat);
@@ -200,7 +196,6 @@ function atualizarDados(dados){
 
 			$('#nomeEditar').prop("disabled",true);
 			$('#emailEditar').prop("disabled",true);
-			$('#loginEditar').prop("disabled",true);
 			$('#senhaEditar').prop("disabled",true);
 			$('#senha2Editar').prop("disabled",true);
 			$('#statEditar').prop("disabled",true);
@@ -229,7 +224,6 @@ function atualizarDados(dados){
 
 				$('#nomeEditar').prop("disabled",false);
 				$('#emailEditar').prop("disabled",false);
-				$('#loginEditar').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
 				$('#statEditar').prop("disabled",false);
@@ -259,7 +253,6 @@ function atualizarDados(dados){
 
 				$('#nomeEditar').prop("disabled",false);
 				$('#emailEditar').prop("disabled",false);
-				$('#loginEditar').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
 				$('#statEditar').prop("disabled",false);

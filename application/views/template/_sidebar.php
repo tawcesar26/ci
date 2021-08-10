@@ -42,15 +42,15 @@
       </a>
       <ul class="treeview-menu">
         <li  <?php if ($page == 'listar') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Administradores
+          <a href="<?php echo base_url('listaAdmin'); ?>"><i class="fa fa-circle-o"></i> Administradores
           </a>
         </li>
         <li  <?php if ($page == 'listar2') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i> Alunos
+          <a href="<?php echo base_url('listaAluno'); ?>"><i class="fa fa-circle-o"></i> Alunos
           </a>
         </li>
         <li  <?php if ($page == 'listar3') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('select'); ?>"><i class="fa fa-circle-o"></i>Professores</a>
+          <a href="<?php echo base_url('listaProfessor'); ?>"><i class="fa fa-circle-o"></i>Professores</a>
         </li>
       </ul>
     </li>

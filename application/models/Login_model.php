@@ -8,7 +8,7 @@ class Login_model extends CI_Model {
 
 		$status = 1;
 		
-		$this->db->where('login', $login);
+		$this->db->where('email', $login);
 		$this->db->where('senha', $senha);
 		$this->db->where('stat', $status);
 

@@ -19,30 +19,44 @@ class Login extends CI_Controller {
     }
 
     public function logar(){
-        
-        $usuario = $this->input->post("login");
+
+        $usuario = $this->input->post("email");
         $senha = $this->input->post("senha");
         $id = $this->input->post('nivel');
+        $data = false;
 
         //Login de Administrador///////////////////////////////////////////
         if($id == 1){
 
             $data = $this->Login_model->loginAdministrador($usuario,$senha);
 
-            if ($data==true) {
-                $session = array(
-                    'id' => $data[0] ->idusuario,
-                    'nome' => $data[0] ->nome,
-                    'logado' => 1
-                    );
-                $this->session->set_userdata($session);
-                redirect('Crud');
-            } else {
-                $dados['erro'] = "Dados incorretos!";
-                $this->load->view("login", $dados);
-            }
+        }
+        //Login de Administrador///////////////////////////////////////////
+        /*if($id == 2){
+
+            $data = $this->Login_model->loginAluno($usuario,$senha);
 
         }
+        //Login de Administrador///////////////////////////////////////////
+        if($id == 3){
+
+            $data = $this->Login_model->loginProfessor($usuario,$senha);
+
+        }*/
+
+        if ($data==true) {
+            $session = array(
+                'id' => $data[0] ->idusuario,
+                'nome' => $data[0] ->nome,
+                'logado' => 1
+            );
+            $this->session->set_userdata($session);
+            redirect('Crud');
+        } else {
+            $dados['erro'] = "Usuário e/ou Senha incorretos!";
+            $this->load->view("login", $dados);
+        }
+
         ////////////////////////////////////////////////////////////////
         
 

@@ -18,12 +18,10 @@ class Crud extends CI_Controller{
 
 		$dados = array(
 			'titulo' =>'CRUD CODEIGNITER',
-			'tela' => '',
 			'page' => "home",
 			'descricao' => "Painel Administrativo"
 		);
 		$this->template->views('home', $dados);
-		//$this->load->view('home',$dados);
 
 	}
 
@@ -36,7 +34,6 @@ class Crud extends CI_Controller{
 
 		$dados['nome'] = $this->input->post("nomeCadastrar");
 		$dados['email'] = $this->input->post("emailCadastrar");
-		$dados['login'] = $this->input->post("loginCadastrar");
 		$dados['senha'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
 		$dados['stat'] = $this->input->post("statCadastrar");
@@ -67,13 +64,6 @@ class Crud extends CI_Controller{
 				$retorno['msg'] .= 'O E-mail já está sendo utilizado';
 				$sinal = true;
 			}
-		}
-		if(empty($dados['login'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O LOGIN deve ser preenchido';
-			$sinal = true;
-
 		}
 		if(empty($dados['senha'])){
 
@@ -123,31 +113,45 @@ class Crud extends CI_Controller{
 
 /////LISTAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public function select(){
+	public function listaAdmin(){
 
 		$dados = array(
 			'titulo' => 'CRUD &raquo; Listagem',
-			'tela' => 'listar',
 			'page' => "listar",
-			'descricao' => "",
+			'descricao' => "Administradores",
 			);
-		$this->template->views('telas/listar',$dados);
+		$this->template->views('telas/adminLista',$dados);
+
+	}
+
+	public function listaAluno(){
+
+		$dados = array(
+			'titulo' => 'CRUD &raquo; Listagem',
+			'page' => "listar2",
+			'descricao' => "Alunos",
+			);
+		$this->template->views('telas/adminLista',$dados);
+
+	}
+
+	public function listaProfessor(){
+
+		$dados = array(
+			'titulo' => 'CRUD &raquo; Listagem',
+			'page' => "listar3",
+			'descricao' => "Professores",
+			);
+		$this->template->views('telas/adminLista',$dados);
 
 	}
 
 	public function listarUsuarios(){
 
-		$lista = array(
 
-			'coluna'=> '*',
-			'tabela'=> 'tb_adm',
-			'coluna_where'=> 'idusuario',
-			'orderBy'=> 'DESC',
-		);
+		$resultado = $this->crud->buscarTudo();
 
-		$resultado = $this->crud->buscarTudo($lista);
-
-		echo $resultado;
+		echo json_encode($resultado);
 
 		
 	}
@@ -163,7 +167,6 @@ class Crud extends CI_Controller{
 		$dados['idusuario'] = $this->input->post('idEditar');
 		$dados['nome'] = $this->input->post("nomeEditar");
 		$dados['email'] = $this->input->post("emailEditar");
-		$dados['login'] = $this->input->post("loginEditar");
 		$dados['senha'] = $this->input->post("senhaEditar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
 		$dados['stat'] = $this->input->post("statEditar");
@@ -180,13 +183,6 @@ class Crud extends CI_Controller{
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= 'O E-MAIL deve ser preenchido';
-			$sinal = true;
-
-		}
-		if(empty($dados['login'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O LOGIN deve ser preenchido';
 			$sinal = true;
 
 		}

@@ -54,8 +54,10 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 
-
-$route['select'] = 'Crud/select';
+//Rotas para as listas de usuários
+$route['listaAdmin'] = 'Crud/listaAdmin';
+$route['listaAluno'] = 'Crud/listaAluno';
+$route['listaProfessor'] = 'Crud/listaProfessor';
 
 $route['home'] = 'Crud';
 $route['sair'] = 'Login/logout';

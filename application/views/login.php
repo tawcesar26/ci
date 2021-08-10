@@ -26,7 +26,7 @@
         <div class="form-box">
           <br>
          <form action="<?= base_url('Login/logar') ?>" method="post">
-            <input type="text" placeholder="Login:" required name="login">
+            <input type="text" placeholder="Email:" required name="email">
             <input type="password" placeholder="Senha:" required name="senha">
             <select type="text" required name="nivel">
               <option value="" disabled selected>Nível de Acesso:</option>
