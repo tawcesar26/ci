@@ -131,7 +131,7 @@ class Crud extends CI_Controller{
 			'page' => "listar2",
 			'descricao' => "Alunos",
 			);
-		$this->template->views('telas/adminLista',$dados);
+		$this->template->views('telas/alunoLista',$dados);
 
 	}
 
@@ -142,14 +142,14 @@ class Crud extends CI_Controller{
 			'page' => "listar3",
 			'descricao' => "Professores",
 			);
-		$this->template->views('telas/adminLista',$dados);
+		$this->template->views('telas/professorLista',$dados);
 
 	}
 
 	public function listarUsuarios(){
 
 
-		$resultado = $this->crud->buscarTudo();
+		$resultado = $this->crud->selectAll();
 
 		echo json_encode($resultado);
 
@@ -175,28 +175,28 @@ class Crud extends CI_Controller{
 		if(empty($dados['nome'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] = 'O NOME deve ser preenchido';
+			$retorno['msg'] = 'O NOME deve ser preenchido | ';
 			$sinal = true;
 
 		}
 		if(empty($dados['email'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O E-MAIL deve ser preenchido';
+			$retorno['msg'] .= 'O E-MAIL deve ser preenchido | ';
 			$sinal = true;
 
 		}
 		if(empty($dados['senha'])){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'A SENHA deve ser preenchido';
+			$retorno['msg'] .= 'A SENHA deve ser preenchido | ';
 			$sinal = true;
 
 		}
 		if($dados['senha'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
-			$retorno['msg'] .= 'As senhas digitadas não correspondem';
+			$retorno['msg'] .= 'As senhas digitadas não correspondem | ';
 			$sinal = true;
 
 		}
@@ -210,7 +210,9 @@ class Crud extends CI_Controller{
 
 		$tabela = 'tb_adm';
 
-		$resultado = $this->crud->update($dados, $tabela,$dados['idusuario']);
+		$id = $dados['idusuario'];
+
+		$resultado = $this->crud->update($dados, $tabela, $id);
 
 		if($resultado){
 

@@ -1,21 +1,21 @@
 
 
 ////// CADASTRO ///////////////////////////////////////////////////////////////////////////////////////////
-$('#formCadastrar').submit(function(e) 
+$('#formCadastrarAdm').submit(function(e) 
 {
 	e.preventDefault();
 	var dados = $(this);
-	var retorno = cadastrarUsuario(dados);
+	var retorno = cadastrarAdm(dados);
 
 });
 
-function modalCadastrar(){
+function modalCadastrarAdm(){
 
-	$('#modalCadastrar').modal('show');
+	$('#modalCadastrarAdm').modal('show');
 
 } 
 
-function cadastrarUsuario(dados)
+function cadastrarAdm(dados)
 {
 
 	$.ajax({ //Abrindo o AJAX
@@ -44,7 +44,7 @@ function cadastrarUsuario(dados)
 				$('#erroMsgCadastrar').html(
 
 					'<div class="col-md-12">'+	
-					'<div class="alert alert-danger" alert-dismissible role="alert">' +
+					'<div class="alert alert-danger alert-dismissible role="alert">' +
 					'<strong> Erro! </strong> <br>' +
 					retorno.msg +
 					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
@@ -61,7 +61,7 @@ function cadastrarUsuario(dados)
 				$('#statCadastrar').prop("disabled",false);
 				$('#botaoCadastrar').text('Tentar novamente... ').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){$(this).alert('close');});
+				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close');});
 
 			} else
 			{
@@ -79,16 +79,16 @@ function cadastrarUsuario(dados)
 
 					);
 
-				$('#formCadastrar').each(function(){
+				$('#formCadastrarAdm').each(function(){
 					this.reset();
 				});
 				
 
-				$('#modalCadastrar').modal('hide');
+				$('#modalCadastrarAdm').modal('hide');
 
 				listarUsuarios();
 
-				$('.alert').delay(5000).slideUp(1000, function(){ $(this).alert('close');});
+				$('.alert').delay(5000).slideUp(500, function(){ $(this).alert('close');});
 
 
 			}
@@ -112,7 +112,7 @@ function listarUsuarios(){
 
 			var dados = JSON.parse(lista);
 
-			dadosGlobais = dados;
+			dadosGlobais = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
 			$('#tabelaAdm').html('');
 
@@ -128,7 +128,7 @@ function listarUsuarios(){
 						'<td>'+ dados[i].nome +'</td>'+
 						'<td>'+ dados[i].email +'</td>'+
 						'<td>'+
-						'<button type="button" onclick="javascript:modalEditar('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+						'<button type="button" onclick="javascript:modalEditarAdm('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 						' '+
 						'<button type="button" onclick="javascript:modalDesativar('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
 						'</td>'+		
@@ -160,9 +160,9 @@ function listarUsuarios(){
 	});
 }
 ////// EDITAR ///////////////////////////////////////////////////////////////////////////////////////////
-function modalEditar(att){
+function modalEditarAdm(att){
 
-	$('#modalEditar').modal('show');
+	$('#modalEditarAdm').modal('show');
 
 	$('#tituloNome').html(dadosGlobais[att].nome);
 
@@ -176,7 +176,7 @@ function modalEditar(att){
 
 } 
 
-$('#formEditar').submit(function(e) 
+$('#formEditarAdm').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
@@ -199,7 +199,7 @@ function atualizarDados(dados){
 			$('#senhaEditar').prop("disabled",true);
 			$('#senha2Editar').prop("disabled",true);
 			$('#statEditar').prop("disabled",true);
-			$('#botaoEditar').text('Cadastrando... ').prop("disabled",true);
+			
 
 
 		},
@@ -229,7 +229,7 @@ function atualizarDados(dados){
 				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){$(this).alert('close'); });
+				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
 
 			} else
 			{
@@ -247,7 +247,7 @@ function atualizarDados(dados){
 
 					);
 
-				$('#formEditar').each(function(){
+				$('#formEditarAdm').each(function(){
 					this.reset();
 				});
 
@@ -258,7 +258,7 @@ function atualizarDados(dados){
 				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
-				$('#modalEditar').modal('hide');
+				$('#modalEditarAdm').modal('hide');
 
 				listarUsuarios();
 
@@ -336,7 +336,7 @@ function desabilitarDados(dados){
 
 				$('#botaoDesabilitar').prop("disabled",false);
 
-				$('.alert').delay(5000).slideUp(1000, function(){$(this).alert('close'); });
+				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
 
 			}
 			else

@@ -5,7 +5,7 @@
 <!------Botão Cadastrar-------------->
 
 <div class="row" style="width: 80%;margin-left: 10px">
-	<button type="button" onclick="javascript:modalCadastrar();"class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
+	<button type="button" onclick="javascript:modalCadastrarAdm();" class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
 
 
 </div>
@@ -30,7 +30,7 @@
 
 <!----------------------INICIO DO MODAL CADASTRAR----------------------------------->
 
-<div id="modalCadastrar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="modalCadastrarAdm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 
 		<div class="modal-content">
@@ -45,7 +45,7 @@
 				<h3 style="display:block; text-align:center;">Cadastro</h3>
 			</div>
 
-			<form id="formCadastrar">
+			<form id="formCadastrarAdm">
 				<div id="erroMsgCadastrar"></div>
 			<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
@@ -76,7 +76,7 @@
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
-					<button type="submit" class="form-control btn btn-primary"> Cadastrar</button>
+					<button type="submit" id="botaoCadastrar" class="form-control btn btn-primary"> Cadastrar</button>
 				</div>
 			</form>
 		</div>
@@ -87,7 +87,7 @@
 
 <!----------------------INICIO DO MODAL EDITAR----------------------------------->
 
-<div id="modalEditar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="modalEditarAdm" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog modal-lg" role="document">
 
 
@@ -103,7 +103,7 @@
 				<h3 style="display:block; text-align:center;">Editar - <strong id="tituloNome"></strong></h3>
 			</div>
 
-			<form id="formEditar">
+			<form id="formEditarAdm">
 				<div id="erroMsgEditar"></div>
 			<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
@@ -134,7 +134,7 @@
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary">Editar</button>
+					<button type="submit" id="botaoEditar" class="btn btn-primary">Editar</button>
 				</div>
 			</form>
 		</div>
@@ -151,7 +151,7 @@
 		<div class="modal-content">
 			<!-- MODAL HEADER ------------------------------------------------------->
 			<div class="modal-header">
-				<h3 style="display:block; text-align:center;">Desativar Usuário</h3>
+				<h3 style="display:block; text-align:center;">Excluir Usuário</h3>
 			</div>
 
 			<form id="formDesativar">
@@ -162,7 +162,8 @@
 			<!-- MODAL BODY --------------------------------------------------------->
 				<div class="modal-body">
 
-					<p>Deseja desabilitar o usuário <strong id="tituloDesativar"></strong> ?</p>	
+					<p>Deseja excluir o usuário <strong id="tituloDesativar"></strong> ?</p>
+					<p>Após confirmação, esta ação não poderá ser desfeita.</p>	
 
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->

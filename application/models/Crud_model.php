@@ -28,7 +28,7 @@ class Crud_model extends CI_Model{
 	}
 
 
-	public function buscarTudo(){
+	public function selectAll(){
 
 		$this->db->select("*");
 		$this->db->where('stat', 1);
