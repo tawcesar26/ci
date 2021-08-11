@@ -67,11 +67,7 @@
 						<label for="senha2Cadastrar">Digite a Senha novamente</label>
 						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off">
 					</div>
-					<div class="form-group">
-						<label for="statCadastrar">Status do Usuário: </label>
-						<input type="radio"   name="statCadastrar" value="1"  checked> Ativo
-						<input type="radio" name="statCadastrar" value="0" > Inativo
-					</div>
+					<input type="hidden" name="statCadastrar" value="1">
 				
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
@@ -125,16 +121,12 @@
 						<label for="senha2Editar">Digite a Senha novamente</label>
 						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
 					</div>
-					<div class="form-group">
-						<label for="statEditar">Status do Usuário: </label>
-						<input type="radio"   name="statEditar" value="1"  checked> Ativo
-						<input type="radio" name="statEditar" value="0" > Inativo
-					</div>
+					<input type="hidden" name="statEditar" value="1">
 				
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
-					<button type="submit" id="botaoEditar" class="btn btn-primary">Editar</button>
+					<button type="submit" id="botaoEditar" class="btn btn-primary">Confirmar</button>
 				</div>
 			</form>
 		</div>

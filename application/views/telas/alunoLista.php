@@ -17,6 +17,7 @@
 		<tr>
 			<th>ID</th>
 			<th>Nome</th>
+			<th>Curso</th>
 			<th>E-mail</th>
 			<th>Ações</th>
 		</tr>

@@ -72,4 +72,4 @@ $route['desabilitar']['post'] = 'Crud/desabilitarAdm';
 
 //ALUNO
 $route['cadastrarAluno']['post'] = 'Crud/cadastrarAluno';
-$route['listarAluno']['post'] = 'Crud/listarAluno';
+$route['listarAlunos']= 'Crud/listarAlunos';

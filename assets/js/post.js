@@ -99,8 +99,9 @@ function cadastrarAdm(dados)
 
 }
 ////// LISTAR ///////////////////////////////////////////////////////////////////////////////////////////
-listarUsuarios();
 
+listarUsuarios();
+listarAlunos();
 
 function listarUsuarios(){
 
@@ -141,6 +142,66 @@ function listarUsuarios(){
 			}else
 			{
 				$('#tabelaAdm').append(
+
+					'<td colspan="6"></td>'+
+					'<center class="mt-4" text-center>'+
+					'<div class="col-md-12 text-center">'+
+					'<div class="alert alert-danger text-danger">'+
+					'<i class="fas fa-exclamation-circle"></i>Nenhum usuário cadastrado'+		
+					'</div>'+
+					'</div>'+	
+					'</center>'+		
+					'</td>'	
+
+					);
+
+			}
+		}
+
+
+	});
+}
+
+function listarAlunos(){
+
+	$.ajax({
+
+		url: "listarAlunos",
+		ajax: 'lista.json',
+
+		success: function(lista){
+
+			var dados = JSON.parse(lista);
+
+			dadosGlobais = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
+
+			$('#tabelaAluno').html('');
+
+			if(dados.length > 0)
+			{
+
+				for (var i = 0; i < dados.length; i++) 
+				{
+					$('#tabelaAluno').append(
+						'<tr>'+
+						
+						'<td>'+ dados[i].idusuario +'</td>'+
+						'<td>'+ dados[i].nome +'</td>'+
+						'<td>'+ dados[i].curso +'</td>'+
+						'<td>'+ dados[i].email +'</td>'+
+						'<td>'+
+						'<button type="button" onclick="javascript:m('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+						' '+
+						'<button type="button" onclick="javascript:m('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
+						'</td>'+		
+						'</tr>'	
+
+						);
+				}
+
+			}else
+			{
+				$('#tabelaAluno').append(
 
 					'<td colspan="6"></td>'+
 					'<center class="mt-4" text-center>'+
