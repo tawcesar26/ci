@@ -53,17 +53,23 @@ $route['default_controller'] = 'Login'; //Controlador Principal
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
+$route['home'] = 'Crud';
+$route['sair'] = 'Login/logout';
+
 
 //Rotas para as listas de usuários
 $route['listaAdmin'] = 'Crud/listaAdmin';
 $route['listaAluno'] = 'Crud/listaAluno';
 $route['listaProfessor'] = 'Crud/listaProfessor';
 
-$route['home'] = 'Crud';
-$route['sair'] = 'Login/logout';
 
 //Rotas do Ajax
+//ADMINISTRADOR
 $route['cadastrarAdm']['post'] = 'Crud/cadastrarAdm';
 $route['listarUsuarios'] = 'Crud/listarUsuarios';
 $route['editarAdm']['post'] = 'Crud/editarAdm';
 $route['desabilitar']['post'] = 'Crud/desabilitarAdm';
+
+//ALUNO
+$route['cadastrarAluno']['post'] = 'Crud/cadastrarAluno';
+$route['listarAluno']['post'] = 'Crud/listarAluno';

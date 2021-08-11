@@ -28,13 +28,13 @@ class Crud_model extends CI_Model{
 	}
 
 
-	public function selectAll(){
+	public function selectAll($id){
 
 		$this->db->select("*");
 		$this->db->where('stat', 1);
 		$this->db->order_by('idusuario', 'DESC');
 
-		$resultado = $this->db->get('tb_adm')->result();
+		$resultado = $this->db->get($id)->result();
 
 		return $resultado;
 

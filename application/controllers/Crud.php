@@ -148,8 +148,20 @@ class Crud extends CI_Controller{
 
 	public function listarUsuarios(){
 
+		$id = 'tb_adm';
 
-		$resultado = $this->crud->selectAll();
+		$resultado = $this->crud->selectAll($id);
+
+		echo json_encode($resultado);
+
+		
+	}
+
+	public function listarAluno(){
+
+		$id = 'tb_aluno';
+
+		$resultado = $this->crud->selectAll($id);
 
 		echo json_encode($resultado);
 
@@ -284,7 +296,6 @@ class Crud extends CI_Controller{
 
 	}
 
-
-
 }
+
  ?>

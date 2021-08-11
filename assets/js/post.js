@@ -101,6 +101,7 @@ function cadastrarAdm(dados)
 ////// LISTAR ///////////////////////////////////////////////////////////////////////////////////////////
 listarUsuarios();
 
+
 function listarUsuarios(){
 
 	$.ajax({
@@ -159,6 +160,7 @@ function listarUsuarios(){
 
 	});
 }
+
 ////// EDITAR ///////////////////////////////////////////////////////////////////////////////////////////
 function modalEditarAdm(att){
 
@@ -375,5 +377,104 @@ function desabilitarDados(dados){
 
 
 	});
+
+}
+
+////// CADASTRO ALUNO  ///////////////////////////////////////////////////////////////////////////////////////////
+$('#formCadastrarAluno').submit(function(e) 
+{
+	e.preventDefault();
+	var dados = $(this);
+	var retorno = cadastrarAluno(dados);
+
+});
+
+function modalCadastrarAluno(){
+
+	$('#modalCadastrarAluno').modal('show');
+
+} 
+
+function cadastrarAluno(dados)
+{
+
+	$.ajax({ //Abrindo o AJAX
+
+		type: "POST",
+		data: dados.serialize(),
+		url: "cadastrarAluno",
+		dataType: 'json',
+
+		beforeSend: function()
+		{
+			$('#nomeCadastrar').prop("disabled",true);
+			$('#emailCadastrar').prop("disabled",true);
+			$('#senhaCadastrar').prop("disabled",true);
+			$('#senha2Cadastrar').prop("disabled",true);
+			$('#statCadastrar').prop("disabled",true);
+			$('#botaoCadastrar').text('Cadastrando... ').prop("disabled",true);
+
+		},
+
+		success: function(retorno)
+		{
+			if(retorno.ret === false)
+			{
+
+				$('#erroMsgCadastrar').html(
+
+					'<div class="col-md-12">'+	
+					'<div class="alert alert-danger alert-dismissible role="alert">' +
+					'<strong> Erro! </strong> <br>' +
+					retorno.msg +
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+					'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+					'</div>'+
+					'</div>'
+					);
+
+				$('#nomeCadastrar').prop("disabled",false);
+				$('#emailCadastrar').prop("disabled",false);
+				$('#senhaCadastrar').prop("disabled",false);
+				$('#senha2Cadastrar').prop("disabled",false);
+				$('#statCadastrar').prop("disabled",false);
+				$('#botaoCadastrar').text('Tentar novamente... ').prop("disabled",false);
+
+				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close');});
+
+			} else
+			{
+
+				$('#sucessoMsg').html(
+					'<div class="col-md-12">'+	
+					'<div class="alert alert-success alert-dismissible" role="alert">'+
+					'<strong>Sucesso!</strong><br>'+
+					retorno.msg+
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+					'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+					'</div>'+
+					'</div>'
+
+					);
+
+				$('#formCadastrarAluno').each(function(){
+					this.reset();
+				});
+				
+
+				$('#modalCadastrarAluno').modal('hide');
+
+				listarUsuarios();
+
+				$('.alert').delay(5000).slideUp(500, function(){ $(this).alert('close');});
+
+
+			}
+		}
+
+
+	}); //Fechando o AJAX
 
 }
