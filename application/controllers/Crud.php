@@ -2,14 +2,12 @@
 
 defined('BASEPATH') OR exit ('No direct script acess allowed');
 
-class Crud extends CI_Controller{
+class Crud extends MY_Controller{
 
 	function __construct(){
 
 		parent::__construct();
-		$this->load->model('Crud_model','crud');
-		$this->load->model('Login_model','validar_login');
-		$this->validar_login->logado();
+		$this->load->model('Crud_model','crud');		
 
 
 	}
@@ -120,6 +118,7 @@ class Crud extends CI_Controller{
 			'page' => "listar",
 			'descricao' => "Administradores",
 			);
+
 		$this->template->views('telas/adminLista',$dados);
 
 	}

@@ -1,6 +1,6 @@
 
 
-////// CADASTRO ///////////////////////////////////////////////////////////////////////////////////////////
+////// CADASTRO /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 $('#formCadastrarAdm').submit(function(e) 
 {
 	e.preventDefault();
@@ -98,7 +98,7 @@ function cadastrarAdm(dados)
 	}); //Fechando o AJAX
 
 }
-////// LISTAR ///////////////////////////////////////////////////////////////////////////////////////////
+////// LISTAR //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 listarUsuarios();
 listarAlunos();
@@ -114,7 +114,7 @@ function listarUsuarios(){
 
 			var dados = JSON.parse(lista);
 
-			dadosGlobais = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
+			dadosGlobaisAdm = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
 			$('#tabelaAdm').html('');
 
@@ -167,13 +167,13 @@ function listarAlunos(){
 	$.ajax({
 
 		url: "listarAlunos",
-		ajax: 'lista.json',
+		ajax: 'lista2.json',
 
-		success: function(lista){
+		success: function(lista2){
 
-			var dados = JSON.parse(lista);
+			var dados = JSON.parse(lista2);
 
-			dadosGlobais = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
+			dadosGlobaisAluno = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
 			$('#tabelaAluno').html('');
 
@@ -227,15 +227,14 @@ function modalEditarAdm(att){
 
 	$('#modalEditarAdm').modal('show');
 
-	$('#tituloNome').html(dadosGlobais[att].nome);
+	$('#tituloNome').html(dadosGlobaisAdm[att].nome);
 
-	$('#idEditar').val(dadosGlobais[att].idusuario);
-	$('#nomeEditar').val(dadosGlobais[att].nome);
-	$('#emailEditar').val(dadosGlobais[att].email);
-	$('#senhaEditar').val(dadosGlobais[att].senha);
-	$('#senha2Editar').val(dadosGlobais[att].senha);
-	$('#statEditar').val(dadosGlobais[att].stat);
-
+	$('#idEditar').val(dadosGlobaisAdm[att].idusuario);
+	$('#nomeEditar').val(dadosGlobaisAdm[att].nome);
+	$('#emailEditar').val(dadosGlobaisAdm[att].email);
+	$('#senhaEditar').val(dadosGlobaisAdm[att].senha);
+	$('#senha2Editar').val(dadosGlobaisAdm[att].senha);
+	$('#statEditar').val(dadosGlobaisAdm[att].stat);
 
 } 
 
@@ -344,11 +343,9 @@ function modalDesativar(del){
 
 	$('#modalDesativar').modal('show');
 
-	$('#tituloDesativar').html(dadosGlobais[del].nome);
-	$('#idDesativar').val(dadosGlobais[del].idusuario);
-	$('#statDesativar').val(dadosGlobais[del].stat);
-
-	$('#fecharMsgModalDesativar').trigger('click');
+	$('#tituloDesativar').html(dadosGlobaisAdm[del].nome);
+	$('#idDesativar').val(dadosGlobaisAdm[del].idusuario);
+	$('#statDesativar').val(dadosGlobaisAdm[del].stat);
 	$('#botaoDesativar').text('Sim').prop("disabled",false);
 	
 
@@ -389,7 +386,7 @@ function desabilitarDados(dados){
 					'<div class="alert alert-danger alert-dismissible fade show" role="alert">' +
 					'<strong> Erro! </strong> <br>' +
 					retorno.msg +
-					'<button type="button" id="fecharMsgModalDesativar" class="close" data-dismiss="alert" aria-label="Close">' +
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
 					'<span aria-hidden="true">&times;</span>'+
 					'</button>'+
 					'</div>'+

@@ -48,7 +48,7 @@
 
 			<form id="formCadastrarAluno">
 				<div id="erroMsgCadastrar"></div>
-			<!-- MODAL BODY ------------------------------------- -->
+				<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
 
 					
@@ -59,6 +59,15 @@
 					<div class="form-group">
 						<label for="emailCadastrar">E-mail</label>
 						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" >
+					</div>
+					<div class="form-group">
+						<label for="emailCadastrar">Turma</label>
+						<select id=cbPais>
+							<option value="" >Select Country</option>
+							<option value="usa" >Usa</option>
+							<option value="ca" >Canada</option>
+							<option value="me" >Mexico</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label for="senhaCadastrar">Senha</label>
@@ -73,7 +82,7 @@
 						<input type="radio"   name="statCadastrar" value="1"  checked> Ativo
 						<input type="radio" name="statCadastrar" value="0" > Inativo
 					</div>
-				
+					
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
@@ -106,7 +115,7 @@
 
 			<form id="formEditarAluno">
 				<div id="erroMsgEditar"></div>
-			<!-- MODAL BODY ------------------------------------- -->
+				<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
 
 					<input type="hidden" name="idEditar" id="idEditar"/>
@@ -131,7 +140,7 @@
 						<input type="radio"   name="statEditar" value="1"  checked> Ativo
 						<input type="radio" name="statEditar" value="0" > Inativo
 					</div>
-				
+					
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
@@ -160,7 +169,7 @@
 
 				<input type="hidden" name="idDesativar" id="idDesativar">
 				<input type="hidden" name="statDesativar" id="statDesativar">
-			<!-- MODAL BODY --------------------------------------------------------->
+				<!-- MODAL BODY --------------------------------------------------------->
 				<div class="modal-body">
 
 					<p>Deseja excluir o usuário <strong id="tituloDesativar"></strong> ?</p>
