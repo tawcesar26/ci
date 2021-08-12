@@ -76,6 +76,12 @@ $route['listarAlunos']= 'Crud/listarAlunos';
 $route['editarAluno']['post'] = 'Crud/editarAluno';
 $route['desabilitarAluno']['post'] = 'Crud/desabilitarAluno';
 
+//PROFESSOR
+$route['cadastrarProfessor']['post'] = 'Crud/cadastrarProfessor';
+$route['listarProfessor']= 'Crud/listarProfessor';
+$route['editarProfessor']['post'] = 'Crud/editarProfessor';
+$route['desabilitarProfessor']['post'] = 'Crud/desabilitarProfessor';
+
 //Exportar XLS
 $route['exportarAdm'] = 'Crud/exportarAdm';
 $route['exportarAluno'] = 'Crud/exportarAluno';
