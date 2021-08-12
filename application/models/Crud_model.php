@@ -55,7 +55,17 @@ class Crud_model extends CI_Model{
 
 	}
 
-	public function selectAllAlunos($tabela){
+	function selectExport(){
+
+		
+		$dados = $this->db->query('select * from tb_adm where stat = 1;')->result();
+
+		return $dados;
+
+
+	}
+
+	public function selectAllAlunos(){
 
 
 		$dados = $this->db->query('select * from tb_aluno as a join tb_classe as c on a.tb_classe_id_classe = id_classe where stat != 0;')->result();

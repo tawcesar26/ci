@@ -6,7 +6,7 @@
 
 	<div class="row" style="width: 80%;margin-left: 10px">
 		<button type="button" onclick="javascript:modalCadastrarAdm();" class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
-		<button type="button" class="btn btn-sm btn-info mr-2"> Exportar Excel</button>
+		<a href="<?php echo base_url('exportarAdm'); ?>"> <button type="button" class="btn btn-sm btn-info mr-2"> Exportar Excel</button></a>
 
 
 

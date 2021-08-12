@@ -6,6 +6,7 @@
 
 <div class="row" style="width: 80%;margin-left: 10px">
 	<button type="button" onclick="javascript:modalCadastrarAluno();" class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
+	<a href="<?php echo base_url('exportarAluno'); ?>"> <button type="button" class="btn btn-sm btn-info mr-2"> Exportar Excel</button></a>
 
 
 </div>

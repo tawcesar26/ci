@@ -32,11 +32,6 @@ class Crud extends MY_Controller{
 		$this->template->views('home', $dados);
 
 	}
-	public function exportar(){
-
-
-
-	}
 
 /////LISTAR///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -435,6 +430,34 @@ class Crud extends MY_Controller{
 
 	}
 
+///METODOS PARA EXPORTAR///////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public function exportarAdm(){
+
+
+		$dados = array(
+			'resultado' => $this->crud->selectExport()
+			);
+
+		header('Content-type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename=administradores.xls');
+		$this->load->view('exportar/exportAdm', $dados);
+	
+
+	}
+	public function exportarAluno(){
+
+
+		$dados = array(
+			'resultado' => $this->crud->selectAllAlunos()
+			);
+
+		header('Content-type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename=alunos.xls');
+		$this->load->view('exportar/exportAluno', $dados);
+	
+
+	}
 
 }
 
