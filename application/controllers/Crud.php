@@ -29,11 +29,9 @@ class Crud extends MY_Controller{
 			'totalUsuarios' => $totalUsuarios
 		);
 
-		$this->template->views('home', $dados);
+		$this->template->views1('home', $dados);
 
 	}
-
-/////LISTAR///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function listaAdmin(){
 
@@ -41,9 +39,9 @@ class Crud extends MY_Controller{
 			'titulo' => 'CRUD &raquo; Listagem',
 			'page' => "listar",
 			'descricao' => "Administradores",
-			);
+		);
 
-		$this->template->views('telas/adminLista',$dados);
+		$this->template->views1('telas/adminLista',$dados);
 
 	}
 
@@ -53,8 +51,8 @@ class Crud extends MY_Controller{
 			'titulo' => 'CRUD &raquo; Listagem',
 			'page' => "listar2",
 			'descricao' => "Alunos",
-			);
-		$this->template->views('telas/alunoLista',$dados);
+		);
+		$this->template->views2('telas/alunoLista',$dados);
 
 	}
 
@@ -64,10 +62,13 @@ class Crud extends MY_Controller{
 			'titulo' => 'CRUD &raquo; Listagem',
 			'page' => "listar3",
 			'descricao' => "Professores",
-			);
-		$this->template->views('telas/professorLista',$dados);
+		);
+		$this->template->views3('telas/professorLista',$dados);
 
 	}
+
+/////LISTAR///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 	public function listarUsuarios(){
 
@@ -111,9 +112,9 @@ class Crud extends MY_Controller{
 
 		if($emailExiste){
 
-				$retorno['ret'] = false;
-				$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
-				$sinal = true;
+			$retorno['ret'] = false;
+			$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
+			$sinal = true;
 		}
 
 		if($dados['senha'] != $repetirSenha['senha2']){
@@ -256,8 +257,6 @@ class Crud extends MY_Controller{
 
 	}
 
-
-
 ////CADASTRO ALUNO ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function cadastrarAluno(){
@@ -280,9 +279,9 @@ class Crud extends MY_Controller{
 
 		if($emailExiste){
 
-				$retorno['ret'] = false;
-				$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
-				$sinal = true;
+			$retorno['ret'] = false;
+			$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
+			$sinal = true;
 		}
 
 		if($dados['senha'] != $repetirSenha['senha2']){
@@ -299,7 +298,7 @@ class Crud extends MY_Controller{
 			exit;
 		}
 
-	
+
 
 		$resultado = $this->crud->insert($dados, $tabela);
 
@@ -431,18 +430,18 @@ class Crud extends MY_Controller{
 	}
 
 ///METODOS PARA EXPORTAR///////////////////////////////////////////////////////////////////////////////////////////////////
-	
+
 	public function exportarAdm(){
 
 
 		$dados = array(
 			'resultado' => $this->crud->selectExport()
-			);
+		);
 
 		header('Content-type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment; filename=administradores.xls');
 		$this->load->view('exportar/exportAdm', $dados);
-	
+
 
 	}
 	public function exportarAluno(){
@@ -450,15 +449,15 @@ class Crud extends MY_Controller{
 
 		$dados = array(
 			'resultado' => $this->crud->selectAllAlunos()
-			);
+		);
 
 		header('Content-type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment; filename=alunos.xls');
 		$this->load->view('exportar/exportAluno', $dados);
-	
+
 
 	}
 
 }
 
- ?>
+?>
