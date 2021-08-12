@@ -43,45 +43,42 @@
 
 				</div>
 
-				<h3 style="display:block; text-align:center;">Cadastro</h3>
+				<h3 style="display:block; text-align:center;">Cadastro Aluno</h3>
 			</div>
 
 			<form id="formCadastrarAluno">
 				<div id="erroMsgCadastrar"></div>
 				<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
-
-					
+	
 					<div class="form-group">
 						<label for="nomeCadastrar">Nome</label>
-						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off">
+						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="emailCadastrar">E-mail</label>
-						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" >
+						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
-						<label for="emailCadastrar">Turma</label>
-						<select id=cbPais>
-							<option value="" >Select Country</option>
-							<option value="usa" >Usa</option>
-							<option value="ca" >Canada</option>
-							<option value="me" >Mexico</option>
+						<label for="classeCadastrar">Classe</label>
+						<select class="form-control" id="classeCadastrar" name="classeCadastrar" required>
+							<option value="" >Selecionar a classe:</option>
+							<option value="1" >1º Ano Médio</option>
+							<option value="2" >2º Ano Médio</option>
+							<option value="3" >3º Ano Médio</option>
 						</select>
 					</div>
 					<div class="form-group">
 						<label for="senhaCadastrar">Senha</label>
-						<input type="password" class="form-control" id="senhaCadastrar" name="senhaCadastrar" autocomplete="off">
+						<input type="password" class="form-control" id="senhaCadastrar" name="senhaCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="senha2Cadastrar">Digite a Senha novamente</label>
-						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off">
+						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off" required>
 					</div>
-					<div class="form-group">
-						<label for="statCadastrar">Status do Usuário: </label>
-						<input type="radio"   name="statCadastrar" value="1"  checked> Ativo
-						<input type="radio" name="statCadastrar" value="0" > Inativo
-					</div>
+
+						<input type="hidden" name="statCadastrar" id="statCadastrar" value="1" />
+
 					
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
@@ -128,6 +125,15 @@
 						<input type="email" class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
 					</div>
 					<div class="form-group">
+						<label for="classeEditar">Classe</label>
+						<select class="form-control" id="classeEditar" name="classeEditar" required>
+							<option value="" >Selecionar a classe:</option>
+							<option value="1" >1º Ano Médio</option>
+							<option value="2" >2º Ano Médio</option>
+							<option value="3" >3º Ano Médio</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="senhaEditar">Senha</label>
 						<input type="password" class="form-control" id="senhaEditar" name="senhaEditar" autocomplete="off">
 					</div>
@@ -135,11 +141,7 @@
 						<label for="senha2Editar">Digite a Senha novamente</label>
 						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
 					</div>
-					<div class="form-group">
-						<label for="statEditar">Status do Usuário: </label>
-						<input type="radio"   name="statEditar" value="1"  checked> Ativo
-						<input type="radio" name="statEditar" value="0" > Inativo
-					</div>
+				<input type="hidden" name="statEditar" id="statEditar" value="1" />
 					
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
@@ -155,7 +157,7 @@
 
 <!----------------------INICIO DO MODAL DESATIVAR----------------------------------->
 
-<div id="modalDesativar" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div id="modalDesativarAluno" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">
 
 		<div class="modal-content">
@@ -164,7 +166,7 @@
 				<h3 style="display:block; text-align:center;">Excluir Usuário</h3>
 			</div>
 
-			<form id="formDesativar">
+			<form id="formDesativarAluno">
 				<div id="erroMsgDesativar"></div>
 
 				<input type="hidden" name="idDesativar" id="idDesativar">

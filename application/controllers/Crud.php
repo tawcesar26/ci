@@ -23,93 +23,7 @@ class Crud extends MY_Controller{
 
 	}
 
-////CADASTRAR ADM/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	public function cadastrarAdm(){
-
-
-		$retorno['msg'] = "";
-		$sinal=false;
-
-		$dados['nome'] = $this->input->post("nomeCadastrar");
-		$dados['email'] = $this->input->post("emailCadastrar");
-		$dados['senha'] = $this->input->post("senhaCadastrar");
-		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
-		$dados['stat'] = $this->input->post("statCadastrar");
-
-
-		if(empty($dados['nome'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'O NOME deve ser preenchido';
-			$sinal = true;
-
-		}
-		if(empty($dados['email'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O E-MAIL deve ser preenchido';
-			$sinal = true;
-
-		}else{
-
-			$email = $dados['email'];
-
-			$emailExiste = $this->crud->verificar($email);
-
-			if($emailExiste){
-
-				$retorno['ret'] = false;
-				$retorno['msg'] .= 'O E-mail já está sendo utilizado';
-				$sinal = true;
-			}
-		}
-		if(empty($dados['senha'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'A SENHA deve ser preenchido';
-			$sinal = true;
-
-		}
-		if($dados['senha'] != $repetirSenha['senha2']){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'As senhas digitadas não correspondem';
-			$sinal = true;
-
-		}
-
-
-		if($sinal){
-
-			echo json_encode($retorno);
-			exit;
-		}
-
-		$tabela = 'tb_adm';
-
-		$resultado = $this->crud->insert($dados, $tabela);
-
-		if($resultado){
-
-			$retorno['ret'] = true;
-			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
-			echo json_encode($retorno);
-
-
-		}else{
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
-			echo json_encode($retorno);
-
-		}
-
-
-
-
-	}
-
-/////LISTAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////LISTAR///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 	public function listaAdmin(){
 
@@ -160,11 +74,68 @@ class Crud extends MY_Controller{
 
 		$id = 'tb_aluno';
 
-		$resultado = $this->crud->selectAll($id);
+		$resultado = $this->crud->selectAllAlunos($id);
 
 		echo json_encode($resultado);
 
 		
+	}
+
+////CADASTRAR ADM/////////////////////////////////////////////////////////////////////////////////////////////////////////
+	public function cadastrarAdm(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+
+		$dados['nome'] = $this->input->post("nomeCadastrar");
+		$dados['email'] = $this->input->post("emailCadastrar");
+		$dados['senha'] = $this->input->post("senhaCadastrar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
+		$dados['stat'] = $this->input->post("statCadastrar");
+
+		$email = $dados['email'];
+		$tabela = "tb_adm";
+
+		$emailExiste = $this->crud->verificar($email,$tabela);
+
+		if($emailExiste){
+
+				$retorno['ret'] = false;
+				$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
+				$sinal = true;
+		}
+
+		if($dados['senha'] != $repetirSenha['senha2']){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
+			$sinal = true;
+
+		}
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$resultado = $this->crud->insert($dados, $tabela);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
+			echo json_encode($retorno);
+
+		}
+
 	}
 
 /////EDITAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -183,27 +154,6 @@ class Crud extends MY_Controller{
 		$dados['stat'] = $this->input->post("statEditar");
 
 
-		if(empty($dados['nome'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'O NOME deve ser preenchido | ';
-			$sinal = true;
-
-		}
-		if(empty($dados['email'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'O E-MAIL deve ser preenchido | ';
-			$sinal = true;
-
-		}
-		if(empty($dados['senha'])){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'A SENHA deve ser preenchido | ';
-			$sinal = true;
-
-		}
 		if($dados['senha'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
@@ -220,10 +170,10 @@ class Crud extends MY_Controller{
 		}
 
 		$tabela = 'tb_adm';
+		$condicao = $dados['idusuario'];
+		$coluna = 'idusuario';
 
-		$id = $dados['idusuario'];
-
-		$resultado = $this->crud->update($dados, $tabela, $id);
+		$resultado = $this->crud->update($dados, $tabela, $condicao,$coluna);
 
 		if($resultado){
 
@@ -245,14 +195,12 @@ class Crud extends MY_Controller{
 
 	}
 
-/////DESABILITAR ADM///////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////DESABILITAR ADM//////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function desabilitarAdm(){
 
 
 		$retorno['msg'] = "";
 		$sinal=false;
-		
-		$id = $this->input->post('idDesativar');
 
 		$dados['stat'] = $this->input->post("statDesativar");
 
@@ -271,9 +219,12 @@ class Crud extends MY_Controller{
 			exit;
 		}
 
-		$tabela = 'tb_adm';
 
-		$resultado = $this->crud->delete($tabela,$id);
+		$condicao = $this->input->post('idDesativar');
+		$tabela = 'tb_adm';
+		$coluna = 'idusuario';
+
+		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
 
 		if($resultado){
 
@@ -294,6 +245,181 @@ class Crud extends MY_Controller{
 
 
 	}
+
+
+
+////CADASTRO ALUNO ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public function cadastrarAluno(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+
+		$dados['nome_aluno'] = $this->input->post("nomeCadastrar");
+		$dados['email'] = $this->input->post("emailCadastrar");
+		$dados['tb_classe_id_classe'] = $this->input->post("classeCadastrar");
+		$dados['senha'] = $this->input->post("senhaCadastrar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
+		$dados['stat'] = $this->input->post("statCadastrar");
+
+		$email = $dados['email'];
+		$tabela = 'tb_aluno';
+
+		$emailExiste = $this->crud->verificar($email,$tabela);
+
+		if($emailExiste){
+
+				$retorno['ret'] = false;
+				$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
+				$sinal = true;
+		}
+
+		if($dados['senha'] != $repetirSenha['senha2']){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
+			$sinal = true;
+
+		}
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+	
+
+		$resultado = $this->crud->insert($dados, $tabela);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+	}
+
+/////EDITAR ALUNO///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public function editarAluno(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+
+		$dados['id_usuario'] = $this->input->post('idEditar');
+		$dados['nome_aluno'] = $this->input->post("nomeEditar");
+		$dados['email'] = $this->input->post("emailEditar");
+		$dados['tb_classe_id_classe'] = $this->input->post("classeEditar");
+		$dados['senha'] = $this->input->post("senhaEditar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
+		$dados['stat'] = $this->input->post("statEditar");
+
+
+		if($dados['senha'] != $repetirSenha['senha2']){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'As senhas digitadas não correspondem | ';
+			$sinal = true;
+
+		}
+
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$tabela = 'tb_aluno';
+		$condicao = $dados['id_usuario'];
+		$coluna = 'id_usuario';
+
+		$resultado = $this->crud->update($dados, $tabela, $condicao,$coluna);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Edição realizada com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
+
+
+	}
+
+////DESABILITAR ADM//////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public function desabilitarAluno(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+		
+		
+
+		$dados['stat'] = $this->input->post("statDesativar");
+
+		if($dados['stat'] === 0){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'Usuário já foi desativado';
+			$sinal = true;
+
+		}
+
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$condicao = $this->input->post('idDesativar');
+		$tabela = 'tb_aluno';
+		$coluna = 'id_usuario';
+
+		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Usuário desabilitado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível desabilitar o usuário!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
+
+
+	}
+
 
 }
 

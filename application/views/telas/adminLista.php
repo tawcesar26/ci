@@ -42,7 +42,7 @@
 
 				</div>
 
-				<h3 style="display:block; text-align:center;">Cadastro</h3>
+				<h3 style="display:block; text-align:center;">Cadastro Administrador</h3>
 			</div>
 
 			<form id="formCadastrarAdm">
@@ -53,19 +53,19 @@
 					
 					<div class="form-group">
 						<label for="nomeCadastrar">Nome</label>
-						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off">
+						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="emailCadastrar">E-mail</label>
-						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" >
+						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="senhaCadastrar">Senha</label>
-						<input type="password" class="form-control" id="senhaCadastrar" name="senhaCadastrar" autocomplete="off">
+						<input type="password" class="form-control" id="senhaCadastrar" name="senhaCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="senha2Cadastrar">Digite a Senha novamente</label>
-						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off">
+						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off" required>
 					</div>
 					<input type="hidden" name="statCadastrar" value="1">
 				
@@ -107,19 +107,19 @@
 					<input type="hidden" name="idEditar" id="idEditar"/>
 					<div class="form-group">
 						<label for="nomeEditar">Nome</label>
-						<input type="text" class="form-control" id="nomeEditar" autofocus name="nomeEditar" autocomplete="off">
+						<input type="text" class="form-control" id="nomeEditar" autofocus name="nomeEditar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="emailEditar">E-mail</label>
-						<input type="email" class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
+						<input type="email" class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="senhaEditar">Senha</label>
-						<input type="password" class="form-control" id="senhaEditar" name="senhaEditar" autocomplete="off">
+						<input type="password" class="form-control" id="senhaEditar" name="senhaEditar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
 						<label for="senha2Editar">Digite a Senha novamente</label>
-						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
+						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off" required>
 					</div>
 					<input type="hidden" name="statEditar" value="1">
 				

@@ -12,12 +12,12 @@ class Crud_model extends CI_Model{
 
 	}
 	
-	public function verificar($email){
+	public function verificar($email,$tabela){
 
 
 		$this->db->select('*');
 		$this->db->where('email', $email);
-		return $this->db->get('tb_adm')->result();
+		return $this->db->get($tabela)->result();
 
 
 	}
@@ -34,33 +34,40 @@ class Crud_model extends CI_Model{
 
 		$this->db->select("*");
 		$this->db->where('stat', 1);
-		//$this->db->where('idusuario !=', $id);
-		$this->db->order_by('idusuario', 'DESC');
+		$this->db->where('idusuario !=', $id);
 
+		$this->db->order_by('idusuario', 'DESC');
+		
 		$resultado = $this->db->get($tabela)->result();
 
 		return $resultado;
 
 	}
 
+	public function selectAllAlunos($tabela){
 
-	public function update($dados,$tabela,$condicao){
+
+		$dados = $this->db->query('select * from tb_aluno as a join tb_classe as c on a.tb_classe_id_classe = id_classe where stat != 0;')->result();
 
 
-		$this->db->where('idusuario', $condicao);
+		return $dados;
+
+	}
+
+	public function update($dados,$tabela,$condicao,$coluna){
+
+
+		$this->db->where($coluna, $condicao);
 		return $this->db->update($tabela, $dados);
 		
 
 	}
 
-	public function delete($tabela,$condicao){
+	public function delete($tabela,$condicao,$coluna){
 
-
-			//$this->db->where('idusuario', $condicao);
-			//return $this->db->update($tabela, $dados);
 
 		$this->db->set('stat', 0);
-		$this->db->where('idusuario', $condicao);
+		$this->db->where($coluna, $condicao);
 		return $this->db->update($tabela);
 		
 
