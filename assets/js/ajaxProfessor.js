@@ -1,39 +1,39 @@
 
 
-listarAlunos();
+listarProfessores();
 
 
-function listarAlunos(){
+function listarProfessores(){
 
 	$.ajax({
 
-		url: "listarAlunos",
+		url: "listarProfessores",
 		ajax: 'lista2.json',
 
 		success: function(lista2){
 
 			var dados = JSON.parse(lista2);
 
-			dadosGlobaisAluno = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
+			dadosGlobaisProfessor = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
-			$('#tabelaAluno').html('');
+			$('#tabelaProfessor').html('');
 
 			if(dados.length > 0)
 			{
 
 				for (var i = 0; i < dados.length; i++) 
 				{
-					$('#tabelaAluno').append(
+					$('#tabelaProfessor').append(
 						'<tr>'+
 						
 						'<td>'+ dados[i].id_usuario +'</td>'+
-						'<td>'+ dados[i].nome_aluno +'</td>'+
+						'<td>'+ dados[i].nome_professor +'</td>'+
 						'<td>'+ dados[i].nome_classe +'</td>'+
 						'<td>'+ dados[i].email +'</td>'+
 						'<td>'+
-						'<button type="button" onclick="javascript:modalEditarAluno('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+						'<button type="button" onclick="javascript:modalEditarProfessor('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 						' '+
-						'<button type="button" onclick="javascript:modalDesativarAluno('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
+						'<button type="button" onclick="javascript:modalDesativarProfessor('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
 						'</td>'+		
 						'</tr>'	
 
@@ -42,7 +42,7 @@ function listarAlunos(){
 
 			}else
 			{
-				$('#tabelaAluno').append(
+				$('#tabelaProfessor').append(
 
 					'<td colspan="6"></td>'+
 					'<center class="mt-4" text-center>'+
@@ -62,29 +62,29 @@ function listarAlunos(){
 
 	});
 }
-////// CADASTRO ALUNO  ///////////////////////////////////////////////////////////////////////////////////////////
-$('#formCadastrarAluno').submit(function(e) 
+////// CADASTRO Professor  ///////////////////////////////////////////////////////////////////////////////////////////
+$('#formCadastrarProfessor').submit(function(e) 
 {
 	e.preventDefault();
 	var dados = $(this);
-	var retorno = cadastrarAluno(dados);
+	var retorno = cadastrarProfessor(dados);
 
 });
 
-function modalCadastrarAluno(){
+function modalCadastrarProfessor(){
 
-	$('#modalCadastrarAluno').modal('show');
+	$('#modalCadastrarProfessor').modal('show');
 
 } 
 
-function cadastrarAluno(dados)
+function cadastrarProfessor(dados)
 {
 
 	$.ajax({ //Abrindo o AJAX
 
 		type: "POST",
 		data: dados.serialize(),
-		url: "cadastrarAluno",
+		url: "cadastrarProfessor",
 		dataType: 'json',
 
 		beforeSend: function()
@@ -141,14 +141,14 @@ function cadastrarAluno(dados)
 
 					);
 
-				$('#formCadastrarAluno').each(function(){
+				$('#formCadastrarProfessor').each(function(){
 					this.reset();
 				});
 				
 
-				$('#modalCadastrarAluno').modal('hide');
+				$('#modalCadastrarProfessor').modal('hide');
 
-				listarAlunos();
+				listarProfessor();
 
 				$('.alert').delay(5000).slideUp(500, function(){ $(this).alert('close');});
 
@@ -161,37 +161,37 @@ function cadastrarAluno(dados)
 
 }
 
-////// EDITAR ALUNO ///////////////////////////////////////////////////////////////////////////////////////////
-function modalEditarAluno(att){
+////// EDITAR Professor ///////////////////////////////////////////////////////////////////////////////////////////
+function modalEditarProfessor(att){
 
-	$('#modalEditarAluno').modal('show');
+	$('#modalEditarProfessor').modal('show');
 
-	$('#tituloNome').html(dadosGlobaisAluno[att].nome_aluno);
+	$('#tituloNome').html(dadosGlobaisProfessor[att].nome_professor);
 
-	$('#idEditar').val(dadosGlobaisAluno[att].id_usuario);
-	$('#nomeEditar').val(dadosGlobaisAluno[att].nome_aluno);
-	$('#emailEditar').val(dadosGlobaisAluno[att].email);
-	$('#senhaEditar').val(dadosGlobaisAluno[att].senha);
-	$('#senha2Editar').val(dadosGlobaisAluno[att].senha);
-	$('#classeEditar').val(dadosGlobaisAluno[att].tb_classe_id_classe);
-	$('#statEditar').val(dadosGlobaisAluno[att].stat);
+	$('#idEditar').val(dadosGlobaisProfessor[att].id_usuario);
+	$('#nomeEditar').val(dadosGlobaisProfessor[att].nome_professor);
+	$('#emailEditar').val(dadosGlobaisProfessor[att].email);
+	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha);
+	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha);
+	$('#classeEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
+	$('#statEditar').val(dadosGlobaisProfessor[att].stat);
 
 } 
 
-$('#formEditarAluno').submit(function(e) 
+$('#formEditarProfessor').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
-	var retorno = atualizarDadosAluno(dados);
+	var retorno = atualizarDadosProfessor(dados);
 
 });
 
-function atualizarDadosAluno(dados){
+function atualizarDadosProfessor(dados){
 
 	$.ajax({
 		type: "POST",
 		data: dados.serialize(),
-		url: "editarAluno",
+		url: "editarProfessor",
 		dataType: 'json',
 
 		beforeSend: function(){
@@ -252,7 +252,7 @@ function atualizarDadosAluno(dados){
 
 					);
 
-				$('#formEditarAluno').each(function(){
+				$('#formEditarProfessor').each(function(){
 					this.reset();
 				});
 
@@ -264,9 +264,9 @@ function atualizarDadosAluno(dados){
 				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
-				$('#modalEditarAluno').modal('hide');
+				$('#modalEditarProfessor').modal('hide');
 
-				listarAlunos();
+				listarProfessor();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				
@@ -283,32 +283,32 @@ function atualizarDadosAluno(dados){
 ////// DESATIVAR ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-function modalDesativarAluno(del){
+function modalDesativarProfessor(del){
 
-	$('#modalDesativarAluno').modal('show');
+	$('#modalDesativarProfessor').modal('show');
 
-	$('#tituloDesativar').html(dadosGlobaisAluno[del].nome_aluno);
-	$('#idDesativar').val(dadosGlobaisAluno[del].id_usuario);
-	$('#statDesativar').val(dadosGlobaisAluno[del].stat);
+	$('#tituloDesativar').html(dadosGlobaisProfessor[del].nome_aluno);
+	$('#idDesativar').val(dadosGlobaisProfessor[del].id_usuario);
+	$('#statDesativar').val(dadosGlobaisProfessor[del].stat);
 	$('#botaoDesativar').text('Sim').prop("disabled",false);
 	
 }
 
-$('#formDesativarAluno').submit(function(e) 
+$('#formDesativarProfessor').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
-	var retorno = desabilitarDadosAluno(dados);
+	var retorno = desabilitarDadosProfessor(dados);
 
 }); 
 
-function desabilitarDadosAluno(dados){
+function desabilitarDadosProfessor(dados){
 
 	$.ajax({
 
 		type: "POST",
 		data: dados.serialize(),
-		url: "desabilitarAluno",
+		url: "desabilitarProfessor",
 		dataType: 'json',
 
 		beforeSend: function(){
@@ -363,9 +363,9 @@ function desabilitarDadosAluno(dados){
 
 				$('#botaoDesativar').prop("disabled",false);
 
-				$('#modalDesativarAluno').modal('hide');
+				$('#modalDesativarProfessor').modal('hide');
 
-				listarAlunos();
+				listarProfessor();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				
