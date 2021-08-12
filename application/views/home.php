@@ -6,7 +6,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>0</h3>
+              <h3><?php echo $totalAdm; ?></h3>
 
               <p>Total de Administradores</p>
             </div>
@@ -21,7 +21,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>0</h3>
+              <h3><?php echo $totalAluno; ?></h3>
 
               <p>Total de Alunos</p>
             </div>
@@ -36,7 +36,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>0</h3>
+              <h3>X</h3>
 
               <p>Total de Professores</p>
             </div>
@@ -51,9 +51,9 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>0</h3>
+              <h3><?php echo $totalUsuarios; ?></h3>
 
-              <p>Total de Cursos</p>
+              <p>Total de Usuarios</p>
             </div>
             <div class="icon">
                <i class="fa fa-users"></i>

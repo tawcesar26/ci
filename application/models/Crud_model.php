@@ -11,6 +11,17 @@ class Crud_model extends CI_Model{
 		$this->load->database();
 
 	}
+
+	public function dadosHomePage($tabela){
+
+		$this->db->select('*');
+		$this->db->where('stat !=', 0);
+
+		$resultado = count($this->db->get($tabela)->result());
+
+		return $resultado;
+
+	}
 	
 	public function verificar($email,$tabela){
 

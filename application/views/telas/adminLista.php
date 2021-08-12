@@ -4,11 +4,13 @@
 
 <!------Botão Cadastrar-------------->
 
-<div class="row" style="width: 80%;margin-left: 10px">
-	<button type="button" onclick="javascript:modalCadastrarAdm();" class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
+	<div class="row" style="width: 80%;margin-left: 10px">
+		<button type="button" onclick="javascript:modalCadastrarAdm();" class="btn btn-sm btn-success mr-2"> Novo cadastro</button>
+		<button type="button" class="btn btn-sm btn-info mr-2"> Exportar Excel</button>
 
 
-</div>
+
+	</div>
 
 <!------Tabela de Listagem-------------->
 <br>
@@ -47,7 +49,7 @@
 
 			<form id="formCadastrarAdm">
 				<div id="erroMsgCadastrar"></div>
-			<!-- MODAL BODY ------------------------------------- -->
+				<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
 
 					
@@ -68,7 +70,7 @@
 						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off" required>
 					</div>
 					<input type="hidden" name="statCadastrar" value="1">
-				
+
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
@@ -101,7 +103,7 @@
 
 			<form id="formEditarAdm">
 				<div id="erroMsgEditar"></div>
-			<!-- MODAL BODY ------------------------------------- -->
+				<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
 
 					<input type="hidden" name="idEditar" id="idEditar"/>
@@ -122,7 +124,7 @@
 						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off" required>
 					</div>
 					<input type="hidden" name="statEditar" value="1">
-				
+
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
 				<div class="modal-footer">
@@ -151,7 +153,7 @@
 
 				<input type="hidden" name="idDesativar" id="idDesativar">
 				<input type="hidden" name="statDesativar" id="statDesativar">
-			<!-- MODAL BODY --------------------------------------------------------->
+				<!-- MODAL BODY --------------------------------------------------------->
 				<div class="modal-body">
 
 					<p>Deseja excluir o usuário <strong id="tituloDesativar"></strong> ?</p>

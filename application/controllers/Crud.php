@@ -14,12 +14,27 @@ class Crud extends MY_Controller{
 
 	public function index(){
 
+		$totalAdm = $this->crud->dadosHomePage('tb_adm');
+		$totalAluno = $this->crud->dadosHomePage('tb_aluno');
+		//$totalProfessor = $this->crud->dadosHomePage('tb_professor');
+		$totalUsuarios = $totalAluno + $totalAdm;
+
 		$dados = array(
 			'titulo' =>'CRUD CODEIGNITER',
 			'page' => "home",
-			'descricao' => "Painel Administrativo"
+			'descricao' => "Painel Administrativo",
+			'totalAdm' => $totalAdm,
+			'totalAluno' => $totalAluno,
+			//'totalProfessor' => $totalProfessor,
+			'totalUsuarios' => $totalUsuarios
 		);
+
 		$this->template->views('home', $dados);
+
+	}
+	public function exportar(){
+
+
 
 	}
 
