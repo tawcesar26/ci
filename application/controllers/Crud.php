@@ -16,8 +16,8 @@ class Crud extends MY_Controller{
 
 		$totalAdm = $this->crud->dadosHomePage('tb_adm');
 		$totalAluno = $this->crud->dadosHomePage('tb_aluno');
-		//$totalProfessor = $this->crud->dadosHomePage('tb_professor');
-		$totalUsuarios = $totalAluno + $totalAdm;
+		$totalProfessor = $this->crud->dadosHomePage('tb_professor');
+		$totalUsuarios = $totalAluno + $totalAdm + $totalProfessor;
 
 		$dados = array(
 			'titulo' =>'CRUD CODEIGNITER',
@@ -25,14 +25,14 @@ class Crud extends MY_Controller{
 			'descricao' => "Painel Administrativo",
 			'totalAdm' => $totalAdm,
 			'totalAluno' => $totalAluno,
-			//'totalProfessor' => $totalProfessor,
+			'totalProfessor' => $totalProfessor,
 			'totalUsuarios' => $totalUsuarios
 		);
 
 		$this->template->views1('home', $dados);
 
 	}
-
+///TELAS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function listaAdmin(){
 
 		$dados = array(
@@ -121,6 +121,8 @@ class Crud extends MY_Controller{
 
 		echo json_encode($resultado);
 	}
+
+
 
 ////CADASTRAR ADM/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function cadastrarAdm(){
@@ -287,6 +289,8 @@ class Crud extends MY_Controller{
 
 
 	}
+
+
 
 ////CADASTRO ALUNO ///////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -458,6 +462,8 @@ class Crud extends MY_Controller{
 
 
 	}
+
+
 
 ///METODOS PARA EXPORTAR///////////////////////////////////////////////////////////////////////////////////////////////////
 

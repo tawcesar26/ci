@@ -21,15 +21,6 @@
           </span>
         </a>
       </li>
-      <!--
-      <li <?php if ($page == 'cadastrar') {echo 'class="active"';} ?>>
-        <a href="<?php echo base_url('validaCadastro'); ?>">
-          <i class="fa fa-group"></i> <span>Cadastro</span>
-          <span class="pull-right-container">
-
-          </span>
-        </a>
-      </li>-->
       <li <?php if ($page == 'listar' || $page == 'listar2' || $page =='listar3') {echo 'class="treeview active"';}
       else{
         echo "class='treeview'";

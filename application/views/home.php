@@ -36,7 +36,7 @@
           <!-- small box -->
           <div class="small-box bg-yellow">
             <div class="inner">
-              <h3>X</h3>
+              <h3><?php echo $totalProfessor; ?></h3>
 
               <p>Total de Professores</p>
             </div>
