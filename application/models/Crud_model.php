@@ -39,7 +39,7 @@ class Crud_model extends CI_Model{
 	}
 
 
-	public function selectAll($tabela){
+	public function selectAll(){
 
 		$id = $this->session->userdata('id');
 
@@ -49,7 +49,7 @@ class Crud_model extends CI_Model{
 
 		$this->db->order_by('idusuario', 'DESC');
 		
-		$resultado = $this->db->get($tabela)->result();
+		$resultado = $this->db->get('tb_adm')->result();
 
 		return $resultado;
 

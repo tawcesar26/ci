@@ -87,4 +87,4 @@ $route['listarDisciplinas'] = "Crud/listarDisciplinas";
 //Exportar XLS
 $route['exportarAdm'] = 'Crud/exportarAdm';
 $route['exportarAluno'] = 'Crud/exportarAluno';
-
+$route['exportarProfessor'] = 'Crud/exportarProfessor';

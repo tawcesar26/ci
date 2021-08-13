@@ -465,7 +465,7 @@ class Crud extends MY_Controller{
 
 
 		$dados = array(
-			'resultado' => $this->crud->selectExport()
+			'resultado' => $this->crud->selectAll()
 		);
 
 		header('Content-type: application/vnd.ms-excel');
@@ -484,6 +484,18 @@ class Crud extends MY_Controller{
 		header('Content-type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment; filename=alunos.xls');
 		$this->load->view('exportar/exportAluno', $dados);
+
+	}
+	public function exportarProfessor(){
+
+
+		$dados = array(
+			'resultado' => $this->crud->selectAllProfessores()
+		);
+
+		header('Content-type: application/vnd.ms-excel');
+		header('Content-Disposition: attachment; filename=professores.xls');
+		$this->load->view('exportar/exportProfessor', $dados);
 
 
 	}
