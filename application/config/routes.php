@@ -81,6 +81,8 @@ $route['cadastrarProfessor']['post'] = 'Crud/cadastrarProfessor';
 $route['listarProfessor']= 'Crud/listarProfessor';
 $route['editarProfessor']['post'] = 'Crud/editarProfessor';
 $route['desabilitarProfessor']['post'] = 'Crud/desabilitarProfessor';
+$route['listarClasses'] = 'Crud/listarClasses';
+$route['listarDisciplinas'] = "Crud/listarDisciplinas";
 
 //Exportar XLS
 $route['exportarAdm'] = 'Crud/exportarAdm';

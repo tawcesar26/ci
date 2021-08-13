@@ -19,6 +19,7 @@
 			<th>ID</th>
 			<th>Nome</th>
 			<th>Curso</th>
+			<th>Disciplina</th>
 			<th>E-mail</th>
 			<th>Ações</th>
 		</tr>
@@ -51,7 +52,7 @@
 				<div id="erroMsgCadastrar"></div>
 				<!-- MODAL BODY ------------------------------------- -->
 				<div class="modal-body">
-	
+
 					<div class="form-group">
 						<label for="nomeCadastrar">Nome</label>
 						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off" required>
@@ -61,20 +62,19 @@
 						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
-						<label for="classeCadastrar">Classe</label>
-						<select class="form-control" id="classeCadastrar" name="classeCadastrar" required>
-							<option value="" >Selecionar a classe:</option>
-							<option value="1" >1º Ano Médio</option>
-							<option value="2" >2º Ano Médio</option>
-							<option value="3" >3º Ano Médio</option>
+						<label for="selectClasse">Classe</label>
+						<select class="form-control" id="selectClasse" name="selectClasse" required>
+
+							<!-- PREENCHIDO VIA AJAX COM AS CLASSES -->
+
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="discCadastrar">Disciplina</label>
-						<select class="form-control" id="discCadastrar" name="discCadastrar" required>
-							<option value="" >Selecionar a disciplina:</option>
-							<option value="101" >Matematica</option>
-							<option value="102" >Português</option>
+						<label for="selectDisc">Disciplina</label>
+						<select class="form-control" id="selectDisc" name="selectDisc" required>
+
+							<!-- PREENCHIDO VIA AJAX COM AS DISCIPLINAS -->
+
 						</select>
 					</div>
 					<div class="form-group">
@@ -86,7 +86,7 @@
 						<input type="password" class="form-control" id="senha2Cadastrar" name="senha2Cadastrar" autocomplete="off" required>
 					</div>
 
-						<input type="hidden" name="statCadastrar" id="statCadastrar" value="1" />
+					<input type="hidden" name="statCadastrar" id="statCadastrar" value="1" />
 
 					
 				</div>
@@ -136,65 +136,76 @@
 					<div class="form-group">
 						<label for="classeEditar">Classe</label>
 						<select class="form-control" id="classeEditar" name="classeEditar" required>
-							<option value="" >Selecionar a classe:</option>
-							<option value="1" >1º Ano Médio</option>
-							<option value="2" >2º Ano Médio</option>
-							<option value="3" >3º Ano Médio</option>
+
+							<?php 
+							foreach ($resultado as $user) { ;?>
+								
+								'<option value="<?php echo $user->idusuario ?> " ><?php echo $user->nome_classe ?> </option>'
+							
+							<?php }  ;?>
+
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="senhaEditar">Senha</label>
-						<input type="password" class="form-control" id="senhaEditar" name="senhaEditar" autocomplete="off">
+						<label for="discEditar">Disciplina</label>
+						<select class="form-control" id="discEditar" name="discEditar" required>
+
+							<!-- PREENCHIDO VIA AJAX COM AS DISCIPLINAS -->
+
+						</select>
+						<div class="form-group">
+							<label for="senhaEditar">Senha</label>
+							<input type="password" class="form-control" id="senhaEditar" name="senhaEditar" autocomplete="off">
+						</div>
+						<div class="form-group">
+							<label for="senha2Editar">Digite a Senha novamente</label>
+							<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
+						</div>
+						<input type="hidden" name="statEditar" id="statEditar" value="1" />
+
 					</div>
-					<div class="form-group">
-						<label for="senha2Editar">Digite a Senha novamente</label>
-						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
+					<!-- MODAL FOOTER ------------------------------------- -->
+					<div class="modal-footer">
+						<button type="submit" id="botaoEditar" class="btn btn-primary">Editar</button>
 					</div>
-				<input type="hidden" name="statEditar" id="statEditar" value="1" />
-					
-				</div>
-				<!-- MODAL FOOTER ------------------------------------- -->
-				<div class="modal-footer">
-					<button type="submit" id="botaoEditar" class="btn btn-primary">Editar</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
-<!----------------------FIM DO MODAL EDITAR----------------------------------------->
-
-
-<!----------------------INICIO DO MODAL DESATIVAR----------------------------------->
-
-<div id="modalDesativarProfessor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-
-		<div class="modal-content">
-			<!-- MODAL HEADER ------------------------------------------------------->
-			<div class="modal-header">
-				<h3 style="display:block; text-align:center;">Excluir Usuário</h3>
+				</form>
 			</div>
-
-			<form id="formDesativarProfessor">
-				<div id="erroMsgDesativar"></div>
-
-				<input type="hidden" name="idDesativar" id="idDesativar">
-				<input type="hidden" name="statDesativar" id="statDesativar">
-				<!-- MODAL BODY --------------------------------------------------------->
-				<div class="modal-body">
-
-					<p>Deseja excluir o usuário <strong id="tituloDesativar"></strong> ?</p>
-					<p>Após confirmação, esta ação não poderá ser desfeita.</p>	
-
-				</div>
-				<!-- MODAL FOOTER ------------------------------------- -->
-				<div class="modal-footer">
-					<button type="submit" id="botaoDesativar" class="btn btn-success"> Sim</button>
-					<button type="button" class="btn btn-info" data-dismiss="modal"> Não</button>
-				</div>
-			</form>
 		</div>
 	</div>
-</div>
-<!----------------------FIM DO MODAL DESATIVAR----------------------------------->
+	<!----------------------FIM DO MODAL EDITAR----------------------------------------->
+
+
+	<!----------------------INICIO DO MODAL DESATIVAR----------------------------------->
+
+	<div id="modalDesativarProfessor" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+
+			<div class="modal-content">
+				<!-- MODAL HEADER ------------------------------------------------------->
+				<div class="modal-header">
+					<h3 style="display:block; text-align:center;">Excluir Usuário</h3>
+				</div>
+
+				<form id="formDesativarProfessor">
+					<div id="erroMsgDesativar"></div>
+
+					<input type="hidden" name="idDesativar" id="idDesativar">
+					<input type="hidden" name="statDesativar" id="statDesativar">
+					<!-- MODAL BODY --------------------------------------------------------->
+					<div class="modal-body">
+
+						<p>Deseja excluir o usuário <strong id="tituloDesativar"></strong> ?</p>
+						<p>Após confirmação, esta ação não poderá ser desfeita.</p>	
+
+					</div>
+					<!-- MODAL FOOTER ------------------------------------- -->
+					<div class="modal-footer">
+						<button type="submit" id="botaoDesativar" class="btn btn-success"> Sim</button>
+						<button type="button" class="btn btn-info" data-dismiss="modal"> Não</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+	<!----------------------FIM DO MODAL DESATIVAR----------------------------------->
 

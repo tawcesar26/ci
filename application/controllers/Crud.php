@@ -67,6 +67,8 @@ class Crud extends MY_Controller{
 
 	}
 
+
+
 /////LISTAR///////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
@@ -101,6 +103,23 @@ class Crud extends MY_Controller{
 		echo json_encode($resultado);
 
 		
+	}
+
+	public function listarClasses(){
+
+		
+		$resultado = $this->crud->selectAllClasses();
+
+		echo json_encode($resultado);	
+	
+			
+	}
+
+	public function listarDisciplinas(){
+
+		$resultado = $this->crud->selectAllDisciplinas();
+
+		echo json_encode($resultado);
 	}
 
 ////CADASTRAR ADM/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -465,6 +484,128 @@ class Crud extends MY_Controller{
 		header('Content-type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment; filename=alunos.xls');
 		$this->load->view('exportar/exportAluno', $dados);
+
+
+	}
+
+////CADASTRO ALUNO ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+////CADASTRAR PROFESSOR //////////////////////////////////////////////////////////////////////////////////////////////////
+	public function cadastrarProfessor(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+
+		$dados['nome_professor'] = $this->input->post("nomeCadastrar");
+		$dados['email_professor'] = $this->input->post("emailCadastrar");
+		$dados['tb_classe_id_classe'] = $this->input->post("selectClasse");
+		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDisc");
+		$dados['senha_professor'] = $this->input->post("senhaCadastrar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
+		$dados['status'] = $this->input->post("statCadastrar");
+
+		$email = $dados['email_professor'];
+		$tabela = 'tb_professor';
+		$coluna = 'email_professor';
+
+		$emailExiste = $this->crud->verificar($email,$tabela,$coluna);
+
+		if($emailExiste){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
+			$sinal = true;
+		}
+
+		if($dados['senha_professor'] != $repetirSenha['senha2']){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
+			$sinal = true;
+
+		}
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$resultado = $this->crud->insert($dados, $tabela);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+	}
+
+/////EDITAR PROFESSOR///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public function editarProfessor(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+
+		$dados['id_usuario'] = $this->input->post('idEditar');
+		$dados['nome_professor'] = $this->input->post("nomeEditar");
+		$dados['email_professor'] = $this->input->post("emailEditar");
+		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDisc");
+		$dados['tb_classe_id_classe'] = $this->input->post("selectClasse");
+		$dados['senha_professor'] = $this->input->post("senhaEditar");
+		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
+		$dados['status'] = $this->input->post("statEditar");
+
+
+
+		if($dados['senha_professor'] != $repetirSenha['senha2']){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'As senhas digitadas não correspondem | ';
+			$sinal = true;
+
+		}
+
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$tabela = 'tb_professor';
+		$condicao = $dados['id_usuario'];
+		$coluna = 'id_usuario';
+
+		$resultado = $this->crud->update($dados, $tabela, $condicao,$coluna);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Edição realizada com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
 
 
 	}

@@ -1,6 +1,9 @@
 
 
 listarProfessores();
+listarClasses();
+listarDisciplinas();
+
 
 
 function listarProfessores(){
@@ -29,7 +32,8 @@ function listarProfessores(){
 						'<td>'+ dados[i].id_usuario +'</td>'+
 						'<td>'+ dados[i].nome_professor +'</td>'+
 						'<td>'+ dados[i].nome_classe +'</td>'+
-						'<td>'+ dados[i].email +'</td>'+
+						'<td>'+ dados[i].nome_disciplina +'</td>'+
+						'<td>'+ dados[i].email_professor +'</td>'+
 						'<td>'+
 						'<button type="button" onclick="javascript:modalEditarProfessor('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 						' '+
@@ -62,6 +66,81 @@ function listarProfessores(){
 
 	});
 }
+
+
+function listarClasses(){
+
+	$.ajax({
+
+		url: "listarClasses",
+		ajax: 'dados.json',
+
+		success: function(dados){
+
+			var dados = JSON.parse(dados);
+
+			$('#selectClasse').html('');
+
+			if(dados.length > 0)
+			{
+				for (var i = 0; i < dados.length; i++) 
+				{
+					$('#selectClasse').append(
+						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
+
+					);
+					$('#selectClasse2').append(
+						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
+
+					);
+				}
+			}else
+			{
+				$('#selectClasse').append(
+					'<option value="" >Nenhuma classe cadastrada</option>'
+					);
+			}
+		}
+
+
+	});
+}
+function listarDisciplinas(){
+
+	$.ajax({
+
+		url: "listarDisciplinas",
+		ajax: 'dados.json',
+
+		success: function(dados){
+
+			var dados = JSON.parse(dados);
+
+			$('#selectDisc').html('');
+
+			if(dados.length > 0)
+			{	
+
+				for (var i = 0; i < dados.length; i++) 
+				{
+					$('#selectDisc').append(
+						'<option value="'+ dados[i].id_disciplina +'" >'+ dados[i].nome_disciplina+'</option>'
+
+					);
+				}
+			}else
+			{
+				$('#selectDisc').append(
+					'<option value="" >Nenhuma classe cadastrada</option>'
+					);
+			}
+		}
+
+
+	});
+}
+
+
 ////// CADASTRO Professor  ///////////////////////////////////////////////////////////////////////////////////////////
 $('#formCadastrarProfessor').submit(function(e) 
 {
@@ -148,7 +227,7 @@ function cadastrarProfessor(dados)
 
 				$('#modalCadastrarProfessor').modal('hide');
 
-				listarProfessor();
+				listarProfessores();
 
 				$('.alert').delay(5000).slideUp(500, function(){ $(this).alert('close');});
 
@@ -170,11 +249,11 @@ function modalEditarProfessor(att){
 
 	$('#idEditar').val(dadosGlobaisProfessor[att].id_usuario);
 	$('#nomeEditar').val(dadosGlobaisProfessor[att].nome_professor);
-	$('#emailEditar').val(dadosGlobaisProfessor[att].email);
-	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha);
-	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha);
+	$('#emailEditar').val(dadosGlobaisProfessor[att].email_professor);
+	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha_professor);
+	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha_professor);
 	$('#classeEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
-	$('#statEditar').val(dadosGlobaisProfessor[att].stat);
+	$('#statEditar').val(dadosGlobaisProfessor[att].status);
 
 } 
 
@@ -201,7 +280,7 @@ function atualizarDadosProfessor(dados){
 			$('#emailEditar').prop("disabled",true);
 			$('#senhaEditar').prop("disabled",true);
 			$('#senha2Editar').prop("disabled",true);
-			$('#classeEditar').prop("disabled",true);
+			$('#selectClasse').prop("disabled",true);
 			$('#botaoEditar').text('Editar').prop("disabled",true);
 			
 
@@ -230,7 +309,7 @@ function atualizarDadosProfessor(dados){
 				$('#emailEditar').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
-				$('#classeEditar').prop("disabled",false);
+				$('#selectClasse').prop("disabled",false);
 				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
@@ -258,7 +337,7 @@ function atualizarDadosProfessor(dados){
 
 				$('#nomeEditar').prop("disabled",false);
 				$('#emailEditar').prop("disabled",false);
-				$('#classeEditar').prop("disabled",false);
+				$('#selectClasse').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
 				$('#statEditar').prop("disabled",false);
@@ -266,7 +345,7 @@ function atualizarDadosProfessor(dados){
 
 				$('#modalEditarProfessor').modal('hide');
 
-				listarProfessor();
+				listarProfessores();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				
