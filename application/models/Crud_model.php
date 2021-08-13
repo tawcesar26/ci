@@ -58,7 +58,7 @@ class Crud_model extends CI_Model{
 	function selectExport(){
 
 		
-		$dados = $this->db->query('SELECT * FROM tb_adm WHERE stat = 1;')->result();
+		$dados = $this->db->query('SELECT * FROM tb_adm WHERE status = 1;')->result();
 
 		return $dados;
 
@@ -68,7 +68,7 @@ class Crud_model extends CI_Model{
 	public function selectAllAlunos(){
 
 
-		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE status = 1;')->result();
+		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE status = 1 ORDER BY id_usuario DESC;')->result();
 
 
 		return $dados;
@@ -81,7 +81,9 @@ class Crud_model extends CI_Model{
 		$dados = $this->db->query('
 			SELECT * FROM tb_professor
 			INNER JOIN tb_classe ON tb_classe.id_classe = tb_professor.tb_classe_id_classe
-			INNER JOIN tb_disciplina ON tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina;')->result();
+			INNER JOIN tb_disciplina ON tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina
+			WHERE status =1
+			ORDER BY id_usuario DESC;')->result();
 
 
 		return $dados;

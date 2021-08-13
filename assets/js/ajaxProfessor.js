@@ -5,64 +5,69 @@ listarClasses();
 listarDisciplinas();
 
 
-
 function listarProfessores(){
 
 	$.ajax({
 
 		url: "listarProfessor",
-		ajax: 'lista2.json',
+		ajax: 'dados.json',
 
-		success: function(lista2){
+		success: function(dados){
 
-			var dados = JSON.parse(lista2);
+			var dados = JSON.parse(dados);
 
 			dadosGlobaisProfessor = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
-			$('#tabelaProfessor').html('');
+			var tamanhoPagina = 6;
+			var pagina = 0;
 
-			if(dados.length > 0)
-			{
-
-				for (var i = 0; i < dados.length; i++) 
-				{
-					$('#tabelaProfessor').append(
-						'<tr>'+
-						
-						'<td>'+ dados[i].id_usuario +'</td>'+
-						'<td>'+ dados[i].nome_professor +'</td>'+
-						'<td>'+ dados[i].nome_classe +'</td>'+
-						'<td>'+ dados[i].nome_disciplina +'</td>'+
-						'<td>'+ dados[i].email_professor +'</td>'+
-						'<td>'+
-						'<button type="button" onclick="javascript:modalEditarProfessor('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
-						' '+
-						'<button type="button" onclick="javascript:modalDesativarProfessor('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
-						'</td>'+		
-						'</tr>'	
-
-						);
-				}
-
-			}else
-			{
-				$('#tabelaProfessor').append(
-
-					'<td colspan="6"></td>'+
-					'<center class="mt-4" text-center>'+
-					'<div class="col-md-12 text-center">'+
-					'<div class="alert alert-danger text-danger">'+
-					'<i class="fas fa-exclamation-circle"></i>Nenhum usuário cadastrado'+		
-					'</div>'+
-					'</div>'+	
-					'</center>'+		
-					'</td>'	
-
-					);
-
+			function paginar() {
+			    $('table > tbody > tr').remove();
+			    var tbody = $('table > tbody');
+			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
+			        tbody.append(
+			            $('<tr>')
+			                .append($('<td>').append(dados[i].id_usuario))
+			                .append($('<td>').append(dados[i].nome_professor))
+			                .append($('<td>').append(dados[i].nome_classe))
+			                .append($('<td>').append(dados[i].nome_disciplina))
+			                .append($('<td>').append(dados[i].email_professor))
+			                .append(
+			                	'<td><button type="button" onclick="javascript:modalEditarProfessor('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+								' '+
+								'<button type="button" onclick="javascript:modalDesativarProfessor('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
+								)
+			        )
+			    }
+			    $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
 			}
-		}
 
+			function ajustarBotoes() {
+			    $('#proximo').prop('disabled', dados.length <= tamanhoPagina || pagina >= Math.ceil(dados.length / tamanhoPagina) - 1);
+			    $('#anterior').prop('disabled', dados.length <= tamanhoPagina || pagina == 0);
+			}
+
+			$(function() {
+			    $('#proximo').click(function() {
+			        if (pagina < dados.length / tamanhoPagina - 1) {
+			            pagina++;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    $('#anterior').click(function() {
+			        if (pagina > 0) {
+			            pagina--;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    paginar();
+			    ajustarBotoes();
+			});
+
+
+		}
 
 	});
 }
@@ -88,15 +93,19 @@ function listarClasses(){
 					$('#selectClasse').append(
 						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
 
-					);
-					$('#selectClasse2').append(
+						);
+
+					$('#selectClasseEditar').append(
 						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
 
-					);
+						);
 				}
 			}else
 			{
 				$('#selectClasse').append(
+					'<option value="" >Nenhuma classe cadastrada</option>'
+					);
+				$('#selectClasseEditar').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
 			}
@@ -126,11 +135,18 @@ function listarDisciplinas(){
 					$('#selectDisc').append(
 						'<option value="'+ dados[i].id_disciplina +'" >'+ dados[i].nome_disciplina+'</option>'
 
-					);
+						);
+					$('#selectDiscEditar').append(
+						'<option value="'+ dados[i].id_disciplina +'" >'+ dados[i].nome_disciplina+'</option>'
+
+						);
 				}
 			}else
 			{
 				$('#selectDisc').append(
+					'<option value="" >Nenhuma classe cadastrada</option>'
+					);
+				$('#selectDiscEditar').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
 			}
@@ -366,9 +382,9 @@ function modalDesativarProfessor(del){
 
 	$('#modalDesativarProfessor').modal('show');
 
-	$('#tituloDesativar').html(dadosGlobaisProfessor[del].nome_aluno);
+	$('#tituloDesativar').html(dadosGlobaisProfessor[del].nome_professor);
 	$('#idDesativar').val(dadosGlobaisProfessor[del].id_usuario);
-	$('#statDesativar').val(dadosGlobaisProfessor[del].stat);
+	$('#statDesativar').val(dadosGlobaisProfessor[del].status);
 	$('#botaoDesativar').text('Sim').prop("disabled",false);
 	
 }
@@ -444,7 +460,7 @@ function desabilitarDadosProfessor(dados){
 
 				$('#modalDesativarProfessor').modal('hide');
 
-				listarProfessor();
+				listarProfessores();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				

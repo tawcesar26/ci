@@ -10,53 +10,60 @@ function listarAlunos(){
 		url: "listarAlunos",
 		ajax: 'lista2.json',
 
-		success: function(lista2){
+		success: function(dados){
 
-			var dados = JSON.parse(lista2);
+			var dados = JSON.parse(dados);
 
 			dadosGlobaisAluno = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
-			$('#tabelaAluno').html('');
+			var tamanhoPagina = 6;
+			var pagina = 0;
 
-			if(dados.length > 0)
-			{
-
-				for (var i = 0; i < dados.length; i++) 
-				{
-					$('#tabelaAluno').append(
-						'<tr>'+
-						
-						'<td>'+ dados[i].id_usuario +'</td>'+
-						'<td>'+ dados[i].nome_aluno +'</td>'+
-						'<td>'+ dados[i].nome_classe +'</td>'+		
-						'<td>'+ dados[i].email_aluno +'</td>'+	
-						'<td>'+
-						'<button type="button" onclick="javascript:modalEditarAluno('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
-						' '+
-						'<button type="button" onclick="javascript:modalDesativarAluno('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
-						'</td>'+		
-						'</tr>'	
-
-						);
-				}
-
-			}else
-			{
-				$('#tabelaAluno').append(
-
-					'<td colspan="6"></td>'+
-					'<center class="mt-4" text-center>'+
-					'<div class="col-md-12 text-center">'+
-					'<div class="alert alert-danger text-danger">'+
-					'<i class="fas fa-exclamation-circle"></i>Nenhum usuário cadastrado'+		
-					'</div>'+
-					'</div>'+	
-					'</center>'+		
-					'</td>'	
-
-					);
-
+			function paginar() {
+			    $('table > tbody > tr').remove();
+			    var tbody = $('table > tbody');
+			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
+			        tbody.append(
+			            $('<tr>')
+			                .append($('<td>').append(dados[i].id_usuario))
+			                .append($('<td>').append(dados[i].nome_aluno))
+			                .append($('<td>').append(dados[i].nome_classe))
+			                .append($('<td>').append(dados[i].email_aluno))
+			                .append(
+			                	'<td><button type="button" onclick="javascript:modalEditarAluno('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+								' '+
+								'<button type="button" onclick="javascript:modalDesativarAluno('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
+								)
+			        )
+			    }
+			    $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
 			}
+
+			function ajustarBotoes() {
+			    $('#proximo').prop('disabled', dados.length <= tamanhoPagina || pagina >= Math.ceil(dados.length / tamanhoPagina) - 1);
+			    $('#anterior').prop('disabled', dados.length <= tamanhoPagina || pagina == 0);
+			}
+
+			$(function() {
+			    $('#proximo').click(function() {
+			        if (pagina < dados.length / tamanhoPagina - 1) {
+			            pagina++;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    $('#anterior').click(function() {
+			        if (pagina > 0) {
+			            pagina--;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    paginar();
+			    ajustarBotoes();
+			});
+
+
 		}
 
 

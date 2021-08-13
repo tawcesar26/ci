@@ -23,11 +23,18 @@
 			<th>Ações</th>
 		</tr>
 	</thead>
-	<tbody id="tabelaAdm">
+	<tbody>
 
 
 	</tbody>	
 </table>
+<center>
+  <ul class="pagination">
+    <li class="page-item"><a id="anterior" disabled class="page-link" href="#">Anterior</a></li>
+    <li class="page-item"><a class="page-link" href="#"><span id="numeracao"></span></a></li>
+    <li class="page-item"><a id="proximo" disabled class="page-link" href="#">Próximo</a></li>
+  </ul>
+</center>
 
 
 <!----------------------INICIO DO MODAL CADASTRAR----------------------------------->

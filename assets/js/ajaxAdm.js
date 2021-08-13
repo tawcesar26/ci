@@ -108,54 +108,61 @@ function listarUsuarios(){
 	$.ajax({
 
 		url: "listarUsuarios",
-		ajax: 'lista.json',
+		ajax: 'dados.json',
 
-		success: function(lista){
+		success: function(dados){
 
-			var dados = JSON.parse(lista);
+			var dados = JSON.parse(dados);
 
 			dadosGlobaisAdm = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
-			$('#tabelaAdm').html('');
+			var tamanhoPagina = 6;
+			var pagina = 0;
 
-			if(dados.length > 0)
-			{
-
-				for (var i = 0; i < dados.length; i++) 
-				{
-					$('#tabelaAdm').append(
-						'<tr>'+
-						
-						'<td>'+ dados[i].idusuario +'</td>'+
-						'<td>'+ dados[i].nome +'</td>'+
-						'<td>'+ dados[i].email +'</td>'+
-						'<td>'+
-						'<button type="button" onclick="javascript:modalEditarAdm('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
-						' '+
-						'<button type="button" onclick="javascript:modalDesativar('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button>'+
-						'</td>'+		
-						'</tr>'	
-
-						);
-				}
-
-			}else
-			{
-				$('#tabelaAdm').append(
-
-					'<td colspan="6"></td>'+
-					'<center class="mt-4" text-center>'+
-					'<div class="col-md-12 text-center">'+
-					'<div class="alert alert-danger text-danger">'+
-					'<i class="fas fa-exclamation-circle"></i>Nenhum usuário cadastrado'+		
-					'</div>'+
-					'</div>'+	
-					'</center>'+		
-					'</td>'	
-
-					);
-
+			function paginar() {
+			    $('table > tbody > tr').remove();
+			    var tbody = $('table > tbody');
+			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
+			        tbody.append(
+			            $('<tr>')
+			                .append($('<td>').append(dados[i].idusuario))
+			                .append($('<td>').append(dados[i].nome))
+			                .append($('<td>').append(dados[i].email))
+			                .append(
+			                	'<td><button type="button" onclick="javascript:modalEditarAdm('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+								' '+
+								'<button type="button" onclick="javascript:modalDesativarAdm('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
+								)
+			        )
+			    }
+			    $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
 			}
+
+			function ajustarBotoes() {
+			    $('#proximo').prop('disabled', dados.length <= tamanhoPagina || pagina >= Math.ceil(dados.length / tamanhoPagina) - 1);
+			    $('#anterior').prop('disabled', dados.length <= tamanhoPagina || pagina == 0);
+			}
+
+			$(function() {
+			    $('#proximo').click(function() {
+			        if (pagina < dados.length / tamanhoPagina - 1) {
+			            pagina++;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    $('#anterior').click(function() {
+			        if (pagina > 0) {
+			            pagina--;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    paginar();
+			    ajustarBotoes();
+			});
+
+
 		}
 
 
@@ -291,7 +298,7 @@ function modalDesativar(del){
 	
 }
 
-$('#formDesativar').submit(function(e) 
+$('#formDesativarProfessor').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
@@ -354,7 +361,7 @@ function desabilitarDados(dados){
 
 					);
 
-				$('#formDesativar').each(function(){
+				$('#formDesativarProfessor').each(function(){
 					this.reset();
 				});
 
@@ -362,7 +369,7 @@ function desabilitarDados(dados){
 
 				$('#modalDesativar').modal('hide');
 
-				listarUsuarios();
+				listarProfessores();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				

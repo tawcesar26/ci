@@ -406,7 +406,7 @@ class Crud extends MY_Controller{
 
 	}
 
-////DESABILITAR ADM//////////////////////////////////////////////////////////////////////////////////////////////////////
+////DESABILITAR ALUNO//////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	public function desabilitarAluno(){
 
@@ -488,7 +488,7 @@ class Crud extends MY_Controller{
 
 	}
 
-////CADASTRO ALUNO ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 ////CADASTRAR PROFESSOR //////////////////////////////////////////////////////////////////////////////////////////////////
 	public function cadastrarProfessor(){
@@ -561,8 +561,8 @@ class Crud extends MY_Controller{
 		$dados['id_usuario'] = $this->input->post('idEditar');
 		$dados['nome_professor'] = $this->input->post("nomeEditar");
 		$dados['email_professor'] = $this->input->post("emailEditar");
-		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDisc");
-		$dados['tb_classe_id_classe'] = $this->input->post("selectClasse");
+		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDiscEditar");
+		$dados['tb_classe_id_classe'] = $this->input->post("selectClasseEditar");
 		$dados['senha_professor'] = $this->input->post("senhaEditar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
 		$dados['status'] = $this->input->post("statEditar");
@@ -610,6 +610,58 @@ class Crud extends MY_Controller{
 
 	}
 
+////DESABILITAR PROFESSOR//////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	public function desabilitarProfessor(){
+
+
+		$retorno['msg'] = "";
+		$sinal=false;
+		
+		
+
+		$dados['status'] = $this->input->post("statDesativar");
+
+		if($dados['status'] === 0){
+
+			$retorno['ret'] = false;
+			$retorno['msg'] .= 'Usuário já foi desativado';
+			$sinal = true;
+
+		}
+
+
+		if($sinal){
+
+			echo json_encode($retorno);
+			exit;
+		}
+
+		$condicao = $this->input->post('idDesativar');
+		$tabela = 'tb_professor';
+		$coluna = 'id_usuario';
+
+		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Usuário desabilitado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível desabilitar o usuário!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
+
+
+	}
 }
 
 ?>
