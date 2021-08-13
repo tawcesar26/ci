@@ -116,7 +116,7 @@ function listarUsuarios(){
 
 			dadosGlobaisAdm = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 
-			var tamanhoPagina = 6;
+			var tamanhoPagina = 10;
 			var pagina = 0;
 
 			function paginar() {
