@@ -10,7 +10,7 @@ class Login_model extends CI_Model {
 		
 		$this->db->where('email', $login);
 		$this->db->where('senha', $senha);
-		$this->db->where('stat', $status);
+		$this->db->where('status', $status);
 
 
 		$data = $this->db->get('tb_adm')->result();

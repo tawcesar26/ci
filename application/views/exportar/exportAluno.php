@@ -22,7 +22,7 @@
             <td><?php echo $user->id_usuario ?> </td>
             <td><?php echo $user->nome_aluno ?> </td>
             <td><?php echo $user->nome_classe ?></td>
-            <td><?php echo $user->email ?> </td>
+            <td><?php echo $user->email_aluno ?> </td>
         </center>
         </tr>
         <?php 

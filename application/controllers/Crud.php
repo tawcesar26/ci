@@ -92,6 +92,17 @@ class Crud extends MY_Controller{
 		
 	}
 
+	public function listarProfessor(){
+
+		$id = 'tb_professor';
+
+		$resultado = $this->crud->selectAllProfessores($id);
+
+		echo json_encode($resultado);
+
+		
+	}
+
 ////CADASTRAR ADM/////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function cadastrarAdm(){
 
@@ -103,12 +114,13 @@ class Crud extends MY_Controller{
 		$dados['email'] = $this->input->post("emailCadastrar");
 		$dados['senha'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
-		$dados['stat'] = $this->input->post("statCadastrar");
+		$dados['status'] = $this->input->post("statCadastrar");
 
 		$email = $dados['email'];
 		$tabela = "tb_adm";
+		$coluna = 'email';
 
-		$emailExiste = $this->crud->verificar($email,$tabela);
+		$emailExiste = $this->crud->verificar($email,$tabela,$coluna);
 
 		if($emailExiste){
 
@@ -162,7 +174,7 @@ class Crud extends MY_Controller{
 		$dados['email'] = $this->input->post("emailEditar");
 		$dados['senha'] = $this->input->post("senhaEditar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
-		$dados['stat'] = $this->input->post("statEditar");
+		$dados['status'] = $this->input->post("statEditar");
 
 
 		if($dados['senha'] != $repetirSenha['senha2']){
@@ -213,9 +225,9 @@ class Crud extends MY_Controller{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['stat'] = $this->input->post("statDesativar");
+		$dados['status'] = $this->input->post("statDesativar");
 
-		if($dados['stat'] === 0){
+		if($dados['status'] === 0){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= 'Usuário já foi desativado';
@@ -266,16 +278,17 @@ class Crud extends MY_Controller{
 		$sinal=false;
 
 		$dados['nome_aluno'] = $this->input->post("nomeCadastrar");
-		$dados['email'] = $this->input->post("emailCadastrar");
+		$dados['email_aluno'] = $this->input->post("emailCadastrar");
 		$dados['tb_classe_id_classe'] = $this->input->post("classeCadastrar");
-		$dados['senha'] = $this->input->post("senhaCadastrar");
+		$dados['senha_aluno'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
-		$dados['stat'] = $this->input->post("statCadastrar");
+		$dados['status'] = $this->input->post("statCadastrar");
 
-		$email = $dados['email'];
+		$email = $dados['email_aluno'];
 		$tabela = 'tb_aluno';
+		$coluna = 'email_aluno';
 
-		$emailExiste = $this->crud->verificar($email,$tabela);
+		$emailExiste = $this->crud->verificar($email,$tabela,$coluna);
 
 		if($emailExiste){
 
@@ -284,7 +297,7 @@ class Crud extends MY_Controller{
 			$sinal = true;
 		}
 
-		if($dados['senha'] != $repetirSenha['senha2']){
+		if($dados['senha_aluno'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
@@ -297,8 +310,6 @@ class Crud extends MY_Controller{
 			echo json_encode($retorno);
 			exit;
 		}
-
-
 
 		$resultado = $this->crud->insert($dados, $tabela);
 
@@ -328,14 +339,14 @@ class Crud extends MY_Controller{
 
 		$dados['id_usuario'] = $this->input->post('idEditar');
 		$dados['nome_aluno'] = $this->input->post("nomeEditar");
-		$dados['email'] = $this->input->post("emailEditar");
+		$dados['email_aluno'] = $this->input->post("emailEditar");
 		$dados['tb_classe_id_classe'] = $this->input->post("classeEditar");
-		$dados['senha'] = $this->input->post("senhaEditar");
+		$dados['senha_aluno'] = $this->input->post("senhaEditar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
-		$dados['stat'] = $this->input->post("statEditar");
+		$dados['status'] = $this->input->post("statEditar");
 
 
-		if($dados['senha'] != $repetirSenha['senha2']){
+		if($dados['senha_aluno'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= 'As senhas digitadas não correspondem | ';
@@ -386,9 +397,9 @@ class Crud extends MY_Controller{
 		
 		
 
-		$dados['stat'] = $this->input->post("statDesativar");
+		$dados['status'] = $this->input->post("statDesativar");
 
-		if($dados['stat'] === 0){
+		if($dados['status'] === 0){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= 'Usuário já foi desativado';

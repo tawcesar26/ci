@@ -70,6 +70,14 @@
 						</select>
 					</div>
 					<div class="form-group">
+						<label for="discCadastrar">Disciplina</label>
+						<select class="form-control" id="discCadastrar" name="discCadastrar" required>
+							<option value="" >Selecionar a disciplina:</option>
+							<option value="101" >Matematica</option>
+							<option value="102" >Português</option>
+						</select>
+					</div>
+					<div class="form-group">
 						<label for="senhaCadastrar">Senha</label>
 						<input type="password" class="form-control" id="senhaCadastrar" name="senhaCadastrar" autocomplete="off" required>
 					</div>

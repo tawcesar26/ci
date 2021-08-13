@@ -7,7 +7,7 @@ function listarProfessores(){
 
 	$.ajax({
 
-		url: "listarProfessores",
+		url: "listarProfessor",
 		ajax: 'lista2.json',
 
 		success: function(lista2){

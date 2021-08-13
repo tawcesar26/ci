@@ -15,7 +15,7 @@ class Crud_model extends CI_Model{
 	public function dadosHomePage($tabela){
 
 		$this->db->select('*');
-		$this->db->where('stat !=', 0);
+		$this->db->where('status !=', 0);
 
 		$resultado = count($this->db->get($tabela)->result());
 
@@ -23,11 +23,11 @@ class Crud_model extends CI_Model{
 
 	}
 	
-	public function verificar($email,$tabela){
+	public function verificar($email,$tabela,$coluna){
 
 
 		$this->db->select('*');
-		$this->db->where('email', $email);
+		$this->db->where($coluna, $email);
 		return $this->db->get($tabela)->result();
 
 
@@ -44,7 +44,7 @@ class Crud_model extends CI_Model{
 		$id = $this->session->userdata('id');
 
 		$this->db->select("*");
-		$this->db->where('stat', 1);
+		$this->db->where('status', 1);
 		$this->db->where('idusuario !=', $id);
 
 		$this->db->order_by('idusuario', 'DESC');
@@ -68,7 +68,17 @@ class Crud_model extends CI_Model{
 	public function selectAllAlunos(){
 
 
-		$dados = $this->db->query('select * from tb_aluno as a join tb_classe as c on a.tb_classe_id_classe = id_classe where stat != 0;')->result();
+		$dados = $this->db->query('select * from tb_aluno as a join tb_classe as c on a.tb_classe_id_classe = id_classe where status = 1;')->result();
+
+
+		return $dados;
+
+	}
+
+	public function selectAllProfessores(){
+
+
+		$dados = $this->db->query('select * from tb_professor where status = 1;')->result();
 
 
 		return $dados;
@@ -87,7 +97,7 @@ class Crud_model extends CI_Model{
 	public function delete($tabela,$condicao,$coluna){
 
 
-		$this->db->set('stat', 0);
+		$this->db->set('status', 0);
 		$this->db->where($coluna, $condicao);
 		return $this->db->update($tabela);
 		

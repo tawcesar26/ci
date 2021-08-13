@@ -28,8 +28,8 @@ function listarAlunos(){
 						
 						'<td>'+ dados[i].id_usuario +'</td>'+
 						'<td>'+ dados[i].nome_aluno +'</td>'+
-						'<td>'+ dados[i].nome_classe +'</td>'+
-						'<td>'+ dados[i].email +'</td>'+
+						'<td>'+ dados[i].nome_classe +'</td>'+		
+						'<td>'+ dados[i].email_aluno +'</td>'+	
 						'<td>'+
 						'<button type="button" onclick="javascript:modalEditarAluno('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 						' '+
@@ -170,11 +170,11 @@ function modalEditarAluno(att){
 
 	$('#idEditar').val(dadosGlobaisAluno[att].id_usuario);
 	$('#nomeEditar').val(dadosGlobaisAluno[att].nome_aluno);
-	$('#emailEditar').val(dadosGlobaisAluno[att].email);
-	$('#senhaEditar').val(dadosGlobaisAluno[att].senha);
-	$('#senha2Editar').val(dadosGlobaisAluno[att].senha);
+	$('#emailEditar').val(dadosGlobaisAluno[att].email_aluno);
+	$('#senhaEditar').val(dadosGlobaisAluno[att].senha_aluno);
+	$('#senha2Editar').val(dadosGlobaisAluno[att].senha_aluno);
 	$('#classeEditar').val(dadosGlobaisAluno[att].tb_classe_id_classe);
-	$('#statEditar').val(dadosGlobaisAluno[att].stat);
+	$('#statEditar').val(dadosGlobaisAluno[att].status);
 
 } 
 
