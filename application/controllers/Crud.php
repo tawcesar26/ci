@@ -2,12 +2,14 @@
 
 defined('BASEPATH') OR exit ('No direct script acess allowed');
 
-class Crud extends MY_Controller{
+class Crud extends MY_ControllerAdm{
 
 	function __construct(){
 
 		parent::__construct();
-		$this->load->model('Crud_model','crud');		
+		$this->load->model('Crud_model','crud');
+
+
 
 
 	}

@@ -34,6 +34,7 @@ class Login extends CI_Controller {
                 $session = array(
                     'id' => $data[0] ->idusuario,
                     'nome' => $data[0] ->nome,
+                     'nivel' => 1,
                     'logado' => 1
                 );
                 $this->session->set_userdata($session);
@@ -53,6 +54,7 @@ class Login extends CI_Controller {
                 $session = array(
                     'id' => $data[0] ->id_usuario,
                     'nome' => $data[0] ->nome_professor,
+                    'nivel' => 2,
                     'logado' => 2
                 );
                 $this->session->set_userdata($session);

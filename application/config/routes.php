@@ -57,11 +57,11 @@ $route['home'] = 'Crud';
 $route['sair'] = 'Login/logout';
 
 
-//Rotas para as listas de usuários
+//Rotas para as as views de listagem
 $route['listaAdmin'] = 'Crud/listaAdmin';
 $route['listaAluno'] = 'Crud/listaAluno';
 $route['listaProfessor'] = 'Crud/listaProfessor';
-
+$route['listaClasses'] = 'Professor/listaclasses';
 
 //Rotas do Ajax
 //ADMINISTRADOR

@@ -21,30 +21,15 @@
           </span>
         </a>
       </li>
-      <li <?php if ($page == 'listar' || $page == 'listar2' || $page =='listar3') {echo 'class="treeview active"';}
-      else{
-        echo "class='treeview'";
-      } ?>>
-        <a href="#">
-         <i class="glyphicon glyphicon-user"></i> <span>Usuários do Sistema</span>
-         <span class="pull-right-container">
-          <i class="fa fa-angle-left pull-right"></i>
-        </span>
-      </a>
-      <ul class="treeview-menu">
-        <li  <?php if ($page == 'listar') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('listaAdmin'); ?>"><i class="fa fa-circle-o"></i> Administradores
-          </a>
-        </li>
-        <li  <?php if ($page == 'listar2') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('listaAluno'); ?>"><i class="fa fa-circle-o"></i> Alunos
-          </a>
-        </li>
-        <li  <?php if ($page == 'listar3') {echo 'class="active"';} ?> > 
-          <a href="<?php echo base_url('listaProfessor'); ?>"><i class="fa fa-circle-o"></i>Professores</a>
-        </li>
-      </ul>
-    </li>
+      <li <?php if ($page == 'listaClasses') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('listaClasses'); ?>">
+
+          <i class="glyphicon glyphicon-home"></i> <span>Minhas Classes</span>
+          <span class="pull-right-container">
+
+          </span>
+        </a>
+      </li>
   </ul>
 </section>
 <!-- /.sidebar -->

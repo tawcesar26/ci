@@ -6,7 +6,7 @@
 
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/jquery/dist/jquery.min.js"></script>
 
-<script src="<?php echo base_url(); ?>assets/js/ajaxProfessor.js"></script>
+<script src="<?php echo base_url(); ?>assets/js/ajaxClasses.js"></script>
 
 <script src="<?php echo base_url(); ?>assets/AdminLTE/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
