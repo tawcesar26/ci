@@ -268,7 +268,8 @@ function modalEditarProfessor(att){
 	$('#emailEditar').val(dadosGlobaisProfessor[att].email_professor);
 	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha_professor);
 	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha_professor);
-	$('#classeEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
+	$('#selectDiscEditar').val(dadosGlobaisProfessor[att].tb_disciplina_id_disciplina);
+	$('#selectClasseEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
 	$('#statEditar').val(dadosGlobaisProfessor[att].status);
 
 } 

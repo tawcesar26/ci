@@ -30,9 +30,9 @@
             <input type="password" placeholder="Senha:" required name="senha">
             <select type="text" required name="nivel">
               <option value="" disabled selected>Nível de Acesso:</option>
+               <option value="3">Aluno</option>
+              <option value="2">Professor</option>
               <option value="1">Administrador</option>
-              <option value="2">Opção 2</option>
-              <option value="3">Opção 3</option>
           </select>
              
             <br><br>

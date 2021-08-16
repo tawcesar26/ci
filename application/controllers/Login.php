@@ -30,35 +30,39 @@ class Login extends CI_Controller {
 
             $data = $this->Login_model->loginAdministrador($usuario,$senha);
 
-        }
-        //Login de Administrador///////////////////////////////////////////
-        /*if($id == 2){
+            if ($data==true) {
+                $session = array(
+                    'id' => $data[0] ->idusuario,
+                    'nome' => $data[0] ->nome,
+                    'logado' => 1
+                );
+                $this->session->set_userdata($session);
+                redirect('Crud');
+            } else {
+                $dados['erro'] = "Usuário e/ou Senha incorretos!";
+                $this->load->view("login", $dados);
+            }
 
-            $data = $this->Login_model->loginAluno($usuario,$senha);
-
         }
-        //Login de Administrador///////////////////////////////////////////
-        if($id == 3){
+        //Login de Professor///////////////////////////////////////////
+        if($id == 2){
 
             $data = $this->Login_model->loginProfessor($usuario,$senha);
 
-        }*/
+            if ($data==true) {
+                $session = array(
+                    'id' => $data[0] ->id_usuario,
+                    'nome' => $data[0] ->nome_professor,
+                    'logado' => 2
+                );
+                $this->session->set_userdata($session);
+                redirect('Professor');
+            } else {
+                $dados['erro'] = "Usuário e/ou Senha incorretos!";
+                $this->load->view("login", $dados);
+            }
 
-        if ($data==true) {
-            $session = array(
-                'id' => $data[0] ->idusuario,
-                'nome' => $data[0] ->nome,
-                'logado' => 1
-            );
-            $this->session->set_userdata($session);
-            redirect('Crud');
-        } else {
-            $dados['erro'] = "Usuário e/ou Senha incorretos!";
-            $this->load->view("login", $dados);
         }
-
-        ////////////////////////////////////////////////////////////////
-        
 
 
     }

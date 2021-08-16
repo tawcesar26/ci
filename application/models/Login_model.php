@@ -22,16 +22,24 @@ class Login_model extends CI_Model {
 		}
 	}
 
-	 public function logado(){
+	public function loginProfessor($login, $senha) {
 
-        $logado = $this->session->userdata('logado');
+		$status = 1;
+		
+		$this->db->where('email_professor', $login);
+		$this->db->where('senha_professor', $senha);
+		$this->db->where('status', $status);
 
-        if(!isset($logado) || $logado != TRUE){
 
-            redirect('Login');
+		$data = $this->db->get('tb_professor')->result();
 
-       }
-   }
+		if (count($data) == 1) {
+			return $data;
+		} else {
+			return false;
+		}
+	}
+
 
    public function logout(){
 		$this->session->unset_userdata("logado");
