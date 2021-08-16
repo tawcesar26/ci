@@ -29,7 +29,6 @@ function listarProfessores(){
 			            $('<tr>')
 			                .append($('<td>').append(dados[i].id_usuario))
 			                .append($('<td>').append(dados[i].nome_professor))
-			                .append($('<td>').append(dados[i].nome_classe))
 			                .append($('<td>').append(dados[i].nome_disciplina))
 			                .append($('<td>').append(dados[i].email_professor))
 			                .append(
@@ -84,25 +83,27 @@ function listarClasses(){
 
 			var dados = JSON.parse(dados);
 
-			$('#selectClasse').html('');
+			$('#selectClasses').html('');
 
 			if(dados.length > 0)
 			{
 				for (var i = 0; i < dados.length; i++) 
 				{
-					$('#selectClasse').append(
-						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
+					$('#selectClasses').append(
+						'<input class="form-check-input" type="checkbox" id="selectClasse[]" name="selectClasse[]" value="'+ dados[i].id_classe +'">'+
+					  	'<label class="form-check-label" for="inlineCheckbox1">'+dados[i].nome_classe+'</label><br>'
 
 						);
 
 					$('#selectClasseEditar').append(
-						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
+						'<input class="form-check-input" type="checkbox" id="selectClasseEditar[]" value="'+ dados[i].id_disciplina +'">'+
+					  	'<label class="form-check-label" for="inlineCheckbox1">'+dados[i].nome_disciplina+'</label><br>'
 
 						);
 				}
 			}else
 			{
-				$('#selectClasse').append(
+				$('#selectClasses').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
 				$('#selectClasseEditar').append(

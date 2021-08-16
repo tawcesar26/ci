@@ -34,6 +34,7 @@ class Crud extends MY_ControllerAdm{
 		$this->template->views1('home', $dados);
 
 	}
+	
 ///TELAS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function listaAdmin(){
 
@@ -519,7 +520,6 @@ class Crud extends MY_ControllerAdm{
 
 		$dados['nome_professor'] = $this->input->post("nomeCadastrar");
 		$dados['email_professor'] = $this->input->post("emailCadastrar");
-		$dados['tb_classe_id_classe'] = $this->input->post("selectClasse");
 		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDisc");
 		$dados['senha_professor'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
@@ -551,7 +551,7 @@ class Crud extends MY_ControllerAdm{
 			echo json_encode($retorno);
 			exit;
 		}
-
+		
 		$resultado = $this->crud->insert($dados, $tabela);
 
 		if($resultado){
@@ -567,6 +567,7 @@ class Crud extends MY_ControllerAdm{
 			echo json_encode($retorno);
 
 		}
+
 
 	}
 

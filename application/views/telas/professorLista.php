@@ -19,7 +19,6 @@
 	<tr>
 		<th>ID</th>
 		<th>Nome</th>
-		<th>Curso</th>
 		<th>Disciplina</th>
 		<th>E-mail</th>
 		<th>Ações</th>
@@ -69,19 +68,16 @@
 					<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" required>
 				</div>
 				<div class="form-group">
-					<label for="selectClasse">Classe</label>
-					<select class="form-control" id="selectClasse" name="selectClasse" required>
-
-						<!-- PREENCHIDO VIA AJAX COM AS CLASSES -->
-
-					</select>
+					<label for="selectClasse">Classe:</label>
+					<div id="selectClasses">
+					
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="selectDisc">Disciplina</label>
 					<select class="form-control" id="selectDisc" name="selectDisc" required>
 
-						<!-- PREENCHIDO VIA AJAX COM AS DISCIPLINAS -->
-
+						
 					</select>
 				</div>
 				<div class="form-group">

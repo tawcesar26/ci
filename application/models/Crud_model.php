@@ -80,7 +80,6 @@ class Crud_model extends CI_Model{
 
 		$dados = $this->db->query('
 			SELECT * FROM tb_professor
-			INNER JOIN tb_classe ON tb_classe.id_classe = tb_professor.tb_classe_id_classe
 			INNER JOIN tb_disciplina ON tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina
 			WHERE status =1
 			ORDER BY id_usuario DESC;')->result();
