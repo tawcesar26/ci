@@ -525,6 +525,8 @@ class Crud extends MY_ControllerAdm{
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
 		$dados['status'] = $this->input->post("statCadastrar");
 
+		$classes = $this->input->post('selectClasse');
+
 		$email = $dados['email_professor'];
 		$tabela = 'tb_professor';
 		$coluna = 'email_professor';
@@ -551,14 +553,33 @@ class Crud extends MY_ControllerAdm{
 			echo json_encode($retorno);
 			exit;
 		}
-		
+
+
+
+	
 		$resultado = $this->crud->insert($dados, $tabela);
 
 		if($resultado){
 
+
+			foreach ($classes as $row){
+
+				$dados = array(
+
+					'email_professor'=> $email,
+					'id_classe'=> $row
+
+				);	
+
+				$this->crud->insertClasses($dados);					
+
+			}
+
 			$retorno['ret'] = true;
 			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
 			echo json_encode($retorno);
+
+			
 
 		}else{
 

@@ -137,12 +137,10 @@
 					<input type="email" class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
 				</div>
 				<div class="form-group">
-					<label for="selectClasseEditar">Classe</label>
-					<select class="form-control" id="selectClasseEditar" name="selectClasseEditar" required>
-
-						<!-- PREENCHIDO VIA AJAX COM AS CLASSES -->
-
-					</select>
+					<label for="selectClasse">Classe:</label>
+					<div id="selectClassesEditar">
+					
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="selectDiscEditar">Disciplina</label>

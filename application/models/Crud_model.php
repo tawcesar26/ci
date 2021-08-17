@@ -36,7 +36,14 @@ class Crud_model extends CI_Model{
 	public function insert($dados, $tabela){
 
 		return $this->db->insert($tabela, $dados);
+
 	}
+
+	public function insertClasses($dados){
+
+		$this->db->insert('tb_professor_classe',$dados);
+
+	} 
 
 
 	public function selectAll(){

@@ -71,7 +71,6 @@ function listarProfessores(){
 	});
 }
 
-
 function listarClasses(){
 
 	$.ajax({
@@ -95,9 +94,9 @@ function listarClasses(){
 
 						);
 
-					$('#selectClasseEditar').append(
-						'<input class="form-check-input" type="checkbox" id="selectClasseEditar[]" value="'+ dados[i].id_disciplina +'">'+
-					  	'<label class="form-check-label" for="inlineCheckbox1">'+dados[i].nome_disciplina+'</label><br>'
+					$('#selectClassesEditar').append(
+						'<input class="form-check-input" type="checkbox" id="selectClasseEditar[]" value="'+ dados[i].id_classe +'">'+
+					  	'<label class="form-check-label" for="inlineCheckbox1">'+dados[i].nome_classe+'</label><br>'
 
 						);
 				}
@@ -106,7 +105,7 @@ function listarClasses(){
 				$('#selectClasses').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
-				$('#selectClasseEditar').append(
+				$('#selectClassesEditar').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
 			}
@@ -125,6 +124,8 @@ function listarDisciplinas(){
 		success: function(dados){
 
 			var dados = JSON.parse(dados);
+
+
 
 			$('#selectDisc').html('');
 
@@ -270,7 +271,6 @@ function modalEditarProfessor(att){
 	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha_professor);
 	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha_professor);
 	$('#selectDiscEditar').val(dadosGlobaisProfessor[att].tb_disciplina_id_disciplina);
-	$('#selectClasseEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
 	$('#statEditar').val(dadosGlobaisProfessor[att].status);
 
 } 
