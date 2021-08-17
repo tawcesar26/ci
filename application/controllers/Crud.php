@@ -34,7 +34,6 @@ class Crud extends MY_ControllerAdm{
 		$this->template->views1('home', $dados);
 
 	}
-	
 ///TELAS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	public function listaAdmin(){
 
@@ -520,12 +519,11 @@ class Crud extends MY_ControllerAdm{
 
 		$dados['nome_professor'] = $this->input->post("nomeCadastrar");
 		$dados['email_professor'] = $this->input->post("emailCadastrar");
+		$dados['tb_classe_id_classe'] = $this->input->post("selectClasse");
 		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDisc");
 		$dados['senha_professor'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
 		$dados['status'] = $this->input->post("statCadastrar");
-
-		$classes = $this->input->post('selectClasse');
 
 		$email = $dados['email_professor'];
 		$tabela = 'tb_professor';
@@ -554,32 +552,13 @@ class Crud extends MY_ControllerAdm{
 			exit;
 		}
 
-
-
-	
 		$resultado = $this->crud->insert($dados, $tabela);
 
 		if($resultado){
 
-
-			foreach ($classes as $row){
-
-				$dados = array(
-
-					'email_professor'=> $email,
-					'id_classe'=> $row
-
-				);	
-
-				$this->crud->insertClasses($dados);					
-
-			}
-
 			$retorno['ret'] = true;
 			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
 			echo json_encode($retorno);
-
-			
 
 		}else{
 
@@ -588,7 +567,6 @@ class Crud extends MY_ControllerAdm{
 			echo json_encode($retorno);
 
 		}
-
 
 	}
 

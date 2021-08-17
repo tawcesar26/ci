@@ -29,6 +29,7 @@ function listarProfessores(){
 			            $('<tr>')
 			                .append($('<td>').append(dados[i].id_usuario))
 			                .append($('<td>').append(dados[i].nome_professor))
+			                .append($('<td>').append(dados[i].nome_classe))
 			                .append($('<td>').append(dados[i].nome_disciplina))
 			                .append($('<td>').append(dados[i].email_professor))
 			                .append(
@@ -71,6 +72,7 @@ function listarProfessores(){
 	});
 }
 
+
 function listarClasses(){
 
 	$.ajax({
@@ -82,30 +84,28 @@ function listarClasses(){
 
 			var dados = JSON.parse(dados);
 
-			$('#selectClasses').html('');
+			$('#selectClasse').html('');
 
 			if(dados.length > 0)
 			{
 				for (var i = 0; i < dados.length; i++) 
 				{
-					$('#selectClasses').append(
-						'<input class="form-check-input" type="checkbox" id="selectClasse[]" name="selectClasse[]" value="'+ dados[i].id_classe +'">'+
-					  	'<label class="form-check-label" for="inlineCheckbox1">'+dados[i].nome_classe+'</label><br>'
+					$('#selectClasse').append(
+						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
 
 						);
 
-					$('#selectClassesEditar').append(
-						'<input class="form-check-input" type="checkbox" id="selectClasseEditar[]" value="'+ dados[i].id_classe +'">'+
-					  	'<label class="form-check-label" for="inlineCheckbox1">'+dados[i].nome_classe+'</label><br>'
+					$('#selectClasseEditar').append(
+						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
 
 						);
 				}
 			}else
 			{
-				$('#selectClasses').append(
+				$('#selectClasse').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
-				$('#selectClassesEditar').append(
+				$('#selectClasseEditar').append(
 					'<option value="" >Nenhuma classe cadastrada</option>'
 					);
 			}
@@ -124,8 +124,6 @@ function listarDisciplinas(){
 		success: function(dados){
 
 			var dados = JSON.parse(dados);
-
-
 
 			$('#selectDisc').html('');
 
@@ -271,6 +269,7 @@ function modalEditarProfessor(att){
 	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha_professor);
 	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha_professor);
 	$('#selectDiscEditar').val(dadosGlobaisProfessor[att].tb_disciplina_id_disciplina);
+	$('#selectClasseEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
 	$('#statEditar').val(dadosGlobaisProfessor[att].status);
 
 } 
