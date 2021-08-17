@@ -13,7 +13,7 @@
       <li class="header">MENU</li>
       
       <li <?php if ($page == 'home') {echo 'class="active"';} ?>>
-        <a href="<?php echo base_url('home'); ?>">
+        <a href="<?php echo base_url('homeProfessor'); ?>">
 
           <i class="glyphicon glyphicon-home"></i> <span>Página Inicial</span>
           <span class="pull-right-container">
@@ -22,7 +22,7 @@
         </a>
       </li>
       <li <?php if ($page == 'listaClasses') {echo 'class="active"';} ?>>
-        <a href="<?php echo base_url('listaClasses'); ?>">
+        <a href="<?php echo base_url('listaClassesProfessor'); ?>">
 
           <i class="glyphicon glyphicon-home"></i> <span>Minhas Classes</span>
           <span class="pull-right-container">

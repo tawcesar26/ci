@@ -7,7 +7,7 @@ class Professor extends MY_ControllerProfessor{
 	function __construct(){
 
 		parent::__construct();
-		//$this->load->model('Professor_model','crud');		
+		$this->load->model('Professor_model','crud');		
 
 
 	}
@@ -25,7 +25,7 @@ class Professor extends MY_ControllerProfessor{
 
 	}
 
-	public function listaClasses(){
+	public function listaClassesProfessor(){
 
 		$dados = array(
 			'titulo' => 'CRUD &raquo; Listagem',
@@ -35,6 +35,27 @@ class Professor extends MY_ControllerProfessor{
 
 		$this->template->view_professor('telas/classesLista',$dados);
 
+	}
+
+	public function tabelaClasses(){
+
+		$id = $this->session->userdata('id');
+
+		$resultado = $this->crud->selectAllClasses($id);
+
+		echo json_encode($resultado);
+
+		
+	}
+
+	public function tabelaAlunos(){
+
+
+		$resultado = $this->crud->selectAllClasses($id);
+
+		echo json_encode($resultado);
+
+		
 	}
 
 

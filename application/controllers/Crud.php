@@ -101,7 +101,7 @@ class Crud extends MY_ControllerAdm{
 		$id = 'tb_professor';
 
 		$resultado = $this->crud->selectAllProfessores($id);
-
+		
 		echo json_encode($resultado);
 
 		

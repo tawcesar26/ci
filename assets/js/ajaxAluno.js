@@ -15,7 +15,7 @@ function listarAlunos(){
 			var dados = JSON.parse(dados);
 
 			dadosGlobaisAluno = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
-
+			
 			var tamanhoPagina = 10;
 			var pagina = 0;
 

@@ -56,12 +56,14 @@ $route['translate_uri_dashes'] = FALSE;
 $route['home'] = 'Crud';
 $route['sair'] = 'Login/logout';
 
+$route['homeProfessor'] = 'Professor';
+
 
 //Rotas para as as views de listagem
 $route['listaAdmin'] = 'Crud/listaAdmin';
 $route['listaAluno'] = 'Crud/listaAluno';
 $route['listaProfessor'] = 'Crud/listaProfessor';
-$route['listaClasses'] = 'Professor/listaclasses';
+$route['listaClassesProfessor'] = 'Professor/listaClassesProfessor';
 
 //Rotas do Ajax
 //ADMINISTRADOR
@@ -83,6 +85,9 @@ $route['editarProfessor']['post'] = 'Crud/editarProfessor';
 $route['desabilitarProfessor']['post'] = 'Crud/desabilitarProfessor';
 $route['listarClasses'] = 'Crud/listarClasses';
 $route['listarDisciplinas'] = "Crud/listarDisciplinas";
+
+$route['tabelaClasses'] = "Professor/tabelaClasses";
+$route['tabelaAlunos'] = "Professor/tabelaAlunos";
 
 //Exportar XLS
 $route['exportarAdm'] = 'Crud/exportarAdm';
