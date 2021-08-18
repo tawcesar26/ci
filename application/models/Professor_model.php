@@ -16,29 +16,29 @@ class Professor_model extends CI_Model{
 	public function selectAllClasses($id){
 
 
-		$dados = $this->db->query('
+		$this->db->select('*');
+		$this->db->from('tb_classe');
+		$this->db->join('tb_professor', 'tb_professor.tb_classe_id_classe = tb_classe.id_classe');
+		$this->db->join('tb_disciplina', 'tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina');
+		$this->db->where('tb_professor.id_usuario', $id);
 
-			SELECT * FROM tb_classe
-			INNER JOIN tb_professor ON tb_professor.tb_classe_id_classe = tb_classe.id_classe
-			INNER JOIN tb_disciplina ON tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina
-			WHERE id_usuario = '.$id.';')->result();
+		return $this->db->get()->result();
 
-
-		return $dados;
 
 	}
 
 	public function selectAllAlunos($id){
 
 
-		$dados = $this->db->query('
+		$this->db->select('*');
+		$this->db->from('tb_aluno');
+		$this->db->join('tb_professor', 'tb_professor.tb_classe_id_classe = tb_aluno.tb_classe_id_classe');
+		$this->db->join('tb_classe', 'tb_classe.id_classe = tb_professor.tb_classe_id_classe');
+		$this->db->where('tb_professor.id_usuario', $id);
 
-			SELECT * from tb_aluno
-			INNER JOIN tb_professor ON tb_aluno.tb_classe_id_classe = tb_professor.tb_classe_id_classe
-			INNER JOIN tb_classe ON tb_aluno.tb_classe_id_classe = tb_classe.id_classe
-			where tb_professor.id_usuario = '.$id.';')->result();
+		return $this->db->get()->result();
 
-		return $dados;
+	
 
 	}
 
