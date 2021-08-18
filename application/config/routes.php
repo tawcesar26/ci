@@ -93,3 +93,5 @@ $route['tabelaAlunos'] = "Professor/tabelaAlunos";
 $route['exportarAdm'] = 'Crud/exportarAdm';
 $route['exportarAluno'] = 'Crud/exportarAluno';
 $route['exportarProfessor'] = 'Crud/exportarProfessor';
+
+$route['listaAlunosProfessor'] = 'Professor/listaAlunosProfessor';

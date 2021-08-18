@@ -36,6 +36,17 @@ class Professor extends MY_ControllerProfessor{
 		$this->template->view_professor('telas/classesLista',$dados);
 
 	}
+	public function listaAlunosProfessor(){
+
+		$dados = array(
+			'titulo' => 'CRUD &raquo; Listagem',
+			'page' => "listaClasses",
+			'descricao' => "Meus Alunos",
+		);
+
+		$this->template->view_professor('telas/gerenciarAlunos',$dados);
+
+	}
 
 	public function tabelaClasses(){
 
@@ -45,17 +56,17 @@ class Professor extends MY_ControllerProfessor{
 
 		echo json_encode($resultado);
 
-		
-	}
 
+
+	}
 	public function tabelaAlunos(){
 
+		$id = $this->session->userdata('id');
 
-		$resultado = $this->crud->selectAllClasses($id);
-
+		$resultado = $this->crud->selectAllAlunos($id);
+		
 		echo json_encode($resultado);
 
-		
 	}
 
 

@@ -46,7 +46,7 @@ class Login extends CI_Controller {
 
         }
         //Login de Professor///////////////////////////////////////////
-        if($id == 2){
+        else if($id == 2){
 
             $data = $this->Login_model->loginProfessor($usuario,$senha);
 
@@ -65,6 +65,12 @@ class Login extends CI_Controller {
             }
 
         }
+
+        else {
+                $dados['erro'] = "Usuário e/ou Senha incorretos!";
+                $this->load->view("login", $dados);
+        }
+
 
 
     }

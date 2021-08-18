@@ -28,6 +28,19 @@ class Professor_model extends CI_Model{
 
 	}
 
+	public function selectAllAlunos($id){
+
+
+		$dados = $this->db->query('
+
+			SELECT * from tb_aluno
+			INNER JOIN tb_professor ON tb_aluno.tb_classe_id_classe = tb_professor.tb_classe_id_classe
+			where tb_professor.id_usuario = '.$id.';')->result();
+
+		return $dados;
+
+	}
+
 
 }
 

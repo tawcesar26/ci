@@ -6,7 +6,7 @@
 
 <div class="row" style="width: 80%;margin-left: 10px">
 
-<!--<a href="<?php echo base_url('exportarProfessor'); ?>"> <button type="button" class="btn btn-sm btn-info mr-2"> Exportar Excel</button></a>-->
+<a href="<?php echo base_url('listaClassesProfessor'); ?>"> <button type="button" class="btn btn-sm btn-info mr-2"><< Voltar</button></a>
 
 
 </div>
@@ -19,15 +19,13 @@
 	<tr>
 		<th>ID</th>
 		<th>Nome</th>
-		<th>Classe</th>
-		<th>Disciplina</th>
 		<th>Ações</th>
 	</tr>
 </thead>
-<tbody id="tabelaClasses">
+<tbody id="tabelaAlunos">
 
 
-</tbody>	
+          </tbody>  
 </table>
 <center>
   <ul class="pagination">
@@ -39,7 +37,7 @@
 
 
 
-<!-- Modal -->
+<!-- Modal 
 <div class="modal fade" id="modalTabelaAlunos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -71,7 +69,7 @@
     </div>
   </div>
 </div>
-
+-->
 
 
 
