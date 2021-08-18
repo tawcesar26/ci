@@ -16,8 +16,6 @@ function listarClasses(){
 
 			var dados = JSON.parse(dados);
 
-			dadosGlobaisClasse = dados;
-
 			var tamanhoPagina = 10;
 			var pagina = 0;
 
@@ -86,6 +84,7 @@ function listarAlunos(){
 			var dados = JSON.parse(dados);
 
 			dadosGlobaisClasse = dados;
+
 			$('#tabelaAlunos').html('');
 
 			if(dados.length > 0)
@@ -94,8 +93,7 @@ function listarAlunos(){
 				for (var i = 0; i < dados.length; i++) 
 				{
 					$('#tabelaAlunos').append(
-						'<tr>'+
-						
+						'<tr>'+			
 						'<td>'+ dados[i].nome_aluno +'</td>'+
 						'<td>S/N</td>'+
 						'<td>S/N</td>'+
@@ -103,7 +101,7 @@ function listarAlunos(){
 						'<td>S/N</td>'+
 						'<td>S/N</td>'+
 						'<td>'+
-						'<button type="button" onclick="javascript:modalEditarNota('+ i +');" class="btn btn-sm btn-success mr-2" >Editar Notas</button>'+
+						(0 > 0 ? '<button type="button" onclick="javascript:modalEditarNota('+ i +');" class="btn btn-sm btn-success mr-2" >Inserir Nota</button>' : '<button type="button" onclick="javascript:modalEditarNota('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar Nota</button>') +
 						'</td>'+		
 						'</tr>'	
 
@@ -145,9 +143,22 @@ function redirectAlunos(){
 
 }
 
-function modalEditarNota(){
+function modalEditarNota(id){
 
 	$('#modalEditarNota').modal('show');
+
+	$('#tituloNome').html(dadosGlobaisClasse[id].nome_aluno);
+	$('#tituloClasse').html(dadosGlobaisClasse[id].n);
+	$('#tituloDisciplina').html(dadosGlobaisClasse[id].nome_aluno);
+
+	$('#idEditar').val(dadosGlobaisClasse[id].id_usuario);
+	$('#nomeEditar').val(dadosGlobaisClasse[id].nome_professor);
+	$('#emailEditar').val(dadosGlobaisClasse[id].email_professor);
+	$('#senhaEditar').val(dadosGlobaisClasse[id].senha_professor);
+	$('#senha2Editar').val(dadosGlobaisClasse[id].senha_professor);
+	$('#selectDiscEditar').val(dadosGlobaisClasse[id].tb_disciplina_id_disciplina);
+	$('#selectClasseEditar').val(dadosGlobaisClasse[id].tb_classe_id_classe);
+	$('#statEditar').val(dadosGlobaisClasse[id].status);
 } 
 
 

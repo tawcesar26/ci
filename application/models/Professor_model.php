@@ -35,6 +35,7 @@ class Professor_model extends CI_Model{
 
 			SELECT * from tb_aluno
 			INNER JOIN tb_professor ON tb_aluno.tb_classe_id_classe = tb_professor.tb_classe_id_classe
+			INNER JOIN tb_classe ON tb_aluno.tb_classe_id_classe = tb_classe.id_classe
 			where tb_professor.id_usuario = '.$id.';')->result();
 
 		return $dados;

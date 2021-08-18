@@ -338,6 +338,7 @@ class Crud extends MY_ControllerAdm{
 
 		$resultado = $this->crud->insert($dados, $tabela);
 
+
 		if($resultado){
 
 			$retorno['ret'] = true;

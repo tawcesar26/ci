@@ -35,7 +35,30 @@ class Crud_model extends CI_Model{
 
 	public function insert($dados, $tabela){
 
-		return $this->db->insert($tabela, $dados);
+		if($tabela = 'tb_aluno'){
+
+			$result = $this->db->insert($tabela, $dados);
+
+			$id = $this->db->insert_id();
+
+			$dadosNota = array(
+
+				'id_aluno_nota'=> $id,
+				'nota1'=>0.0,
+				'nota2'=>0.0,
+				'nota3'=>0.0,
+				'nota4'=>0.0,
+			);
+
+			$this->db->insert('tb_nota',$dadosNota);
+
+			return $result;
+
+		}else{
+
+			return $this->db->insert($tabela, $dados);
+		}
+
 	}
 
 

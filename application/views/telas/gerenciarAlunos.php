@@ -49,7 +49,7 @@
 
       </div>
 
-      <h3 style="display:block; text-align:center;">Editar - <strong id="tituloNome"></strong></h3>
+      <h3 style="display:block; text-align:center;">Nota</h3>
     </div>
 
     <form id="formEditarProfessor">
@@ -57,38 +57,33 @@
       <!-- MODAL BODY ------------------------------------- -->
       <div class="modal-body">
 
-        
+        <h4>Dados do Aluno</h4>
+        <p>Nome: <em id="tituloNome"></em></p>
+        <p>Classe: <em id="tituloClasse"></em></p>
+        <p>Disciplina: <em id="tituloDisciplina"></em></p>
 
+      
             <div class="box-body">
-                <div class="form-group">
-                <label for="nomeEditar">Nome</label>
-                <input type="text" class="form-control" id="nome" autofocus name="nomeEditar" autocomplete="off">
-              </div>
               <div class="row">
                 <div class="col-xs-3">
                   <label for="nomeEditar">Nota 1</label>
-                  <input type="number" class="form-control" id="nota" name="nota" data-mask="00.00" maxlength="10" placeholder="Nota 1">
+                  <input type="number" class="form-control" id="nota1" name="nota1" placeholder="Exemplo: 99.9">
                 </div>
                 <div class="col-xs-3">
                   <label for="nomeEditar">Nota 2</label>
-                  <input type="number" class="form-control" placeholder="Nota 2">
+                  <input type="number" class="form-control" id="nota2" name="nota2" placeholder="Exemplo: 99.9">
                 </div>
                 <div class="col-xs-3">
                   <label for="nomeEditar">Nota 3</label>
-                  <input type="number" class="form-control" placeholder="Nota 3">
+                  <input type="number" class="form-control" id="nota3" name="nota3" placeholder="Exemplo: 99.9">
                 </div>
                  <div class="col-xs-3">
                   <label for="nomeEditar">Nota 4</label>
-                  <input type="number" class="form-control" placeholder="Nota 4">
+                  <input type="number" class="form-control" id="nota4" name="nota4" placeholder="Exemplo: 99.9">
                 </div>
 
               </div>
             </div>
-
-
-
-
-
 
         </div>
         <!-- MODAL FOOTER ------------------------------------- -->
