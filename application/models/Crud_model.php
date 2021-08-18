@@ -68,7 +68,7 @@ class Crud_model extends CI_Model{
 	public function selectAllAlunos(){
 
 
-		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE status = 1 ORDER BY id_usuario DESC;')->result();
+		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE status = 1 ORDER BY id_aluno DESC;')->result();
 
 
 		return $dados;

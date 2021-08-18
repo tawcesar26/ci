@@ -362,7 +362,7 @@ class Crud extends MY_ControllerAdm{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['id_usuario'] = $this->input->post('idEditar');
+		$dados['id_aluno'] = $this->input->post('idEditar');
 		$dados['nome_aluno'] = $this->input->post("nomeEditar");
 		$dados['email_aluno'] = $this->input->post("emailEditar");
 		$dados['tb_classe_id_classe'] = $this->input->post("classeEditar");
@@ -441,7 +441,7 @@ class Crud extends MY_ControllerAdm{
 
 		$condicao = $this->input->post('idDesativar');
 		$tabela = 'tb_aluno';
-		$coluna = 'id_usuario';
+		$coluna = 'id_aluno';
 
 		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
 

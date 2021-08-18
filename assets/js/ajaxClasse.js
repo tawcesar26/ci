@@ -96,8 +96,15 @@ function listarAlunos(){
 					$('#tabelaAlunos').append(
 						'<tr>'+
 						
-						'<td>'+ dados[i].id_usuario +'</td>'+
-						'<td>'+ dados[i].nome_aluno +'</td>'+		
+						'<td>'+ dados[i].nome_aluno +'</td>'+
+						'<td>S/N</td>'+
+						'<td>S/N</td>'+
+						'<td>S/N</td>'+
+						'<td>S/N</td>'+
+						'<td>S/N</td>'+
+						'<td>'+
+						'<button type="button" onclick="javascript:modalEditarNota('+ i +');" class="btn btn-sm btn-success mr-2" >Editar Notas</button>'+
+						'</td>'+		
 						'</tr>'	
 
 						);
@@ -136,11 +143,12 @@ function redirectAlunos(){
 
 	window.location.href = "listaAlunosProfessor";
 
-	//$('#modalTabelaAlunos').modal('show');
+}
 
-	//$('#idClasse').val(dadosGlobaisClasse[id].tb_classe_id_classe);
-	
-	//$('#idDisciplina').val(dadosGlobaisClasse[id].tb_disciplina_id_disciplina);
+function modalEditarNota(){
 
+	$('#modalEditarNota').modal('show');
 } 
+
+
 
