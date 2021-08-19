@@ -35,7 +35,7 @@ class Crud_model extends CI_Model{
 
 	public function insert($dados, $tabela){
 
-		if($tabela = 'tb_aluno'){
+		if($tabela === 'tb_aluno'){
 
 			$result = $this->db->insert($tabela, $dados);
 

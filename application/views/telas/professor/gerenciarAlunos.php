@@ -13,8 +13,7 @@
 
 <!------Tabela de Listagem-------------->
 <br>
-
-<table class="table mt-4 table-bordered table-hover table-striped">
+<table class="table mt-4 table-bordered table-hover table-striped" >
 <thead>
 	<tr>
 		<th>Nome</th>
@@ -26,12 +25,12 @@
 		<th>Ações</th>
 	</tr>
 </thead>
+
 <tbody id="tabelaAlunos">
 
+</tbody>
 
-</tbody>  
 </table>
-
 
 
 <!----------------------INICIO DO MODAL EDITAR----------------------------------->
