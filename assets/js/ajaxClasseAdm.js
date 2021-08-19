@@ -1,38 +1,36 @@
 
 
-listarAlunos();
+listarClasses();
 
-
-function listarAlunos(){
+function listarClasses(){
 
 	$.ajax({
 
-		url: "listarAlunos",
-		ajax: 'dados.json',
+		url: "listarClasses",
+		ajax: 'dados2.json',
 
 		success: function(dados){
 
 			var dados = JSON.parse(dados);
 
-			dadosGlobaisAluno = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
+			dadosGlobaisClasse = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
 			
 			var tamanhoPagina = 10;
 			var pagina = 0;
 
 			function paginar() {
-			    $('table > tbody > tr').remove();
-			    var tbody = $('table > tbody');
+			    $('#tabelaClasse').html();
+			   
 			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
-			        tbody.append(
+			        $('#tabelaClasse').append(
 			            $('<tr>')
-			                .append($('<td>').append(dados[i].id_aluno))
-			                .append($('<td>').append(dados[i].nome_aluno))
+			                .append($('<td>').append(dados[i].id_classe))
 			                .append($('<td>').append(dados[i].nome_classe))
-			                .append($('<td>').append(dados[i].email_aluno))
 			                .append(
-			                	'<td><button type="button" onclick="javascript:modalEditarAluno('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+			                	'<td><button type="button" onclick="javascript:modalEditarClasse('+ i +');" class="btn btn-sm btn-default mr-2" ><i class="glyphicon glyphicon-cog"></i></button>'+
+			                	'<td><button type="button" onclick="javascript:modalEditarClasse('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 								' '+
-								'<button type="button" onclick="javascript:modalDesativarAluno('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
+								'<button type="button" onclick="javascript:modalDesativarClasse('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
 								)
 			        )
 			    }
@@ -70,39 +68,35 @@ function listarAlunos(){
 	});
 }
 
-////// CADASTRO ALUNO  ///////////////////////////////////////////////////////////////////////////////////////////
-$('#formCadastrarAluno').submit(function(e) 
+////// CADASTRO CLASSE  ///////////////////////////////////////////////////////////////////////////////////////////
+$('#formCadastrarClasse').submit(function(e) 
 {
 	e.preventDefault();
 	var dados = $(this);
-	var retorno = cadastrarAluno(dados);
+	var retorno = cadastrarClasse(dados);
 
 });
 
-function modalCadastrarAluno(){
+function modalCadastrarClasse(){
 
-	$('#modalCadastrarAluno').modal('show');
+	$('#modalCadastrarClasse').modal('show');
 
 } 
 
-function cadastrarAluno(dados)
+function cadastrarClasse(dados)
 {
 
 	$.ajax({ //Abrindo o AJAX
 
 		type: "POST",
 		data: dados.serialize(),
-		url: "cadastrarAluno",
+		url: "cadastrarClasse",
 		dataType: 'json',
 
 		beforeSend: function()
 		{
 			$('#nomeCadastrar').prop("disabled",true);
-			$('#emailCadastrar').prop("disabled",true);
-			$('#senhaCadastrar').prop("disabled",true);
-			$('#senha2Cadastrar').prop("disabled",true);
-			$('#classeCadastrar').prop("disabled",true);
-			$('#botaoCadastrar').text('Cadastrando... ').prop("disabled",true);
+		
 
 		},
 
@@ -125,11 +119,7 @@ function cadastrarAluno(dados)
 					);
 
 				$('#nomeCadastrar').prop("disabled",false);
-				$('#emailCadastrar').prop("disabled",false);
-				$('#senhaCadastrar').prop("disabled",false);
-				$('#senha2Cadastrar').prop("disabled",false);
-				$('#classeCadastrar').prop("disabled",false);
-				$('#botaoCadastrar').text('Tentar novamente... ').prop("disabled",false);
+				
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close');});
 
@@ -149,14 +139,14 @@ function cadastrarAluno(dados)
 
 					);
 
-				$('#formCadastrarAluno').each(function(){
+				$('#formCadastrarClasse').each(function(){
 					this.reset();
 				});
 				
 
-				$('#modalCadastrarAluno').modal('hide');
+				$('#modalCadastrarClasse').modal('hide');
 
-				listarAlunos();
+				listarClasses();
 
 				$('.alert').delay(5000).slideUp(500, function(){ $(this).alert('close');});
 
@@ -170,46 +160,38 @@ function cadastrarAluno(dados)
 }
 
 ////// EDITAR ALUNO ///////////////////////////////////////////////////////////////////////////////////////////
-function modalEditarAluno(att){
+function modalEditarClasse(att){
 
-	$('#modalEditarAluno').modal('show');
+	$('#modalEditarClasse').modal('show');
 
 	$('#tituloNome').html(dadosGlobaisAluno[att].nome_aluno);
 
 	$('#idEditar').val(dadosGlobaisAluno[att].id_usuario);
 	$('#nomeEditar').val(dadosGlobaisAluno[att].nome_aluno);
-	$('#emailEditar').val(dadosGlobaisAluno[att].email_aluno);
-	$('#senhaEditar').val(dadosGlobaisAluno[att].senha_aluno);
-	$('#senha2Editar').val(dadosGlobaisAluno[att].senha_aluno);
-	$('#classeEditar').val(dadosGlobaisAluno[att].tb_classe_id_classe);
-	$('#statEditar').val(dadosGlobaisAluno[att].status);
+	
 
 } 
 
-$('#formEditarAluno').submit(function(e) 
+$('#formEditarClasse').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
-	var retorno = atualizarDadosAluno(dados);
+	var retorno = atualizarDadosClasse(dados);
 
 });
 
-function atualizarDadosAluno(dados){
+function atualizarDadosClasse(dados){
 
 	$.ajax({
 		type: "POST",
 		data: dados.serialize(),
-		url: "editarAluno",
+		url: "editarClasse",
 		dataType: 'json',
 
 		beforeSend: function(){
 
 
 			$('#nomeEditar').prop("disabled",true);
-			$('#emailEditar').prop("disabled",true);
-			$('#senhaEditar').prop("disabled",true);
-			$('#senha2Editar').prop("disabled",true);
-			$('#classeEditar').prop("disabled",true);
 			$('#botaoEditar').text('Editar').prop("disabled",true);
 			
 
@@ -235,11 +217,6 @@ function atualizarDadosAluno(dados){
 					);
 
 				$('#nomeEditar').prop("disabled",false);
-				$('#emailEditar').prop("disabled",false);
-				$('#senhaEditar').prop("disabled",false);
-				$('#senha2Editar').prop("disabled",false);
-				$('#classeEditar').prop("disabled",false);
-				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
@@ -260,21 +237,16 @@ function atualizarDadosAluno(dados){
 
 					);
 
-				$('#formEditarAluno').each(function(){
+				$('#formEditarClasse').each(function(){
 					this.reset();
 				});
 
 				$('#nomeEditar').prop("disabled",false);
-				$('#emailEditar').prop("disabled",false);
-				$('#classeEditar').prop("disabled",false);
-				$('#senhaEditar').prop("disabled",false);
-				$('#senha2Editar').prop("disabled",false);
-				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
-				$('#modalEditarAluno').modal('hide');
+				$('#modalEditarClasse').modal('hide');
 
-				listarAlunos();
+				listarClasses();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				
@@ -291,9 +263,9 @@ function atualizarDadosAluno(dados){
 ////// DESATIVAR ///////////////////////////////////////////////////////////////////////////////////////////
 
 
-function modalDesativarAluno(del){
+function modalDesativarClasse(del){
 
-	$('#modalDesativarAluno').modal('show');
+	$('#modalDesativarClasse').modal('show');
 
 	$('#tituloDesativar').html(dadosGlobaisAluno[del].nome_aluno);
 	$('#idDesativar').val(dadosGlobaisAluno[del].id_usuario);
@@ -302,21 +274,21 @@ function modalDesativarAluno(del){
 	
 }
 
-$('#formDesativarAluno').submit(function(e) 
+$('#formDesativarClasse').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
-	var retorno = desabilitarDadosAluno(dados);
+	var retorno = desabilitarDadosClasse(dados);
 
 }); 
 
-function desabilitarDadosAluno(dados){
+function desabilitarDadosClasse(dados){
 
 	$.ajax({
 
 		type: "POST",
 		data: dados.serialize(),
-		url: "desabilitarAluno",
+		url: "desabilitarClasse",
 		dataType: 'json',
 
 		beforeSend: function(){
@@ -371,9 +343,9 @@ function desabilitarDadosAluno(dados){
 
 				$('#botaoDesativar').prop("disabled",false);
 
-				$('#modalDesativarAluno').modal('hide');
+				$('#modalDesativarClasse').modal('hide');
 
-				listarAlunos();
+				listarClasses();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				
@@ -387,4 +359,3 @@ function desabilitarDadosAluno(dados){
 	});
 
 }
-

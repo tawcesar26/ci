@@ -29,7 +29,7 @@
 <tbody id="tabelaAlunos">
 
 
-          </tbody>  
+</tbody>  
 </table>
 
 
@@ -52,34 +52,40 @@
       <h3 style="display:block; text-align:center;">Nota</h3>
     </div>
 
-    <form id="formEditarProfessor">
+    <form id="formEditarNota">
       <div id="erroMsgEditar"></div>
       <!-- MODAL BODY ------------------------------------- -->
       <div class="modal-body">
 
         <h4>Dados do Aluno</h4>
+
         <p>Nome: <em id="tituloNome"></em></p>
+        <input type="hidden" id="idAluno" name="idAluno">
+
         <p>Classe: <em id="tituloClasse"></em></p>
+
         <p>Disciplina: <em id="tituloDisciplina"></em></p>
+         <input type="hidden" id="disciplinaAluno" name="disciplinaAluno">
+
 
       
             <div class="box-body">
               <div class="row">
                 <div class="col-xs-3">
                   <label for="nomeEditar">Nota 1</label>
-                  <input type="number" class="form-control" id="nota1" name="nota1" placeholder="Exemplo: 99.9">
+                  <input type="number" class="form-control" id="nota1" name="nota1" step="0.1" min="0" max="10" placeholder="Exemplo: 99.9">
                 </div>
                 <div class="col-xs-3">
                   <label for="nomeEditar">Nota 2</label>
-                  <input type="number" class="form-control" id="nota2" name="nota2" placeholder="Exemplo: 99.9">
+                  <input type="number" class="form-control" id="nota2" name="nota2" step="0.1" min="0" max="10"placeholder="Exemplo: 99.9">
                 </div>
                 <div class="col-xs-3">
                   <label for="nomeEditar">Nota 3</label>
-                  <input type="number" class="form-control" id="nota3" name="nota3" placeholder="Exemplo: 99.9">
+                  <input type="number" class="form-control" id="nota3" name="nota3" step="0.1" min="0" max="10"placeholder="Exemplo: 99.9">
                 </div>
                  <div class="col-xs-3">
                   <label for="nomeEditar">Nota 4</label>
-                  <input type="number" class="form-control" id="nota4" name="nota4" placeholder="Exemplo: 99.9">
+                  <input type="number" class="form-control" id="nota4" name="nota4" step="0.1" min="0" max="10" placeholder="Exemplo: 99.9">
                 </div>
 
               </div>
@@ -88,7 +94,7 @@
         </div>
         <!-- MODAL FOOTER ------------------------------------- -->
         <div class="modal-footer">
-          <button type="submit" id="botaoEditar" class="btn btn-primary">Salvar Alterações</button>
+          <button type="submit" class="btn btn-primary">Salvar Alterações</button>
         </div>
       </form>
     </div>

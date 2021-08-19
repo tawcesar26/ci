@@ -45,6 +45,24 @@
         </li>
       </ul>
     </li>
+     <li <?php if ($page == 'classes') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('listaClasses'); ?>">
+
+          <i class="glyphicon glyphicon-education"></i> <span>Classes</span>
+          <span class="pull-right-container">
+
+          </span>
+        </a>
+      </li>
+      <li <?php if ($page == 'disciplinas') {echo 'class="active"';} ?>>
+        <a href="<?php echo base_url('listaDisciplinas'); ?>">
+
+          <i class="glyphicon glyphicon-th-list"></i> <span>Disciplinas</span>
+          <span class="pull-right-container">
+
+          </span>
+        </a>
+      </li>
   </ul>
 </section>
 <!-- /.sidebar -->

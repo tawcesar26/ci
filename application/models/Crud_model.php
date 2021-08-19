@@ -91,7 +91,7 @@ class Crud_model extends CI_Model{
 	public function selectAllAlunos(){
 
 
-		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE status = 1 ORDER BY id_aluno DESC;')->result();
+		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE a.status = 1 ORDER BY id_aluno DESC;')->result();
 
 
 		return $dados;
@@ -105,8 +105,8 @@ class Crud_model extends CI_Model{
 			SELECT * FROM tb_professor
 			INNER JOIN tb_classe ON tb_classe.id_classe = tb_professor.tb_classe_id_classe
 			INNER JOIN tb_disciplina ON tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina
-			WHERE status =1
-			ORDER BY id_usuario DESC;')->result();
+			WHERE tb_professor.status =1
+			ORDER BY id_classe ASC;')->result();
 
 
 		return $dados;
@@ -135,12 +135,38 @@ class Crud_model extends CI_Model{
 	public function selectAllClasses(){
 
 		$this->db->select('*');
+		$this->db->where('status !=', 0);
 		return $this->db->get('tb_classe')->result();
 	}
 	public function selectAllDisciplinas(){
 
 		$this->db->select('*');
+		$this->db->where('status !=', 0);
+		$this->db->order_by('nome_disciplina', 'ASC');
 		return $this->db->get('tb_disciplina')->result();
+	}
+
+	public function insertDisciplinas($dados){
+
+			return $this->db->insert('tb_disciplina', $dados);	
+
+	}
+	public function updateDisciplinas($dados,$id){
+
+			$this->db->where('id_disciplina', $id);
+			return $this->db->update('tb_disciplina', $dados);	
+
+	}
+	public function insertClasses($dados){
+
+			return $this->db->insert('tb_classe', $dados);	
+
+	}
+	public function updateClasses($dados,$id){
+
+			$this->db->where('id_classe', $id);
+			return $this->db->update('tb_classe', $dados);	
+
 	}
 
 	

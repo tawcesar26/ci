@@ -31,7 +31,7 @@ class Crud extends MY_ControllerAdm{
 			'totalUsuarios' => $totalUsuarios
 		);
 
-		$this->template->views1('home', $dados);
+		$this->template->views1('telas/administrador/home', $dados);
 
 	}
 ///TELAS /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ class Crud extends MY_ControllerAdm{
 			'descricao' => "Administradores",
 		);
 
-		$this->template->views1('telas/adminLista',$dados);
+		$this->template->views1('telas/administrador/adminLista',$dados);
 
 	}
 
@@ -54,7 +54,7 @@ class Crud extends MY_ControllerAdm{
 			'page' => "listar2",
 			'descricao' => "Alunos",
 		);
-		$this->template->views2('telas/alunoLista',$dados);
+		$this->template->views2('telas/administrador/alunoLista',$dados);
 
 	}
 
@@ -65,7 +65,28 @@ class Crud extends MY_ControllerAdm{
 			'page' => "listar3",
 			'descricao' => "Professores",
 		);
-		$this->template->views3('telas/professorLista',$dados);
+		$this->template->views3('telas/administrador/professorLista',$dados);
+
+	}
+
+	public function listaClasse(){
+
+		$dados = array(
+			'titulo' => 'CRUD &raquo; Listagem',
+			'page' => "classes",
+			'descricao' => "Classes",
+		);
+		$this->template->views4('telas/administrador/classeLista',$dados);
+
+	}
+	public function listaDisciplina(){
+
+		$dados = array(
+			'titulo' => 'CRUD &raquo; Listagem',
+			'page' => "disciplinas",
+			'descricao' => "Disciplinas",
+		);
+		$this->template->views5('telas/administrador/disciplinaLista',$dados);
 
 	}
 
@@ -683,6 +704,157 @@ class Crud extends MY_ControllerAdm{
 
 
 	}
+
+
+////CADASTRO DISCIPLINA ///////////////////////////////////////////////////////////////////////////////////////////////////////
+
+	public function cadastrarDisciplina(){
+
+		$sinal=false;
+
+
+		$retorno['msg'] = "";
+
+		$dados['nome_disciplina'] = $this->input->post("nomeCadastrar");
+		$dados['status'] = $this->input->post('statCadastrar');
+
+
+		$resultado = $this->crud->insertDisciplinas($dados);
+
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+	}
+
+	public function editarDisciplina(){
+
+
+		$retorno['msg'] = "";
+
+		$id = $this->input->post('idEditar');
+		$dados['nome_disciplina'] = $this->input->post("nomeEditar");
+
+
+		$resultado = $this->crud->updateDisciplinas($dados,$id);
+
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Edição realizada com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+	}
+	public function desabilitarDisciplina(){
+
+
+		$retorno['msg'] = "";
+
+		$condicao = $this->input->post('idDesativar');
+		$tabela = 'tb_disciplina';
+		$coluna = 'id_disciplina';
+
+		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Usuário desabilitado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível desabilitar o usuário!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+
+
+
+	}
+
+
+	public function cadastrarClasse(){
+
+
+		$retorno['msg'] = "";
+
+		$dados['nome_classe'] = $this->input->post("nomeCadastrar");
+		$dados['status'] = $this->input->post('statCadastrar');
+
+
+		$resultado = $this->crud->insertClasses($dados);
+
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Cadastro realizado com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar o cadastro!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+	}
+
+	public function editarClasse(){
+
+
+		$retorno['msg'] = "";
+
+		$id = $this->input->post('idEditar');
+		$dados['nome_classe'] = $this->input->post("nomeEditar");
+
+
+		$resultado = $this->crud->updateClasses($dados,$id);
+
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Edição realizada com sucesso!!<br>';
+			echo json_encode($retorno);
+
+		}else{
+
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			echo json_encode($retorno);
+
+		}
+
+	}
+
+
+
 }
 
 ?>
