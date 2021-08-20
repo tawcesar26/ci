@@ -45,13 +45,14 @@ class Crud_model extends CI_Model{
 
 		$this->db->select('*');
 		$this->db->where('status', 1);
+		$this->db->order_by('nome_classe', 'ASC');
 		return $this->db->get('tb_classe')->result();
 	}
 
 	public function selectAllDisciplinas(){
 
 		$this->db->select('*');
-		$this->db->where('status !=', 0);
+		$this->db->where('status =', 1);
 		$this->db->order_by('nome_disciplina', 'ASC');
 		return $this->db->get('tb_disciplina')->result();
 	}
@@ -134,16 +135,18 @@ class Crud_model extends CI_Model{
 
 		$this->db->trans_start();	
 
-			$this->db->update('tb_usuario',$dados);
 			$this->db->where('id_usuario', $id);
+			$this->db->update('tb_usuario',$dados);
+			
 
 			$dados2 = array(
 
 				'id_classe'=> $classe
 			);
 
-			$this->db->update('tb_aluno',$dados2);
 			$this->db->where('id_usuario', $id);
+			$this->db->update('tb_aluno',$dados2);
+			
 
 		
 		return $this->db->trans_complete();
@@ -164,7 +167,8 @@ class Crud_model extends CI_Model{
 
 				'id_usuario'=> $id,
 				'id_classe'=> $classe,
-				'id_disciplina'=> $disciplina
+				'id_disciplina'=> $disciplina,
+				'status'=> 1
 			);
 
 			$this->db->insert('tb_professor',$dados2);
@@ -174,8 +178,6 @@ class Crud_model extends CI_Model{
 		
 
 	}
-
-	
 
 	public function selectAllProfessores(){
 
@@ -191,11 +193,26 @@ class Crud_model extends CI_Model{
 
 	}
 
-	
+	public function updateProfessor($dados,$dados2,$id){
+
+
+
+		$this->db->trans_start();	
+
+			$this->db->where('id_usuario', $id);
+			$this->db->update('tb_usuario',$dados);
+			
+
+			$this->db->where('id_usuario', $id);
+			$this->db->update('tb_professor',$dados2);
+			
+		
+		return $this->db->trans_complete();
+		
+
+	}
 
 	
-	
-
 	public function insertDisciplinas($dados){
 
 			return $this->db->insert('tb_disciplina', $dados);	
@@ -207,6 +224,16 @@ class Crud_model extends CI_Model{
 			return $this->db->update('tb_disciplina', $dados);	
 
 	}
+	public function deleteDisciplina($condicao){
+
+		$this->db->set('status', 0);
+		$this->db->where('id_disciplina', $condicao);
+		return $this->db->update('tb_disciplina');
+		
+
+	}
+
+	
 	public function insertClasses($dados){
 
 			return $this->db->insert('tb_classe', $dados);	
@@ -216,6 +243,14 @@ class Crud_model extends CI_Model{
 
 			$this->db->where('id_classe', $id);
 			return $this->db->update('tb_classe', $dados);	
+
+	}
+	public function deleteClasses($condicao){
+
+		$this->db->set('status', 0);
+		$this->db->where('id_classe', $condicao);
+		return $this->db->update('tb_classe');
+		
 
 	}
 

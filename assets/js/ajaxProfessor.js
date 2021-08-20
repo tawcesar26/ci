@@ -261,16 +261,16 @@ function modalEditarProfessor(att){
 
 	$('#modalEditarProfessor').modal('show');
 
-	$('#tituloNome').html(dadosGlobaisProfessor[att].nome_professor);
+	$('#tituloNome').html(dadosGlobaisProfessor[att].nome_usuario);
 
 	$('#idEditar').val(dadosGlobaisProfessor[att].id_usuario);
-	$('#nomeEditar').val(dadosGlobaisProfessor[att].nome_professor);
-	$('#emailEditar').val(dadosGlobaisProfessor[att].email_professor);
-	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha_professor);
-	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha_professor);
-	$('#selectDiscEditar').val(dadosGlobaisProfessor[att].tb_disciplina_id_disciplina);
-	$('#selectClasseEditar').val(dadosGlobaisProfessor[att].tb_classe_id_classe);
-	$('#statEditar').val(dadosGlobaisProfessor[att].status);
+	$('#nomeEditar').val(dadosGlobaisProfessor[att].nome_usuario);
+	$('#emailEditar').val(dadosGlobaisProfessor[att].email_usuario);
+	$('#senhaEditar').val(dadosGlobaisProfessor[att].senha_usuario);
+	$('#senha2Editar').val(dadosGlobaisProfessor[att].senha_usuario);
+	$('#selectDiscEditar').val(dadosGlobaisProfessor[att].id_disciplina);
+	$('#selectClasseEditar').val(dadosGlobaisProfessor[att].id_classe);
+	
 
 } 
 
@@ -297,7 +297,8 @@ function atualizarDadosProfessor(dados){
 			$('#emailEditar').prop("disabled",true);
 			$('#senhaEditar').prop("disabled",true);
 			$('#senha2Editar').prop("disabled",true);
-			$('#selectClasse').prop("disabled",true);
+			$('#selectClasseEditar').prop("disabled",true);
+			$('#selectDisciplinaEditar').prop("disabled",true);
 			$('#botaoEditar').text('Editar').prop("disabled",true);
 			
 
@@ -326,8 +327,8 @@ function atualizarDadosProfessor(dados){
 				$('#emailEditar').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
-				$('#selectClasse').prop("disabled",false);
-				$('#statEditar').prop("disabled",false);
+				$('#selectClasseEditar').prop("disabled",false);
+				$('#selectDisciplinaEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
@@ -354,10 +355,10 @@ function atualizarDadosProfessor(dados){
 
 				$('#nomeEditar').prop("disabled",false);
 				$('#emailEditar').prop("disabled",false);
-				$('#selectClasse').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
-				$('#statEditar').prop("disabled",false);
+				$('#selectClasseEditar').prop("disabled",false);
+				$('#selectDisciplinaEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
 				$('#modalEditarProfessor').modal('hide');
@@ -383,9 +384,8 @@ function modalDesativarProfessor(del){
 
 	$('#modalDesativarProfessor').modal('show');
 
-	$('#tituloDesativar').html(dadosGlobaisProfessor[del].nome_professor);
+	$('#tituloDesativar').html(dadosGlobaisProfessor[del].nome_usuario);
 	$('#idDesativar').val(dadosGlobaisProfessor[del].id_usuario);
-	$('#statDesativar').val(dadosGlobaisProfessor[del].status);
 	$('#botaoDesativar').text('Sim').prop("disabled",false);
 	
 }
@@ -432,7 +432,7 @@ function desabilitarDadosProfessor(dados){
 					);
 
 
-				$('#botaoDesabilitar').prop("disabled",false);
+				$('#botaoDesativar').prop("disabled",false);
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
 

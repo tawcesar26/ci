@@ -193,6 +193,13 @@ function cadastrarAluno(dados)
 
 					);
 
+				$('#nomeCadastrar').prop("disabled",false);
+				$('#emailCadastrar').prop("disabled",false);
+				$('#senhaCadastrar').prop("disabled",false);
+				$('#senha2Cadastrar').prop("disabled",false);
+				$('#classeCadastrar').prop("disabled",false);
+				$('#botaoCadastrar').prop("disabled",false);
+
 				$('#formCadastrarAluno').each(function(){
 					this.reset();
 				});

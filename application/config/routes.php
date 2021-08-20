@@ -45,7 +45,7 @@ $route['desabilitarDisciplina'] = 'Crud/desabilitarDisciplina';
 
 //ÁREA DO PROFESSOR////////////////////////////////////////////////////////////////////////////////////////
 $route['listaAlunosProfessor'] = 'Professor/listaAlunosProfessor';
-$route['atualizarNotas'] = 'Professor/atualizarNotas';
+$route['cadastrarNotas'] = 'Professor/cadastrarNotas';
 $route['tabelaClasses'] = "Professor/tabelaClasses";
 $route['tabelaAlunos'] = "Professor/tabelaAlunos";
 

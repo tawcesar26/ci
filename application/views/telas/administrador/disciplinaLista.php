@@ -55,8 +55,6 @@
 						<input type="text" class="form-control" id="nomeCadastrar" autofocus name="nomeCadastrar" autocomplete="off" required>
 					</div>
 
-						<input type="hidden" name="statCadastrar" id="statCadastrar" value="1" />
-
 					
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
@@ -126,7 +124,7 @@
 				<div id="erroMsgDesativar"></div>
 
 				<input type="hidden" name="idDesativar" id="idDesativar">
-				<input type="hidden" name="statDesativar" id="statDesativar">
+	
 				<!-- MODAL BODY --------------------------------------------------------->
 				<div class="modal-body">
 

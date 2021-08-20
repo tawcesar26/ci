@@ -164,7 +164,6 @@
 						<label for="senha2Editar">Digite a Senha novamente</label>
 						<input type="password" class="form-control" id="senha2Editar" name="senha2Editar" autocomplete="off">
 					</div>
-					<input type="hidden" name="statEditar" id="statEditar" value="1" />
 
 				</div>
 				<!-- MODAL FOOTER ------------------------------------- -->
@@ -193,7 +192,7 @@
 				<div id="erroMsgDesativar"></div>
 
 				<input type="hidden" name="idDesativar" id="idDesativar">
-				<input type="hidden" name="statDesativar" id="statDesativar">
+				
 				<!-- MODAL BODY --------------------------------------------------------->
 				<div class="modal-body">
 

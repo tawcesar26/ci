@@ -17,8 +17,6 @@
 <table class="table mt-4 table-bordered table-hover table-striped">
 <thead>
 	<tr>
-		<th>ID</th>
-		<th>Nome</th>
 		<th>Classe</th>
 		<th>Disciplina</th>
 		<th>Ações</th>

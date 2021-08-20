@@ -22,10 +22,12 @@
  <div class="container">
       <div class="login-container">
         <div id="output"></div>
-        <div><h2>Login de Acesso</h2></div>
+         <div class="avatar"><img style="width: 180px; height: 150px ;margin-top: 10px" src="<?php echo base_url();?>assets/img/logomarca.png"></div>
+     
         <div class="form-box">
           <br>
          <form action="<?= base_url('Login/logar') ?>" method="post">
+           <label for="email">Digite suas credenciais:</label>
             <input type="text" placeholder="Email:" required name="email">
             <input type="password" placeholder="Senha:" required name="senha">
              

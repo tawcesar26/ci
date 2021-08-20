@@ -15,7 +15,7 @@ class Professor extends MY_ControllerProfessor{
 	public function index(){
 
 	$dados = array(
-			'titulo' =>'CRUD CODEIGNITER',
+			'titulo' =>'Boletim Escolar',
 			'page' => "home",
 			'descricao' => "Painel do Professor",
 
@@ -28,7 +28,7 @@ class Professor extends MY_ControllerProfessor{
 	public function listaClassesProfessor(){
 
 		$dados = array(
-			'titulo' => 'CRUD &raquo; Listagem',
+			'titulo' => 'Boletim Escolar',
 			'page' => "listaClasses",
 			'descricao' => "Minhas Classes",
 		);
@@ -39,7 +39,7 @@ class Professor extends MY_ControllerProfessor{
 	public function listaAlunosProfessor(){
 
 		$dados = array(
-			'titulo' => 'CRUD &raquo; Listagem',
+			'titulo' => 'Boletim Escolar',
 			'page' => "listaClasses",
 			'descricao' => "Boletins",
 		);
@@ -69,66 +69,34 @@ class Professor extends MY_ControllerProfessor{
 
 	}
 
-	public function atualizarNotas(){
+	public function cadastrarNotas(){
 
 		$retorno['msg'] = "";
 		$sinal = false;
 
-		$id = $this->input->post('idAluno');
-		$dados['id_disciplina_nota'] = $this->input->post('disciplinaAluno');
+		
 		$dados['nota1'] = $this->input->post('nota1');
 		$dados['nota2'] = $this->input->post('nota2');
 		$dados['nota3'] = $this->input->post('nota3');
 		$dados['nota4'] = $this->input->post('nota4');
+		$dados['media'] = ($dados['nota1'] + $dados['nota2']+$dados['nota3']+$dados['nota4'])/4;
+		$dados['id_disciplina'] = $this->input->post('disciplinaAluno');
+		$dados['id_aluno'] = $this->input->post('idAluno');
+		
 
-		if($dados['nota1'] > 10 || $dados['nota1'] < 0){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'A nota informada deve ter valor entre 0 e 10';
-			$sinal = true;
-
-		}
-		else if($dados['nota2'] > 10 || $dados['nota1'] < 0){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'A nota informada deve ter valor entre 0 e 10';
-			$sinal = true;
-
-		}
-		else if($dados['nota3'] > 10 || $dados['nota1'] < 0){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'A nota informada deve ter valor entre 0 e 10';
-			$sinal = true;
-
-		}
-		else if($dados['nota4'] > 10 || $dados['nota1'] < 0){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] = 'A nota informada deve ter valor entre 0 e 10';
-			$sinal = true;
-
-		}
-
-		if($sinal){
-
-			echo json_encode($retorno);
-			exit;
-		}
-
-		$resultado = $this->crud->update($dados,$id);
+		$resultado = $this->crud->insertNotas($dados);
 
 		if($resultado){
 
 			$retorno['ret'] = true;
-			$retorno['msg'] = 'Edição realizada com sucesso!!<br>';
+			$retorno['msg'] = 'Boletim gerado com sucesso!!<br>';
 			echo json_encode($retorno);
 
 
 		}else{
 
 			$retorno['ret'] = false;
-			$retorno['msg'] = 'Não foi possível realizar a edição!!<br>';
+			$retorno['msg'] = 'Não foi possível gerar o boletim!!<br>';
 			echo json_encode($retorno);
 
 		}

@@ -100,7 +100,7 @@ function cadastrarAdm(dados)
 			$('#emailCadastrar').prop("disabled",true);
 			$('#senhaCadastrar').prop("disabled",true);
 			$('#senha2Cadastrar').prop("disabled",true);
-			$('#botaoCadastrar').text('Cadastrando... ').prop("disabled",true);
+			$('#botaoCadastrar').prop("disabled",true);
 
 		},
 
@@ -145,6 +145,13 @@ function cadastrarAdm(dados)
 					'</div>'
 
 					);
+
+
+				$('#nomeCadastrar').prop("disabled",false);
+				$('#emailCadastrar').prop("disabled",false);
+				$('#senhaCadastrar').prop("disabled",false);
+				$('#senha2Cadastrar').prop("disabled",false);
+				$('#botaoCadastrar').prop("disabled",false);
 
 				$('#formCadastrarAdm').each(function(){
 					this.reset();

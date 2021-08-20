@@ -27,8 +27,6 @@ function listarClasses(){
 				for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
 					$('#tabelaClasses').append(
 						$('<tr>')
-						.append($('<td>').append(dados[i].id_usuario))
-						.append($('<td>').append(dados[i].nome_professor))
 						.append($('<td>').append(dados[i].nome_classe))
 						.append($('<td>').append(dados[i].nome_disciplina))
 						.append(
@@ -83,7 +81,7 @@ function listarAlunos(){
 
 			var dados = JSON.parse(dados);
 
-			dadosGlobaisClasse = dados;
+			dadosGlobaisAluno = dados;
 
 			$('#tabelaAlunos').html('');
 
@@ -91,21 +89,41 @@ function listarAlunos(){
 			{
 
 				for (var i = 0; i < dados.length; i++) 
-				{
-					$('#tabelaAlunos').append(
+				{	
+					if(dados[i].id_nota === null){
+
+						$('#tabelaAlunos').append(
 						'<tr>'+			
-						'<td>'+ dados[i].nome_aluno +'</td>'+
-						'<td>'+ dados[i].nota1 +'</td>'+
-						'<td>'+ dados[i].nota2 +'</td>'+
-						'<td>'+ dados[i].nota3 +'</td>'+
-						'<td>'+ dados[i].nota4 +'</td>'+
-						'<td>S/N</td>'+
+						'<td>'+ dados[i].nome_usuario +'</td>'+
+						'<td colspan="5"><center>Nenhum boletim gerado para este aluno.</center></td>'+
 						'<td>'+
-						(1 > 0 ? '<button type="button" onclick="javascript:modalEditarNota('+ i +');" class="btn btn-sm btn-success mr-2" >Inserir Nota</button>' : '<button type="button" onclick="javascript:modalEditarNota('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar Nota</button>') +
+						'<button type="button" onclick="javascript:modalGerarBoletim('+ i +');" class="btn btn-sm btn-primary mr-2" >Gerar Boletim</button>' +
 						'</td>'+		
 						'</tr>'	
 
 						);
+
+					}else{
+
+
+						$('#tabelaAlunos').append(
+						'<tr>'+			
+						'<td>'+ dados[i].nome_usuario +'</td>'+
+						'<td>'+ dados[i].nota1 +'</td>'+
+						'<td>'+ dados[i].nota2 +'</td>'+
+						'<td>'+ dados[i].nota3 +'</td>'+
+						'<td>'+ dados[i].nota4 +'</td>'+
+						'<td>'+ dados[i].media +'</td>'+
+						'<td>'+
+						'<button type="button" onclick="javascript:modalEditarBoletim('+ i +');" class="btn btn-sm btn-success mr-2" >Editar Boletim</button>' +
+						'</td>'+		
+						'</tr>'	
+
+						);
+					}
+
+
+					
 				}
 
 			}else
@@ -133,48 +151,45 @@ function listarAlunos(){
 }
 
 
-
-
-
-
 function redirectAlunos(){
 
 	window.location.href = "listaAlunosProfessor";
 
+
+
 }
 
-function modalEditarNota(id){
+function modalGerarBoletim(id){
 
-	$('#modalEditarNota').modal('show');
 
-	$('#tituloNome').html(dadosGlobaisClasse[id].nome_aluno);
-	$('#tituloClasse').html(dadosGlobaisClasse[id].nome_classe);
-	$('#tituloDisciplina').html(dadosGlobaisClasse[id].nome_disciplina);
+	$('#modalGerarBoletim').modal('show');
 
-	$('#idAluno').val(dadosGlobaisClasse[id].id_aluno);
-	$('#disciplinaAluno').val(dadosGlobaisClasse[id].id_disciplina);
-	$('#nota1').val(dadosGlobaisClasse[id].nota1);
-	$('#nota2').val(dadosGlobaisClasse[id].nota2);
-	$('#nota3').val(dadosGlobaisClasse[id].nota3);
-	$('#nota4').val(dadosGlobaisClasse[id].nota4);
+	$('#tituloNome').html(dadosGlobaisAluno[id].nome_usuario);
+	$('#tituloClasse').html(dadosGlobaisAluno[id].nome_classe);
+	$('#tituloDisciplina').html(dadosGlobaisAluno[id].nome_disciplina);
+
+	$('#idAluno').val(dadosGlobaisAluno[id].id_aluno);
+	$('#disciplinaAluno').val(dadosGlobaisAluno[id].id_disciplina);
 	
-} 
 
-$('#formEditarNota').submit(function(e) 
+}
+
+$('#formGerarBoletim').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
-	var retorno = atualizarNotas(dados);
+	var retorno = cadastrarNotas(dados);
 
 });
 
-function atualizarNotas(dados){
+
+function cadastrarNotas(dados){
 
 
 	$.ajax({
 		type: "POST",
 		data: dados.serialize(),
-		url: "atualizarNotas",
+		url: "cadastrarNotas",
 		dataType: 'json',
 
 		beforeSend: function(){
@@ -184,7 +199,7 @@ function atualizarNotas(dados){
 			$('#nota2').prop("disabled",true);
 			$('#nota3').prop("disabled",true);
 			$('#nota4').prop("disabled",true);
-			$('#botaoEditar').text('Editar').prop("disabled",true);
+			$('#botaoCadastrarNotas').text('Cadastrar').prop("disabled",true);
 			
 
 
@@ -212,6 +227,7 @@ function atualizarNotas(dados){
 				$('#nota2').prop("disabled",false);
 				$('#nota3').prop("disabled",false);
 				$('#nota4').prop("disabled",false);
+				$('#botaoCadastrarNotas').prop("disabled",false);
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
 
@@ -231,7 +247,7 @@ function atualizarNotas(dados){
 
 					);
 
-				$('#formEditarNota').each(function(){
+				$('#formGerarboletim').each(function(){
 					this.reset();
 				});
 
@@ -239,9 +255,9 @@ function atualizarNotas(dados){
 				$('#nota2').prop("disabled",false);
 				$('#nota3').prop("disabled",false);
 				$('#nota4').prop("disabled",false);
-				$('#botaoEditar').prop("disabled",false);
+				$('#botaoCadastrarNotas').prop("disabled",false);
 
-				$('#modalEditarNota').modal('hide');
+				$('#modalGerarBoletim').modal('hide');
 
 				listarAlunos();
 

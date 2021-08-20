@@ -17,10 +17,11 @@ class Professor_model extends CI_Model{
 
 
 		$this->db->select('*');
-		$this->db->from('tb_classe');
-		$this->db->join('tb_professor', 'tb_professor.tb_classe_id_classe = tb_classe.id_classe');
-		$this->db->join('tb_disciplina', 'tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina');
-		$this->db->where('tb_professor.id_usuario', $id);
+		$this->db->from('tb_professor');
+		$this->db->join('tb_classe', 'tb_professor.id_classe = tb_classe.id_classe');
+		$this->db->join('tb_disciplina', 'tb_professor.id_disciplina = tb_disciplina.id_disciplina');
+		
+		$this->db->where('id_usuario', $id);
 
 		return $this->db->get()->result();
 
@@ -30,12 +31,13 @@ class Professor_model extends CI_Model{
 	public function selectAllAlunos($id){
 
 
-		$this->db->select('id_aluno,nome_aluno,nome_classe,nome_disciplina,id_disciplina,id_nota,id_disciplina_nota,nota1,nota2,nota3,nota4');
-		$this->db->from('tb_aluno');
-		$this->db->join('tb_professor', 'tb_professor.tb_classe_id_classe = tb_aluno.tb_classe_id_classe');
-		$this->db->join('tb_classe', 'tb_classe.id_classe = tb_professor.tb_classe_id_classe');
-
-		$this->db->join('tb_disciplina', 'tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina');
+		$this->db->select('tb_aluno.id_aluno,tb_usuario.nome_usuario,tb_classe.nome_classe,tb_disciplina.nome_disciplina,tb_aluno.id_classe,tb_professor.id_disciplina,id_nota,tb_aluno.id_usuario,media,nota1,nota2,nota3,nota4');
+		$this->db->from('tb_usuario');
+		$this->db->join('tb_aluno', 'tb_aluno.id_usuario = tb_usuario.id_usuario');
+		$this->db->join('tb_classe', 'tb_classe.id_classe = tb_aluno.id_classe');
+		$this->db->join('tb_professor','tb_professor.id_classe = tb_aluno.id_classe');
+		$this->db->join('tb_disciplina','tb_professor.id_disciplina = tb_disciplina.id_disciplina');
+		$this->db->join('tb_nota','tb_nota.id_aluno = tb_aluno.id_aluno AND tb_nota.id_disciplina = tb_disciplina.id_disciplina','left');
 		$this->db->where('tb_professor.id_usuario', $id);
 
 		return $this->db->get()->result();
@@ -44,10 +46,10 @@ class Professor_model extends CI_Model{
 
 	}
 
-	public function update($dados,$id){
+	public function insertNotas($dados){
 
-		$this->db->where('id_aluno_nota', $id );
-		return $this->db->update('tb_nota', $dados);
+		
+		return $this->db->insert('tb_nota', $dados);
 
 	}
 
