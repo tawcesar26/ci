@@ -7,7 +7,7 @@ class Login extends CI_Controller {
     function __construct() {
 
         parent::__construct();
-        $this->load->model('Login_model');
+        $this->load->model('Login_model','login');
 
     }
 
@@ -22,54 +22,40 @@ class Login extends CI_Controller {
 
         $usuario = $this->input->post("email");
         $senha = $this->input->post("senha");
-        $id = $this->input->post('nivel');
         $data = false;
 
-        //Login de Administrador///////////////////////////////////////////
-        if($id == 1){
 
-            $data = $this->Login_model->loginAdministrador($usuario,$senha);
+        $data = $this->login->loginUsuario($usuario,$senha);
 
-            if ($data==true) {
+            if ($data) {
                 $session = array(
-                    'id' => $data[0] ->idusuario,
-                    'nome' => $data[0] ->nome,
-                     'nivel' => 1,
+                    'id' => $data[0]->id_usuario,
+                    'nome' => $data[0]->nome_usuario,
+                    'nivel' => $data[0]->nivel,
                     'logado' => 1
                 );
                 $this->session->set_userdata($session);
-                redirect('Crud');
+                $nivel = $this->session->userdata('nivel');
+
+                if($nivel === '1'){
+
+                    redirect('Crud');
+
+                }else if($nivel === '2'){
+
+                    redirect('Professor');
+
+                }else{
+
+                   var_dump($nivel);
+
+                }
+
+                
             } else {
                 $dados['erro'] = "Usuário e/ou Senha incorretos!";
                 $this->load->view("login", $dados);
             }
-
-        }
-        //Login de Professor///////////////////////////////////////////
-        else if($id == 2){
-
-            $data = $this->Login_model->loginProfessor($usuario,$senha);
-
-            if ($data==true) {
-                $session = array(
-                    'id' => $data[0] ->id_usuario,
-                    'nome' => $data[0] ->nome_professor,
-                    'nivel' => 2,
-                    'logado' => 2
-                );
-                $this->session->set_userdata($session);
-                redirect('Professor');
-            } else {
-                $dados['erro'] = "Usuário e/ou Senha incorretos!";
-                $this->load->view("login", $dados);
-            }
-
-        }
-
-        else {
-                $dados['erro'] = "Usuário e/ou Senha incorretos!";
-                $this->load->view("login", $dados);
-        }
 
 
 

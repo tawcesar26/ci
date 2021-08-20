@@ -1,6 +1,7 @@
 
 
 listarAlunos();
+listarClasses();
 
 
 function listarAlunos(){
@@ -25,10 +26,10 @@ function listarAlunos(){
 			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
 			        tbody.append(
 			            $('<tr>')
-			                .append($('<td>').append(dados[i].id_aluno))
-			                .append($('<td>').append(dados[i].nome_aluno))
+			                .append($('<td>').append(dados[i].id_usuario))
+			                .append($('<td>').append(dados[i].nome_usuario))
 			                .append($('<td>').append(dados[i].nome_classe))
-			                .append($('<td>').append(dados[i].email_aluno))
+			                .append($('<td>').append(dados[i].email_usuario))
 			                .append(
 			                	'<td><button type="button" onclick="javascript:modalEditarAluno('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 								' '+
@@ -64,6 +65,49 @@ function listarAlunos(){
 			});
 
 
+		}
+
+
+	});
+}
+
+
+function listarClasses(){
+
+	$.ajax({
+
+		url: "listarClasses",
+		ajax: 'dados.json',
+
+		success: function(dados){
+
+			var dados = JSON.parse(dados);
+
+			$('#selectClasse').html('');
+
+			if(dados.length > 0)
+			{
+				for (var i = 0; i < dados.length; i++) 
+				{
+					$('#selectClasse').append(
+						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
+
+						);
+
+					$('#selectClasseEditar').append(
+						'<option value="'+ dados[i].id_classe +'" >'+ dados[i].nome_classe+'</option>'
+
+						);
+				}
+			}else
+			{
+				$('#selectClasse').append(
+					'<option value="" >Nenhuma classe cadastrada</option>'
+					);
+				$('#selectClasseEditar').append(
+					'<option value="" >Nenhuma classe cadastrada</option>'
+					);
+			}
 		}
 
 
@@ -177,12 +221,11 @@ function modalEditarAluno(att){
 	$('#tituloNome').html(dadosGlobaisAluno[att].nome_aluno);
 
 	$('#idEditar').val(dadosGlobaisAluno[att].id_usuario);
-	$('#nomeEditar').val(dadosGlobaisAluno[att].nome_aluno);
-	$('#emailEditar').val(dadosGlobaisAluno[att].email_aluno);
-	$('#senhaEditar').val(dadosGlobaisAluno[att].senha_aluno);
-	$('#senha2Editar').val(dadosGlobaisAluno[att].senha_aluno);
-	$('#classeEditar').val(dadosGlobaisAluno[att].tb_classe_id_classe);
-	$('#statEditar').val(dadosGlobaisAluno[att].status);
+	$('#nomeEditar').val(dadosGlobaisAluno[att].nome_usuario);
+	$('#emailEditar').val(dadosGlobaisAluno[att].email_usuario);
+	$('#senhaEditar').val(dadosGlobaisAluno[att].senha_usuario);
+	$('#senha2Editar').val(dadosGlobaisAluno[att].senha_usuario);
+	$('#selectClasseEditar').val(dadosGlobaisAluno[att].id_classe);
 
 } 
 
@@ -295,7 +338,7 @@ function modalDesativarAluno(del){
 
 	$('#modalDesativarAluno').modal('show');
 
-	$('#tituloDesativar').html(dadosGlobaisAluno[del].nome_aluno);
+	$('#tituloDesativar').html(dadosGlobaisAluno[del].nome_usuario);
 	$('#idDesativar').val(dadosGlobaisAluno[del].id_usuario);
 	$('#statDesativar').val(dadosGlobaisAluno[del].stat);
 	$('#botaoDesativar').text('Sim').prop("disabled",false);

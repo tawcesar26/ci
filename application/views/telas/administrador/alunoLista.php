@@ -68,12 +68,11 @@
 						<input type="email" class="form-control" id="emailCadastrar" name="emailCadastrar" autocomplete="off" required>
 					</div>
 					<div class="form-group">
-						<label for="classeCadastrar">Classe</label>
-						<select class="form-control" id="classeCadastrar" name="classeCadastrar" required>
-							<option value="" >Selecionar a classe:</option>
-							<option value="1" >1º Ano Médio</option>
-							<option value="2" >2º Ano Médio</option>
-							<option value="3" >3º Ano Médio</option>
+						<label for="selectClasse">Classe</label>
+						<select class="form-control" id="selectClasse" name="selectClasse" required>
+
+							<!-- PREENCHIDO VIA AJAX COM AS CLASSES -->
+
 						</select>
 					</div>
 					<div class="form-group">
@@ -133,12 +132,11 @@
 						<input type="email" class="form-control" id="emailEditar" name="emailEditar" autocomplete="off" >
 					</div>
 					<div class="form-group">
-						<label for="classeEditar">Classe</label>
-						<select class="form-control" id="classeEditar" name="classeEditar" required>
-							<option value="" >Selecionar a classe:</option>
-							<option value="1" >1º Ano Médio</option>
-							<option value="2" >2º Ano Médio</option>
-							<option value="3" >3º Ano Médio</option>
+						<label for="selectClasseEditar">Classe</label>
+						<select class="form-control" id="selectClasseEditar" name="selectClasseEditar" required>
+
+							<!-- PREENCHIDO VIA AJAX COM AS CLASSES -->
+
 						</select>
 					</div>
 					<div class="form-group">
@@ -178,7 +176,7 @@
 				<div id="erroMsgDesativar"></div>
 
 				<input type="hidden" name="idDesativar" id="idDesativar">
-				<input type="hidden" name="statDesativar" id="statDesativar">
+			
 				<!-- MODAL BODY --------------------------------------------------------->
 				<div class="modal-body">
 

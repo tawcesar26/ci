@@ -12,132 +12,42 @@ class Crud_model extends CI_Model{
 
 	}
 
-	public function dadosHomePage($tabela){
+	public function dadosHomePage($nivel){
 
 		$this->db->select('*');
-		$this->db->where('status !=', 0);
+		$this->db->where('status', 1);
+		$this->db->where('nivel', $nivel);
 
-		$resultado = count($this->db->get($tabela)->result());
+		$resultado = count($this->db->get('tb_usuario')->result());
 
 		return $resultado;
 
 	}
-	
-	public function verificar($email,$tabela,$coluna){
 
-
-		$this->db->select('*');
-		$this->db->where($coluna, $email);
-		return $this->db->get($tabela)->result();
-
-
-	}
-
-	public function insert($dados, $tabela){
-
-		if($tabela === 'tb_aluno'){
-
-			$result = $this->db->insert($tabela, $dados);
-
-			$id = $this->db->insert_id();
-
-			$dadosNota = array(
-
-				'id_aluno_nota'=> $id,
-				'nota1'=>0.0,
-				'nota2'=>0.0,
-				'nota3'=>0.0,
-				'nota4'=>0.0,
-			);
-
-			$this->db->insert('tb_nota',$dadosNota);
-
-			return $result;
-
-		}else{
-
-			return $this->db->insert($tabela, $dados);
-		}
-
-	}
-
-
-	public function selectAll(){
+	public function selectAllUsuarios($nivel){
 
 		$id = $this->session->userdata('id');
 
 		$this->db->select("*");
 		$this->db->where('status', 1);
-		$this->db->where('idusuario !=', $id);
+		$this->db->where('nivel', $nivel);
+		$this->db->where('id_usuario !=', $id);
 
-		$this->db->order_by('idusuario', 'DESC');
+		$this->db->order_by('nome_usuario', 'ASC');
 		
-		$resultado = $this->db->get('tb_adm')->result();
+		$resultado = $this->db->get('tb_usuario')->result();
 
 		return $resultado;
-
-	}
-
-	function selectExport(){
-
-		
-		$dados = $this->db->query('SELECT * FROM tb_adm WHERE status = 1;')->result();
-
-		return $dados;
-
-
-	}
-
-	public function selectAllAlunos(){
-
-
-		$dados = $this->db->query('SELECT * FROM tb_aluno AS a JOIN tb_classe AS c on a.tb_classe_id_classe = id_classe WHERE a.status = 1 ORDER BY id_aluno DESC;')->result();
-
-
-		return $dados;
-
-	}
-
-	public function selectAllProfessores(){
-
-
-		$dados = $this->db->query('
-			SELECT * FROM tb_professor
-			INNER JOIN tb_classe ON tb_classe.id_classe = tb_professor.tb_classe_id_classe
-			INNER JOIN tb_disciplina ON tb_disciplina.id_disciplina = tb_professor.tb_disciplina_id_disciplina
-			WHERE tb_professor.status =1
-			ORDER BY id_classe ASC;')->result();
-
-
-		return $dados;
-
-	}
-
-	public function update($dados,$tabela,$condicao,$coluna){
-
-
-		$this->db->where($coluna, $condicao);
-		return $this->db->update($tabela, $dados);
-		
-
-	}
-
-	public function delete($tabela,$condicao,$coluna){
-
-
-		$this->db->set('status', 0);
-		$this->db->where($coluna, $condicao);
-		return $this->db->update($tabela);
-		
 
 	}
 
 	public function selectAllClasses(){
 
 		$this->db->select('*');
-		$this->db->where('status !=', 0);
+		$this->db->where('status', 1);
 		return $this->db->get('tb_classe')->result();
 	}
+
 	public function selectAllDisciplinas(){
 
 		$this->db->select('*');
@@ -145,6 +55,146 @@ class Crud_model extends CI_Model{
 		$this->db->order_by('nome_disciplina', 'ASC');
 		return $this->db->get('tb_disciplina')->result();
 	}
+	
+	public function verificarEmail($email){
+
+
+		$this->db->select('*');
+		$this->db->where('email_usuario', $email);
+		return $this->db->get('tb_usuario')->result();
+
+
+	}
+
+	public function insertUsuario($dados){
+
+
+		return $this->db->insert('tb_usuario', $dados);
+		
+
+	}
+
+	public function updateUsuario($dados,$condicao){
+
+
+		$this->db->where('id_usuario', $condicao);
+		return $this->db->update('tb_usuario', $dados);
+		
+	}
+
+	public function deleteUsuario($condicao){
+
+		$this->db->set('status', 0);
+		$this->db->where('id_usuario', $condicao);
+		return $this->db->update('tb_usuario');
+		
+
+	}
+
+	public function insertAluno($dados,$classe){
+
+
+		$this->db->trans_start();
+
+			$this->db->insert('tb_usuario',$dados);
+
+			$id = $this->db->insert_id();
+
+			$dados2 = array(
+
+				'id_usuario'=> $id,
+				'id_classe'=> $classe
+			);
+
+			$this->db->insert('tb_aluno',$dados2);
+
+		
+		return $this->db->trans_complete();
+		
+
+	}
+
+	public function selectAllAlunos(){
+
+
+
+		$this->db->select('*');
+		$this->db->from('tb_usuario');
+		$this->db->join('tb_aluno', 'tb_aluno.id_usuario = tb_usuario.id_usuario');
+		$this->db->join('tb_classe','tb_classe.id_classe = tb_aluno.id_classe');
+		$this->db->where('tb_usuario.status',1);
+		$this->db->order_by('nome_usuario', 'ASC');
+
+		return $this->db->get()->result();
+
+	}
+
+	public function updateAluno($dados,$classe,$id){
+
+
+		$this->db->trans_start();	
+
+			$this->db->update('tb_usuario',$dados);
+			$this->db->where('id_usuario', $id);
+
+			$dados2 = array(
+
+				'id_classe'=> $classe
+			);
+
+			$this->db->update('tb_aluno',$dados2);
+			$this->db->where('id_usuario', $id);
+
+		
+		return $this->db->trans_complete();
+		
+
+	}
+
+	public function insertProfessor($dados,$classe,$disciplina){
+
+
+		$this->db->trans_start();
+
+			$this->db->insert('tb_usuario',$dados);
+
+			$id = $this->db->insert_id();
+
+			$dados2 = array(
+
+				'id_usuario'=> $id,
+				'id_classe'=> $classe,
+				'id_disciplina'=> $disciplina
+			);
+
+			$this->db->insert('tb_professor',$dados2);
+
+		
+		return $this->db->trans_complete();
+		
+
+	}
+
+	
+
+	public function selectAllProfessores(){
+
+		$this->db->select('*');
+		$this->db->from('tb_usuario');
+		$this->db->join('tb_professor', 'tb_usuario.id_usuario = tb_professor.id_usuario');
+		$this->db->join('tb_classe','tb_classe.id_classe = tb_professor.id_classe');
+		$this->db->join('tb_disciplina','tb_disciplina.id_disciplina = tb_professor.id_disciplina');
+		$this->db->where('tb_usuario.status',1);
+		$this->db->order_by('nome_usuario', 'ASC');
+
+		return $this->db->get()->result();
+
+	}
+
+	
+
+	
+	
 
 	public function insertDisciplinas($dados){
 

@@ -1,3 +1,72 @@
+////// LISTAR ////////////////////////////////////////////////////////////////////////////////////////////////
+
+listarUsuarios();
+
+function listarUsuarios(){
+
+	$.ajax({
+
+		url: "listarUsuarios",
+		ajax: 'dados.json',
+
+		success: function(dados){
+
+			var dados = JSON.parse(dados);
+
+			dadosGlobaisAdm = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
+
+			var tamanhoPagina = 10;
+			var pagina = 0;
+
+			function paginar() {
+			    $('table > tbody > tr').remove();
+			    var tbody = $('table > tbody');
+			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
+			        tbody.append(
+			            $('<tr>')
+			                .append($('<td>').append(dados[i].id_usuario))
+			                .append($('<td>').append(dados[i].nome_usuario))
+			                .append($('<td>').append(dados[i].email_usuario))
+			                .append(
+			                	'<td><button type="button" onclick="javascript:modalEditarAdm('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
+								' '+
+								'<button type="button" onclick="javascript:modalDesativar('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
+								)
+			        )
+			    }
+			    $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
+			}
+
+			function ajustarBotoes() {
+			    $('#proximo').prop('disabled', dados.length <= tamanhoPagina || pagina >= Math.ceil(dados.length / tamanhoPagina) - 1);
+			    $('#anterior').prop('disabled', dados.length <= tamanhoPagina || pagina == 0);
+			}
+
+			$(function() {
+			    $('#proximo').click(function() {
+			        if (pagina < dados.length / tamanhoPagina - 1) {
+			            pagina++;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    $('#anterior').click(function() {
+			        if (pagina > 0) {
+			            pagina--;
+			            paginar();
+			            ajustarBotoes();
+			        }
+			    });
+			    paginar();
+			    ajustarBotoes();
+			});
+
+
+		}
+
+
+	});
+}
 
 
 ////// CADASTRO /////////////////////////////////////////////////////////////////////////////////////////////
@@ -31,7 +100,6 @@ function cadastrarAdm(dados)
 			$('#emailCadastrar').prop("disabled",true);
 			$('#senhaCadastrar').prop("disabled",true);
 			$('#senha2Cadastrar').prop("disabled",true);
-			$('#statCadastrar').prop("disabled",true);
 			$('#botaoCadastrar').text('Cadastrando... ').prop("disabled",true);
 
 		},
@@ -58,7 +126,6 @@ function cadastrarAdm(dados)
 				$('#emailCadastrar').prop("disabled",false);
 				$('#senhaCadastrar').prop("disabled",false);
 				$('#senha2Cadastrar').prop("disabled",false);
-				$('#statCadastrar').prop("disabled",false);
 				$('#botaoCadastrar').text('Tentar novamente... ').prop("disabled",false);
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close');});
@@ -98,76 +165,6 @@ function cadastrarAdm(dados)
 	}); //Fechando o AJAX
 
 }
-////// LISTAR ////////////////////////////////////////////////////////////////////////////////////////////////
-
-listarUsuarios();
-
-
-function listarUsuarios(){
-
-	$.ajax({
-
-		url: "listarUsuarios",
-		ajax: 'dados.json',
-
-		success: function(dados){
-
-			var dados = JSON.parse(dados);
-
-			dadosGlobaisAdm = dados; //Variavel Global é preenchida para utilizar posteriormente na Edição/Exclusão
-
-			var tamanhoPagina = 10;
-			var pagina = 0;
-
-			function paginar() {
-			    $('table > tbody > tr').remove();
-			    var tbody = $('table > tbody');
-			    for (var i = pagina * tamanhoPagina; i < dados.length && i < (pagina + 1) *  tamanhoPagina; i++) {
-			        tbody.append(
-			            $('<tr>')
-			                .append($('<td>').append(dados[i].idusuario))
-			                .append($('<td>').append(dados[i].nome))
-			                .append($('<td>').append(dados[i].email))
-			                .append(
-			                	'<td><button type="button" onclick="javascript:modalEditarAdm('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
-								' '+
-								'<button type="button" onclick="javascript:modalDesativarAdm('+ i +');" class="btn btn-sm btn-danger mr-2" >Desabilitar</button></td>'
-								)
-			        )
-			    }
-			    $('#numeracao').text('Página ' + (pagina + 1) + ' de ' + Math.ceil(dados.length / tamanhoPagina));
-			}
-
-			function ajustarBotoes() {
-			    $('#proximo').prop('disabled', dados.length <= tamanhoPagina || pagina >= Math.ceil(dados.length / tamanhoPagina) - 1);
-			    $('#anterior').prop('disabled', dados.length <= tamanhoPagina || pagina == 0);
-			}
-
-			$(function() {
-			    $('#proximo').click(function() {
-			        if (pagina < dados.length / tamanhoPagina - 1) {
-			            pagina++;
-			            paginar();
-			            ajustarBotoes();
-			        }
-			    });
-			    $('#anterior').click(function() {
-			        if (pagina > 0) {
-			            pagina--;
-			            paginar();
-			            ajustarBotoes();
-			        }
-			    });
-			    paginar();
-			    ajustarBotoes();
-			});
-
-
-		}
-
-
-	});
-}
 
 
 ////// EDITAR ///////////////////////////////////////////////////////////////////////////////////////////
@@ -175,14 +172,13 @@ function modalEditarAdm(att){
 
 	$('#modalEditarAdm').modal('show');
 
-	$('#tituloNome').html(dadosGlobaisAdm[att].nome);
+	$('#tituloNome').html(dadosGlobaisAdm[att].nome_usuario);
 
-	$('#idEditar').val(dadosGlobaisAdm[att].idusuario);
-	$('#nomeEditar').val(dadosGlobaisAdm[att].nome);
-	$('#emailEditar').val(dadosGlobaisAdm[att].email);
-	$('#senhaEditar').val(dadosGlobaisAdm[att].senha);
-	$('#senha2Editar').val(dadosGlobaisAdm[att].senha);
-	$('#statEditar').val(dadosGlobaisAdm[att].stat);
+	$('#idEditar').val(dadosGlobaisAdm[att].id_usuario);
+	$('#nomeEditar').val(dadosGlobaisAdm[att].nome_usuario);
+	$('#emailEditar').val(dadosGlobaisAdm[att].email_usuario);
+	$('#senhaEditar').val(dadosGlobaisAdm[att].senha_usuario);
+	$('#senha2Editar').val(dadosGlobaisAdm[att].senha_usuario);
 
 } 
 
@@ -208,9 +204,7 @@ function atualizarDados(dados){
 			$('#emailEditar').prop("disabled",true);
 			$('#senhaEditar').prop("disabled",true);
 			$('#senha2Editar').prop("disabled",true);
-			$('#statEditar').prop("disabled",true);
 			
-
 
 		},
 
@@ -236,7 +230,6 @@ function atualizarDados(dados){
 				$('#emailEditar').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
-				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
 				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
@@ -265,7 +258,6 @@ function atualizarDados(dados){
 				$('#emailEditar').prop("disabled",false);
 				$('#senhaEditar').prop("disabled",false);
 				$('#senha2Editar').prop("disabled",false);
-				$('#statEditar').prop("disabled",false);
 				$('#botaoEditar').prop("disabled",false);
 
 				$('#modalEditarAdm').modal('hide');
@@ -291,28 +283,28 @@ function modalDesativar(del){
 
 	$('#modalDesativar').modal('show');
 
-	$('#tituloDesativar').html(dadosGlobaisAdm[del].nome);
-	$('#idDesativar').val(dadosGlobaisAdm[del].idusuario);
-	$('#statDesativar').val(dadosGlobaisAdm[del].stat);
+	$('#tituloDesativar').html(dadosGlobaisAdm[del].nome_usuario);
+
+	$('#idDesativar').val(dadosGlobaisAdm[del].id_usuario);
 	$('#botaoDesativar').text('Sim').prop("disabled",false);
 	
 }
 
-$('#formDesativarProfessor').submit(function(e) 
+$('#formDesativar').submit(function(e) 
 {
 	e.preventDefault(); 
 	var dados = $(this); 
-	var retorno = desabilitarDados(dados);
+	var retorno = desabilitarDadosAdm(dados);
 
 }); 
 
-function desabilitarDados(dados){
+function desabilitarDadosAdm(dados){
 
 	$.ajax({
 
 		type: "POST",
 		data: dados.serialize(),
-		url: "desabilitar",
+		url: "desabilitarAdm",
 		dataType: 'json',
 
 		beforeSend: function(){
@@ -361,7 +353,7 @@ function desabilitarDados(dados){
 
 					);
 
-				$('#formDesativarProfessor').each(function(){
+				$('#formDesativar').each(function(){
 					this.reset();
 				});
 
@@ -369,7 +361,7 @@ function desabilitarDados(dados){
 
 				$('#modalDesativar').modal('hide');
 
-				listarProfessores();
+				listarUsuarios();
 
 				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
 				

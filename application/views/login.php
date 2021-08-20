@@ -28,12 +28,6 @@
          <form action="<?= base_url('Login/logar') ?>" method="post">
             <input type="text" placeholder="Email:" required name="email">
             <input type="password" placeholder="Senha:" required name="senha">
-            <select type="text" required name="nivel">
-              <option value="" disabled selected>Nível de Acesso:</option>
-               <option value="3">Aluno</option>
-              <option value="2">Professor</option>
-              <option value="1">Administrador</option>
-          </select>
              
             <br><br>
 

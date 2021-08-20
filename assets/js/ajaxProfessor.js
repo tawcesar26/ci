@@ -28,10 +28,10 @@ function listarProfessores(){
 			        tbody.append(
 			            $('<tr>')
 			                .append($('<td>').append(dados[i].id_usuario))
-			                .append($('<td>').append(dados[i].nome_professor))
+			                .append($('<td>').append(dados[i].nome_usuario))
 			                .append($('<td>').append(dados[i].nome_classe))
 			                .append($('<td>').append(dados[i].nome_disciplina))
-			                .append($('<td>').append(dados[i].email_professor))
+			                .append($('<td>').append(dados[i].email_usuario))
 			                .append(
 			                	'<td><button type="button" onclick="javascript:modalEditarProfessor('+ i +');" class="btn btn-sm btn-primary mr-2" >Editar</button>'+
 								' '+

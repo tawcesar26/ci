@@ -16,13 +16,13 @@ class Crud extends MY_ControllerAdm{
 
 	public function index(){
 
-		$totalAdm = $this->crud->dadosHomePage('tb_adm');
-		$totalAluno = $this->crud->dadosHomePage('tb_aluno');
-		$totalProfessor = $this->crud->dadosHomePage('tb_professor');
+		$totalAdm = $this->crud->dadosHomePage(1);
+		$totalAluno = $this->crud->dadosHomePage(3);
+		$totalProfessor = $this->crud->dadosHomePage(2);
 		$totalUsuarios = $totalAluno + $totalAdm + $totalProfessor;
 
 		$dados = array(
-			'titulo' =>'CRUD CODEIGNITER',
+			'titulo' =>'Boletim Escolar',
 			'page' => "home",
 			'descricao' => "Painel Administrativo",
 			'totalAdm' => $totalAdm,
@@ -38,7 +38,7 @@ class Crud extends MY_ControllerAdm{
 	public function listaAdmin(){
 
 		$dados = array(
-			'titulo' => 'CRUD &raquo; Listagem',
+			'titulo' => 'Boletim Escolar',
 			'page' => "listar",
 			'descricao' => "Administradores",
 		);
@@ -97,20 +97,9 @@ class Crud extends MY_ControllerAdm{
 
 	public function listarUsuarios(){
 
-		$tabela = 'tb_adm';
+		$nivel = 1;
 
-		$resultado = $this->crud->selectAll($tabela);
-
-		echo json_encode($resultado);
-
-		
-	}
-
-	public function listarAlunos(){
-
-		$id = 'tb_aluno';
-
-		$resultado = $this->crud->selectAllAlunos($id);
+		$resultado = $this->crud->selectAllUsuarios($nivel);
 
 		echo json_encode($resultado);
 
@@ -118,11 +107,22 @@ class Crud extends MY_ControllerAdm{
 	}
 
 	public function listarProfessor(){
-
-		$id = 'tb_professor';
-
-		$resultado = $this->crud->selectAllProfessores($id);
 		
+		$nivel = 2;
+
+		$resultado = $this->crud->selectAllProfessores($nivel);
+		
+		echo json_encode($resultado);
+
+		
+	}
+
+	public function listarAlunos(){
+
+		$nivel = 3;
+
+		$resultado = $this->crud->selectAllAlunos($nivel);
+
 		echo json_encode($resultado);
 
 		
@@ -154,17 +154,17 @@ class Crud extends MY_ControllerAdm{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['nome'] = $this->input->post("nomeCadastrar");
-		$dados['email'] = $this->input->post("emailCadastrar");
-		$dados['senha'] = $this->input->post("senhaCadastrar");
+		$dados['nome_usuario'] = $this->input->post("nomeCadastrar");
+		$dados['email_usuario'] = $this->input->post("emailCadastrar");
+		$dados['senha_usuario'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
+		$dados['nivel'] = 1;
 		$dados['status'] = $this->input->post("statCadastrar");
 
-		$email = $dados['email'];
-		$tabela = "tb_adm";
-		$coluna = 'email';
 
-		$emailExiste = $this->crud->verificar($email,$tabela,$coluna);
+		$email = $dados['email_usuario'];
+
+		$emailExiste = $this->crud->verificarEmail($email);
 
 		if($emailExiste){
 
@@ -173,7 +173,7 @@ class Crud extends MY_ControllerAdm{
 			$sinal = true;
 		}
 
-		if($dados['senha'] != $repetirSenha['senha2']){
+		if($dados['senha_usuario'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
@@ -187,7 +187,7 @@ class Crud extends MY_ControllerAdm{
 			exit;
 		}
 
-		$resultado = $this->crud->insert($dados, $tabela);
+		$resultado = $this->crud->insertUsuario($dados);
 
 		if($resultado){
 
@@ -213,15 +213,14 @@ class Crud extends MY_ControllerAdm{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['idusuario'] = $this->input->post('idEditar');
-		$dados['nome'] = $this->input->post("nomeEditar");
-		$dados['email'] = $this->input->post("emailEditar");
-		$dados['senha'] = $this->input->post("senhaEditar");
+		$dados['id_usuario'] = $this->input->post('idEditar');
+		$dados['nome_usuario'] = $this->input->post("nomeEditar");
+		$dados['email_usuario'] = $this->input->post("emailEditar");
+		$dados['senha_usuario'] = $this->input->post("senhaEditar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
-		$dados['status'] = $this->input->post("statEditar");
 
 
-		if($dados['senha'] != $repetirSenha['senha2']){
+		if($dados['senha_usuario'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= 'As senhas digitadas não correspondem | ';
@@ -229,18 +228,15 @@ class Crud extends MY_ControllerAdm{
 
 		}
 
-
 		if($sinal){
 
 			echo json_encode($retorno);
 			exit;
 		}
 
-		$tabela = 'tb_adm';
-		$condicao = $dados['idusuario'];
-		$coluna = 'idusuario';
+		$condicao = $dados['id_usuario'];
 
-		$resultado = $this->crud->update($dados, $tabela, $condicao,$coluna);
+		$resultado = $this->crud->updateUsuario($dados,$condicao);
 
 		if($resultado){
 
@@ -267,38 +263,16 @@ class Crud extends MY_ControllerAdm{
 
 
 		$retorno['msg'] = "";
-		$sinal=false;
-
-		$dados['status'] = $this->input->post("statDesativar");
-
-		if($dados['status'] === 0){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'Usuário já foi desativado';
-			$sinal = true;
-
-		}
-
-
-		if($sinal){
-
-			echo json_encode($retorno);
-			exit;
-		}
-
 
 		$condicao = $this->input->post('idDesativar');
-		$tabela = 'tb_adm';
-		$coluna = 'idusuario';
 
-		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
+		$resultado = $this->crud->deleteUsuario($condicao);
 
 		if($resultado){
 
 			$retorno['ret'] = true;
 			$retorno['msg'] = 'Usuário desabilitado com sucesso!!<br>';
 			echo json_encode($retorno);
-
 
 		}else{
 
@@ -307,9 +281,6 @@ class Crud extends MY_ControllerAdm{
 			echo json_encode($retorno);
 
 		}
-
-
-
 
 	}
 
@@ -323,18 +294,19 @@ class Crud extends MY_ControllerAdm{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['nome_aluno'] = $this->input->post("nomeCadastrar");
-		$dados['email_aluno'] = $this->input->post("emailCadastrar");
-		$dados['tb_classe_id_classe'] = $this->input->post("classeCadastrar");
-		$dados['senha_aluno'] = $this->input->post("senhaCadastrar");
+		//DADOS//////////////////////////////////////////////////////////////////////
+		$dados['nome_usuario'] = $this->input->post("nomeCadastrar");
+		$dados['email_usuario'] = $this->input->post("emailCadastrar");
+		$dados['senha_usuario'] = $this->input->post("senhaCadastrar");
+		$dados['nivel'] = 3;
+		$dados['status'] = 1;
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
-		$dados['status'] = $this->input->post("statCadastrar");
+		$classe = $this->input->post("selectClasse");
+	
+		//VALIDAÇÃO DOS DADOS///////////////////////////////////////////////////////
 
-		$email = $dados['email_aluno'];
-		$tabela = 'tb_aluno';
-		$coluna = 'email_aluno';
-
-		$emailExiste = $this->crud->verificar($email,$tabela,$coluna);
+		$email = $dados['email_usuario'];
+		$emailExiste = $this->crud->verificarEmail($email);
 
 		if($emailExiste){
 
@@ -342,22 +314,22 @@ class Crud extends MY_ControllerAdm{
 			$retorno['msg'] .= '| O E-mail já está sendo utilizado |';
 			$sinal = true;
 		}
-
-		if($dados['senha_aluno'] != $repetirSenha['senha2']){
+		if($dados['senha_usuario'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
 			$sinal = true;
 
 		}
-
 		if($sinal){
 
 			echo json_encode($retorno);
 			exit;
 		}
 
-		$resultado = $this->crud->insert($dados, $tabela);
+		//CADASTRO DOS DADOS NO BANCO////////////////////////////////////////////
+
+		$resultado = $this->crud->insertAluno($dados,$classe);
 
 
 		if($resultado){
@@ -384,16 +356,17 @@ class Crud extends MY_ControllerAdm{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['id_aluno'] = $this->input->post('idEditar');
-		$dados['nome_aluno'] = $this->input->post("nomeEditar");
-		$dados['email_aluno'] = $this->input->post("emailEditar");
-		$dados['tb_classe_id_classe'] = $this->input->post("classeEditar");
-		$dados['senha_aluno'] = $this->input->post("senhaEditar");
+		$id = $this->input->post('idEditar');
+		$dados['nome_usuario'] = $this->input->post("nomeEditar");
+		$dados['email_usuario'] = $this->input->post("emailEditar");
+		$dados['senha_usuario'] = $this->input->post("senhaEditar");
+		$dados['nivel'] = 3;
+		$dados['status'] = 1;
 		$repetirSenha['senha2'] = $this->input->post("senha2Editar");
-		$dados['status'] = $this->input->post("statEditar");
+		$classe = $this->input->post("selectClasseEditar");
 
 
-		if($dados['senha_aluno'] != $repetirSenha['senha2']){
+		if($dados['senha_usuario'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= 'As senhas digitadas não correspondem | ';
@@ -401,18 +374,13 @@ class Crud extends MY_ControllerAdm{
 
 		}
 
-
 		if($sinal){
 
 			echo json_encode($retorno);
 			exit;
 		}
 
-		$tabela = 'tb_aluno';
-		$condicao = $dados['id_usuario'];
-		$coluna = 'id_usuario';
-
-		$resultado = $this->crud->update($dados, $tabela, $condicao,$coluna);
+		$resultado = $this->crud->updateAluno($dados,$classe,$id);
 
 		if($resultado){
 
@@ -440,32 +408,12 @@ class Crud extends MY_ControllerAdm{
 
 
 		$retorno['msg'] = "";
-		$sinal=false;
 		
-		
-
-		$dados['status'] = $this->input->post("statDesativar");
-
-		if($dados['status'] === 0){
-
-			$retorno['ret'] = false;
-			$retorno['msg'] .= 'Usuário já foi desativado';
-			$sinal = true;
-
-		}
-
-
-		if($sinal){
-
-			echo json_encode($retorno);
-			exit;
-		}
-
 		$condicao = $this->input->post('idDesativar');
-		$tabela = 'tb_aluno';
-		$coluna = 'id_aluno';
+		$dados['status'] = 0;
 
-		$resultado = $this->crud->delete($tabela,$condicao,$coluna);
+	
+		$resultado = $this->crud->deleteUsuario($condicao);
 
 		if($resultado){
 
@@ -493,9 +441,10 @@ class Crud extends MY_ControllerAdm{
 
 	public function exportarAdm(){
 
+		$nivel = 1;
 
 		$dados = array(
-			'resultado' => $this->crud->selectAll()
+			'resultado' => $this->crud->selectAllUsuarios($nivel)
 		);
 
 		header('Content-type: application/vnd.ms-excel');
@@ -505,7 +454,6 @@ class Crud extends MY_ControllerAdm{
 
 	}
 	public function exportarAluno(){
-
 
 		$dados = array(
 			'resultado' => $this->crud->selectAllAlunos()
@@ -517,7 +465,6 @@ class Crud extends MY_ControllerAdm{
 
 	}
 	public function exportarProfessor(){
-
 
 		$dados = array(
 			'resultado' => $this->crud->selectAllProfessores()
@@ -539,19 +486,20 @@ class Crud extends MY_ControllerAdm{
 		$retorno['msg'] = "";
 		$sinal=false;
 
-		$dados['nome_professor'] = $this->input->post("nomeCadastrar");
-		$dados['email_professor'] = $this->input->post("emailCadastrar");
-		$dados['tb_classe_id_classe'] = $this->input->post("selectClasse");
-		$dados['tb_disciplina_id_disciplina'] = $this->input->post("selectDisc");
-		$dados['senha_professor'] = $this->input->post("senhaCadastrar");
+		$dados['nome_usuario'] = $this->input->post("nomeCadastrar");
+		$dados['email_usuario'] = $this->input->post("emailCadastrar");
+		$dados['senha_usuario'] = $this->input->post("senhaCadastrar");
 		$repetirSenha['senha2'] = $this->input->post("senha2Cadastrar");
-		$dados['status'] = $this->input->post("statCadastrar");
+		$dados['nivel'] = 2;
+		$dados['status'] = 1;
 
-		$email = $dados['email_professor'];
-		$tabela = 'tb_professor';
-		$coluna = 'email_professor';
 
-		$emailExiste = $this->crud->verificar($email,$tabela,$coluna);
+		$classe = $this->input->post("selectClasse");
+		$disciplina = $this->input->post("selectDisc");
+		$email = $dados['email_usuario'];
+	
+
+		$emailExiste = $this->crud->verificarEmail($email);
 
 		if($emailExiste){
 
@@ -560,7 +508,7 @@ class Crud extends MY_ControllerAdm{
 			$sinal = true;
 		}
 
-		if($dados['senha_professor'] != $repetirSenha['senha2']){
+		if($dados['senha_usuario'] != $repetirSenha['senha2']){
 
 			$retorno['ret'] = false;
 			$retorno['msg'] .= '| As senhas digitadas não correspondem |';
@@ -574,7 +522,7 @@ class Crud extends MY_ControllerAdm{
 			exit;
 		}
 
-		$resultado = $this->crud->insert($dados, $tabela);
+		$resultado = $this->crud->insertProfessor($dados,$classe,$disciplina);
 
 		if($resultado){
 
