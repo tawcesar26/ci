@@ -101,9 +101,39 @@ class Professor extends MY_ControllerProfessor{
 
 		}
 
+	}
+
+	public function editarNotas(){
+
+		$retorno['msg'] = "";
+		$sinal = false;
+
+		
+		$dados['nota1'] = $this->input->post('nota1Editar');
+		$dados['nota2'] = $this->input->post('nota2Editar');
+		$dados['nota3'] = $this->input->post('nota3Editar');
+		$dados['nota4'] = $this->input->post('nota4Editar');
+		$dados['media'] = ($dados['nota1'] + $dados['nota2']+$dados['nota3']+$dados['nota4'])/4;
+
+		$id= $this->input->post('idNota');
+		
+
+		$resultado = $this->crud->updatetNotas($dados,$id);
+
+		if($resultado){
+
+			$retorno['ret'] = true;
+			$retorno['msg'] = 'Boletim editado com sucesso!!<br>';
+			echo json_encode($retorno);
 
 
+		}else{
 
+			$retorno['ret'] = false;
+			$retorno['msg'] = 'Não foi possível editar o boletim!!<br>';
+			echo json_encode($retorno);
+
+		}
 
 	}
 

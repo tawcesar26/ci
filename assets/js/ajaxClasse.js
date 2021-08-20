@@ -115,7 +115,7 @@ function listarAlunos(){
 						'<td>'+ dados[i].nota4 +'</td>'+
 						'<td>'+ dados[i].media +'</td>'+
 						'<td>'+
-						'<button type="button" onclick="javascript:modalEditarBoletim('+ i +');" class="btn btn-sm btn-success mr-2" >Editar Boletim</button>' +
+						'<button type="button" onclick="javascript:modalEditarBoletim('+ i +');" class="btn btn-sm btn-success mr-2" >Editar Boletim</button>'+
 						'</td>'+		
 						'</tr>'	
 
@@ -258,6 +258,124 @@ function cadastrarNotas(dados){
 				$('#botaoCadastrarNotas').prop("disabled",false);
 
 				$('#modalGerarBoletim').modal('hide');
+
+				listarAlunos();
+
+				$('.alert').delay(2000).slideUp(500, function(){ $(this).alert('close'); });
+				
+
+				
+			}
+
+
+		},
+
+	});
+}
+
+
+function modalEditarBoletim(id){
+
+
+	$('#modalEditarBoletim').modal('show');
+
+	$('#tituloNomeEditar').html(dadosGlobaisAluno[id].nome_usuario);
+	$('#tituloClasseEditar').html(dadosGlobaisAluno[id].nome_classe);
+	$('#tituloDisciplinaEditar').html(dadosGlobaisAluno[id].nome_disciplina);
+
+	$('#idNota').val(dadosGlobaisAluno[id].id_nota);
+	$('#nota1Editar').val(dadosGlobaisAluno[id].nota1);
+	$('#nota2Editar').val(dadosGlobaisAluno[id].nota2);
+	$('#nota3Editar').val(dadosGlobaisAluno[id].nota3);
+	$('#nota4Editar').val(dadosGlobaisAluno[id].nota4);
+	
+
+}
+
+$('#formEditarBoletim').submit(function(e) 
+{
+	e.preventDefault(); 
+	var dados = $(this); 
+	var retorno = editarNotas(dados);
+
+});
+
+
+function editarNotas(dados){
+
+
+	$.ajax({
+		type: "POST",
+		data: dados.serialize(),
+		url: "editarNotas",
+		dataType: 'json',
+
+		beforeSend: function(){
+
+
+			$('#nota1Editar').prop("disabled",true);
+			$('#nota2Editar').prop("disabled",true);
+			$('#nota3Editar').prop("disabled",true);
+			$('#nota4Editar').prop("disabled",true);
+			$('#botaoEditarNotas').text('Editar').prop("disabled",true);
+			
+
+
+		},
+
+		success: function(retorno){
+
+			if(retorno.ret === false)
+			{
+
+				$('#erroMsgEditar').html(
+
+					'<div class="col-md-12">'+	
+					'<div class="alert alert-danger" alert-dismissible role="alert">' +
+					'<strong> Erro! </strong> <br>' +
+					retorno.msg +
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+					'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+					'</div>'+
+					'</div>'
+					);
+
+				$('#nota1Editar').prop("disabled",false);
+				$('#nota2Editar').prop("disabled",false);
+				$('#nota3Editar').prop("disabled",false);
+				$('#nota4Editar').prop("disabled",false);
+				$('#botaoEditarNotas').prop("disabled",false);
+
+				$('.alert').delay(5000).slideUp(500, function(){$(this).alert('close'); });
+
+			} else
+			{
+
+				$('#sucessoMsg').html(
+					'<div class="col-md-12">'+	
+					'<div class="alert alert-success alert-dismissible" role="alert">'+
+					'<strong>Sucesso!</strong><br>'+
+					retorno.msg+
+					'<button type="button" class="close" data-dismiss="alert" aria-label="Close">'+
+					'<span aria-hidden="true">&times;</span>'+
+					'</button>'+
+					'</div>'+
+					'</div>'
+
+					);
+
+				$('#formEditarBoletim').each(function(){
+					this.reset();
+				});
+
+				$('#nota1Editar').prop("disabled",false);
+				$('#nota2Editar').prop("disabled",false);
+				$('#nota3Editar').prop("disabled",false);
+				$('#nota4Editar').prop("disabled",false);
+				$('#botaoEditarNotas').prop("disabled",false);
+
+				$('#modalEditarBoletim').modal('hide');
 
 				listarAlunos();
 

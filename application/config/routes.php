@@ -13,6 +13,7 @@ $route['translate_uri_dashes'] = FALSE;
 //VIEWS//////////////////////////////////////////////////////////////////////////////////////////////////
 $route['home'] = 'Crud'; 
 $route['homeProfessor'] = 'Professor';
+$route['homeAluno'] = 'Aluno';
 $route['listaAdmin'] = 'Crud/listaAdmin';
 $route['listaAluno'] = 'Crud/listaAluno';
 $route['listaProfessor'] = 'Crud/listaProfessor';
@@ -46,6 +47,7 @@ $route['desabilitarDisciplina'] = 'Crud/desabilitarDisciplina';
 //ÁREA DO PROFESSOR////////////////////////////////////////////////////////////////////////////////////////
 $route['listaAlunosProfessor'] = 'Professor/listaAlunosProfessor';
 $route['cadastrarNotas'] = 'Professor/cadastrarNotas';
+$route['editarNotas'] = 'Professor/editarNotas';
 $route['tabelaClasses'] = "Professor/tabelaClasses";
 $route['tabelaAlunos'] = "Professor/tabelaAlunos";
 
@@ -54,3 +56,5 @@ $route['tabelaAlunos'] = "Professor/tabelaAlunos";
 $route['exportarAdm'] = 'Crud/exportarAdm';
 $route['exportarAluno'] = 'Crud/exportarAluno';
 $route['exportarProfessor'] = 'Crud/exportarProfessor';
+
+$route['exportarBoletim'] = 'Aluno/exportarBoletim';

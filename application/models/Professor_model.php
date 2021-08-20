@@ -53,6 +53,14 @@ class Professor_model extends CI_Model{
 
 	}
 
+	public function updatetNotas($dados,$id){
+
+
+		$this->db->where('id_nota',$id);
+		return $this->db->update('tb_nota', $dados);
+
+	}
+
 
 }
 

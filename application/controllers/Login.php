@@ -47,7 +47,7 @@ class Login extends CI_Controller {
 
                 }else{
 
-                   var_dump($nivel);
+                   redirect('Aluno');
 
                 }
 
