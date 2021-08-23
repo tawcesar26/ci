@@ -31,7 +31,7 @@ CREATE TABLE `tb_aluno` (
   KEY `tb_aluno_id_classe_tb_classe_id_classe` (`id_classe`),
   CONSTRAINT `tb_aluno_id_classe_tb_classe_id_classe` FOREIGN KEY (`id_classe`) REFERENCES `tb_classe` (`id_classe`),
   CONSTRAINT `tb_aluno_id_usuario_tb_usuario_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `tb_aluno` (
 
 LOCK TABLES `tb_aluno` WRITE;
 /*!40000 ALTER TABLE `tb_aluno` DISABLE KEYS */;
-INSERT INTO `tb_aluno` VALUES (1,4,3),(2,5,1);
+INSERT INTO `tb_aluno` VALUES (6,25,3),(7,26,3);
 /*!40000 ALTER TABLE `tb_aluno` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +115,7 @@ CREATE TABLE `tb_nota` (
   KEY `tb_nota_id_aluno_tb_aluno_id_aluno` (`id_aluno`),
   CONSTRAINT `tb_nota_id_aluno_tb_aluno_id_aluno` FOREIGN KEY (`id_aluno`) REFERENCES `tb_aluno` (`id_aluno`),
   CONSTRAINT `tb_nota_id_disciplina_tb_disciplina_id_disciplina` FOREIGN KEY (`id_disciplina`) REFERENCES `tb_disciplina` (`id_disciplina`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +124,7 @@ CREATE TABLE `tb_nota` (
 
 LOCK TABLES `tb_nota` WRITE;
 /*!40000 ALTER TABLE `tb_nota` DISABLE KEYS */;
+INSERT INTO `tb_nota` VALUES (3,0.0,0.0,0.0,0.0,0.0,5,6),(4,0.0,0.0,0.0,0.0,0.0,5,7),(5,0.0,0.0,0.0,0.0,0.0,4,6),(6,0.0,0.0,0.0,0.0,0.0,4,7);
 /*!40000 ALTER TABLE `tb_nota` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -147,7 +148,7 @@ CREATE TABLE `tb_professor` (
   CONSTRAINT `tb_professor_id_classe_tb_classe_id_classe` FOREIGN KEY (`id_classe`) REFERENCES `tb_classe` (`id_classe`),
   CONSTRAINT `tb_professor_id_disciplina_tb_disciplina_id_disciplina` FOREIGN KEY (`id_disciplina`) REFERENCES `tb_disciplina` (`id_disciplina`),
   CONSTRAINT `tb_professor_id_usuario_tb_usuario_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `tb_usuario` (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -156,7 +157,7 @@ CREATE TABLE `tb_professor` (
 
 LOCK TABLES `tb_professor` WRITE;
 /*!40000 ALTER TABLE `tb_professor` DISABLE KEYS */;
-INSERT INTO `tb_professor` VALUES (1,6,2,1,0);
+INSERT INTO `tb_professor` VALUES (8,27,3,4,1),(9,28,3,5,1);
 /*!40000 ALTER TABLE `tb_professor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -175,7 +176,7 @@ CREATE TABLE `tb_usuario` (
   `nivel` int(1) NOT NULL,
   `status` int(1) NOT NULL,
   PRIMARY KEY (`id_usuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +185,7 @@ CREATE TABLE `tb_usuario` (
 
 LOCK TABLES `tb_usuario` WRITE;
 /*!40000 ALTER TABLE `tb_usuario` DISABLE KEYS */;
-INSERT INTO `tb_usuario` VALUES (1,'Aluno 1 ','aluno@email.com','123',3,1),(2,'Aluno 1 ','aluno@email.com','123',3,1),(4,'Aluno 1 ','aluno@email.com','123',3,0),(5,'Aluno 2','aluno2@email.com','123',3,1),(6,'Professor 1','professor1@email.com','123',2,1),(7,'Administrador','admin@admin.com','admin',1,1);
+INSERT INTO `tb_usuario` VALUES (19,'Tawan Carvalho','tawcesar26@hotmail.com','123',1,1),(24,'Administrador','admin@admin.com','123',1,1),(25,'Aluno 1','aluno1@aluno.com','123',3,1),(26,'Aluno 2','aluno2@aluno.com','123',3,1),(27,'Professor 1','professor1@professor.com','123',2,1),(28,'Professor 2','professor2@professor.com','123',2,1);
 /*!40000 ALTER TABLE `tb_usuario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,4 +206,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-08-20  0:12:31
+-- Dump completed on 2021-08-20 15:38:25
